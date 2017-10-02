@@ -1,0 +1,2 @@
+class CaptureTheFlag < ApplicationRecord
+end

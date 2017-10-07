@@ -1,7 +1,15 @@
 class CaptureTheFlagController < ApplicationController
   before_action :user_logged_in?
+  def index
+    @ctfs = CaptureTheFlag.all
+  end
+
   def new
     @ctf = CaptureTheFlag.new
+  end
+
+  def show
+    @ctf = CaptureTheFlag.find_by(id: params[:cid])
   end
 
   def create

@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@ctf, url: ctf_path) do |f| %>
+    <%= form_for(@ctf, url: new_ctf_path) do |f| %>
       <%= render 'shared/error_messages', obj: @ctf %>
 
       <%= f.label :name %>

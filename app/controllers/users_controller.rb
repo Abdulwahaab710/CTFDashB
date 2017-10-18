@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect_back_or current_user
     else
+      @user = User.new
       render :new
     end
   end

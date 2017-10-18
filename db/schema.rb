@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018204828) do
+ActiveRecord::Schema.define(version: 20171018210212) do
+
+  create_table "challenges", force: :cascade do |t|
+    t.float    "points"
+    t.integer  "max_tries"
+    t.string   "link"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id"

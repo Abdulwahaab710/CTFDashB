@@ -1,2 +1,16 @@
-<h1>Teams#new</h1>
-<p>Find me in app/views/teams/new.html.erb</p>
+<% provide(:title, 'Create a Team') %>
+<h1>Create a Team</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@team, url: new_team_path) do |f| %>
+      <%= render 'shared/error_messages', obj: @team %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.submit "Create Team", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>

@@ -2,11 +2,17 @@ class TeamsController < ApplicationController
 
   before_action :user_logged_in?
 
+  def show
+    @team = Team.find_by(id: params[:id])
+  end
+
   def new
+    redirect_to current_user.team unless current_user.nil?
     @team = Team.new
   end
 
   def join
+    redirect_to current_user.team unless current_user.nil?
     @team = Team.new
   end
 
@@ -31,11 +37,8 @@ class TeamsController < ApplicationController
   private
 
   def add_team_member
-    team_member = TeamMember.new(
-      user: @user,
-      team: @team
-    )
-    team_member.save
+    current_user.team = @team
+    current_user.save
   end
 
   def team_params

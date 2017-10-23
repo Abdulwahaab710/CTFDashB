@@ -1,0 +1,7 @@
+<h1><%= @team.name %></h1>
+<ul>
+  <% @team.users.each do |hacker| %>
+    <li><%= link_to hacker.name, hacker %></li>
+  <% end %>
+</ul>
+

@@ -1,4 +1,5 @@
 <%= gravatar_for(@user) %>
 <br>
 <%= @user.name %><br>
-<%= @user.email %>
+<%= @user.email %><br>
+Team: <%= link_to @user.team.name, @user.team %>

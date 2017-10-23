@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/teams/join', to: 'teams#join', as: :join_team
   post '/teams/join', to: 'teams#join_team'
 
+  get '/teams/:id', to: 'teams#show', as: :team
   get '/sessions/new'
 
   get '/signup', to: 'users#new', as: :signup

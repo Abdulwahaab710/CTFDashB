@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023025030) do
+ActiveRecord::Schema.define(version: 20171023125838) do
 
   create_table "challenges", force: :cascade do |t|
     t.float    "points"
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20171023025030) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "invitation_token"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,8 +51,8 @@ ActiveRecord::Schema.define(version: 20171023025030) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "teams_id"
-    t.index ["teams_id"], name: "index_users_on_teams_id"
+    t.integer  "team_id"
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
 end

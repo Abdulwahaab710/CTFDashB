@@ -12,8 +12,6 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @ctf = CaptureTheFlag.find_by(id: params[:cid])
-    @team.capture_the_flag = @ctf
     render :new unless @team.save
     add_team_member
     redirect_to @team
@@ -21,16 +19,13 @@ class TeamsController < ApplicationController
 
   def join_team
     @team = Team.find_by(invitation_token: params[:invitation_token])
-    @ctf = CaptureTheFlag.find_by(id: params[:cid])
-    if (@team.users.count + 1) <= @ctf.max_teammates
+    @ctf = CTFSetting.find_by(key: 'max_teammates')
+    if (@team.users.count + 1) <= @ctf.value
       flash.now[:error] = "Team #{@team.name} is already full"
       render :join
     end
-    if add_team_member
-      redirect_to @team
-    else
-      render :join
-    end
+    redirect_to @team if add_team_member
+    render :join
   end
 
   private

@@ -18,6 +18,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.invitation_token = generate_invitation_token
     render :new unless @team.save
     add_team_member
     redirect_to @team
@@ -45,5 +46,19 @@ class TeamsController < ApplicationController
     params.require(:team).permit(
       :name
     )
+  end
+
+  def generate_invitation_token
+    str = xor(current_user.username, @team.name)
+    BCrypt::Password.create(str)
+  end
+
+  def xor(s1, s2)
+    b1 = s1.unpack('U*')
+    b2 = s2.unpack('U*')
+    longest = [b1.length, b2.length].max
+    b1 = [0] * (longest - b1.length) + b1
+    b2 = [0] * (longest - b2.length) + b2
+    b1.zip(b2).map { |a, b| a ^ b }.pack('U*')
   end
 end

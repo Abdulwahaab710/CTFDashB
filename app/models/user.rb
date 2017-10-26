@@ -17,5 +17,5 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             on: :create
   has_secure_password
-  belongs_to :team
+  belongs_to :team, optional: true
 end

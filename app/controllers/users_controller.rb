@@ -4,12 +4,9 @@ class UsersController < ApplicationController
   include SessionsHelper
 
   def new
-    if logged_in?
-      redirect_back_or current_user
-    else
-      @user = User.new
-      render :new
-    end
+    redirect_back_or current_user if logged_in?
+    @user = User.new
+    render :new
   end
 
   def show
@@ -21,12 +18,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      flash[:success] = 'Welcome to the CTFDashB, your account has been create'
-      redirect_to join_team_path
-    else
-      render :new
-    end
+    render :new unless @user.save!
+    flash[:success] = 'Welcome to the CTFDashB, your account has been create'
+    redirect_to join_team_path
   end
 
   private

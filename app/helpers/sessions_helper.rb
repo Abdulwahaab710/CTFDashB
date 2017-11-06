@@ -25,8 +25,6 @@ module SessionsHelper
   end
 
   def store_location
-    unless request.original_fullpath == '/login'
-      session[:forwarding_url] = request.original_url if request.get?
-    end
+    session[:forwarding_url] = request.original_url if request.get?  && request.original_fullpath != '/login'
   end
 end

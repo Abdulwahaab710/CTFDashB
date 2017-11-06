@@ -1,5 +1,5 @@
+# Teams controller
 class TeamsController < ApplicationController
-
   before_action :user_logged_in?
 
   def show
@@ -7,12 +7,12 @@ class TeamsController < ApplicationController
   end
 
   def new
-    redirect_to current_user.team unless current_user.nil?
+    redirect_to current_user.team unless current_user.team.nil?
     @team = Team.new
   end
 
   def join
-    redirect_to current_user.team unless current_user.nil?
+    redirect_to current_user.team unless current_user.team.nil?
     @team = Team.new
   end
 
@@ -25,12 +25,14 @@ class TeamsController < ApplicationController
   end
 
   def join_team
-    @team = Team.find_by(invitation_token: params[:invitation_token])
-    @ctf = CTFSetting.find_by(key: 'max_teammates')
-    if (@team.users.count + 1) <= @ctf.value
-      flash.now[:error] = "Team #{@team.name} is already full"
+    @team = Team.find_by(invitation_token: params[:team][:invitation_token])
+    if @team.nil?
+      @team = Team.new
+      flash.now[:error] = 'Invalid token'
       render :join
     end
+    team_full?
+    @ctf = CTFSetting.find_by(key: 'max_teammates')
     redirect_to @team if add_team_member
     render :join
   end
@@ -60,5 +62,11 @@ class TeamsController < ApplicationController
     b1 = [0] * (longest - b1.length) + b1
     b2 = [0] * (longest - b2.length) + b2
     b1.zip(b2).map { |a, b| a ^ b }.pack('U*')
+  end
+
+  def team_full?
+    return nil? unless (@team.users.count + 1) <= @ctf.value
+    flash.now[:error] = "Team #{@team.name} is already full"
+    render :join
   end
 end

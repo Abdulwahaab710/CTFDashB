@@ -4,8 +4,6 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@team, url: join_team_path) do |f| %>
-      <%= render 'shared/error_messages', obj: @team %>
-
       <%= f.label :token %>
       <%= f.text_field :invitation_token, class: 'form-control' %>
 

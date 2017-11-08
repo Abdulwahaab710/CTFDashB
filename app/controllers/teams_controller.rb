@@ -25,21 +25,26 @@ class TeamsController < ApplicationController
   end
 
   def join_team
-    @team = Team.find_by(invitation_token: params[:team][:invitation_token])
-    if @team.nil?
-      @team = Team.new
-      flash.now[:error] = 'Invalid token'
-      render :join
-    end
-    team_full?
     @ctf = CTFSetting.find_by(key: 'max_teammates')
+    @team = Team.find_by(invitation_token: params[:team][:invitation_token])
+    render_join_team
+    return if team_full?
     redirect_to @team if add_team_member
+    flash.now[:error] = 'Invalid token'
     render :join
   end
 
   private
 
+  def render_join_team
+    return nil unless @team.nil? || @team.id.nil?
+    @team = Team.new
+    flash.now[:error] = 'Invalid token'
+    render :join
+  end
+
   def add_team_member
+    return nil if @team.id.nil?
     current_user.team = @team
     current_user.save
   end
@@ -65,7 +70,7 @@ class TeamsController < ApplicationController
   end
 
   def team_full?
-    return nil? unless (@team.users.count + 1) <= @ctf.value
+    return true if (@team.users.count + 1) <= @ctf.value.to_i
     flash.now[:error] = "Team #{@team.name} is already full"
     render :join
   end

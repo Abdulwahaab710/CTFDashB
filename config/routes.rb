@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  get 'challenges/new'
+  root to: 'challenges#index'
 
-  get 'challenges/create'
+  get 'challenges/new', to: 'challenges#new', as: :new_challenege
+  post 'challenges/new'
 
-  get 'challenges/index'
+  get 'challenges/:id', to: 'challenges#show', as: :challenge
+  delete 'challenges/:id', to: 'challenges#destroy', as: :delete_challenege
 
-  get 'challenges/show'
+  put 'challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge
+  put 'challenges/:id/deactivate', to: 'challenges#deactivate', as: :deactivate_challenge
 
   get '/teams/new', to: 'teams#new', as: :new_team
   post '/teams/new', to: 'teams#create'

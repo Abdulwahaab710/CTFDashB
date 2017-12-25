@@ -1,0 +1,2 @@
+class ChallengeCategory < ApplicationRecord
+end

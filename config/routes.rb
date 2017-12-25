@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'challenges/new'
+
+  get 'challenges/create'
+
+  get 'challenges/index'
+
+  get 'challenges/show'
+
   get '/teams/new', to: 'teams#new', as: :new_team
   post '/teams/new', to: 'teams#create'
 
@@ -6,7 +14,6 @@ Rails.application.routes.draw do
   post '/teams/join', to: 'teams#join_team'
 
   get '/teams/:id', to: 'teams#show', as: :team
-  get '/sessions/new'
 
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create'

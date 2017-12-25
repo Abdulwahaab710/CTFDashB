@@ -27,7 +27,6 @@ class TeamsController < ApplicationController
   def join_team
     @ctf = CTFSetting.find_by(key: 'max_teammates')
     @team = Team.find_by(invitation_token: params[:team][:invitation_token])
-    puts @team.id
     render_join_team
     return unless team_full?
     return redirect_to @team if add_team_member
@@ -47,8 +46,6 @@ class TeamsController < ApplicationController
   def add_team_member
     return nil if @team.id.nil?
     current_user.team = @team
-    puts 'hello world'
-    puts @team.id
     current_user.save!
   end
 

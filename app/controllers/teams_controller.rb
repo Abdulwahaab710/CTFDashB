@@ -19,7 +19,7 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     @team.invitation_token = generate_invitation_token
-    render :new unless @team.save
+    return render :new unless @team.save
     add_team_member
     redirect_to @team
   end
@@ -27,9 +27,10 @@ class TeamsController < ApplicationController
   def join_team
     @ctf = CTFSetting.find_by(key: 'max_teammates')
     @team = Team.find_by(invitation_token: params[:team][:invitation_token])
+    puts @team.id
     render_join_team
-    return if team_full?
-    redirect_to @team if add_team_member
+    return unless team_full?
+    return redirect_to @team if add_team_member
     flash.now[:error] = 'Invalid token'
     render :join
   end
@@ -46,7 +47,9 @@ class TeamsController < ApplicationController
   def add_team_member
     return nil if @team.id.nil?
     current_user.team = @team
-    current_user.save
+    puts 'hello world'
+    puts @team.id
+    current_user.save!
   end
 
   def team_params

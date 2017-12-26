@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225224354) do
+ActiveRecord::Schema.define(version: 20171225224712) do
 
   create_table "challenge_categories", force: :cascade do |t|
     t.string   "name"
@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 20171225224354) do
     t.integer  "max_tries"
     t.string   "link"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "challenge_category_id"
+    t.index ["challenge_category_id"], name: "index_challenges_on_challenge_category_id"
   end
 
   create_table "ctf_settings", force: :cascade do |t|

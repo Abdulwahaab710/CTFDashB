@@ -2,4 +2,9 @@
 <br>
 <%= @user.name %><br>
 <%= @user.email %><br>
-Team: <%= link_to @user.team.name, @user.team %>
+Team: 
+<% if @user.team.nil? %>
+  <span style='color: red;'>Not enrolled in a team yet</span>
+<% else %>
+  <%= link_to @user.team.name, @user.team %>
+<% end %>

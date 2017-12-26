@@ -14,7 +14,11 @@ class UsersController < ApplicationController
     redirect_to join_team_path if @user.team.nil?
   end
 
-  def edit; end
+  def edit
+  end
+
+  def settings
+  end
 
   def create
     @user = User.new(user_params)

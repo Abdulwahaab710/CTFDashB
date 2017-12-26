@@ -1,7 +1,7 @@
 class CreateOrganizers < ActiveRecord::Migration[5.0]
   def change
     create_table :organizers do |t|
-      t.reference :User
+      t.references :User, foreign_key: true
 
       t.timestamps
     end

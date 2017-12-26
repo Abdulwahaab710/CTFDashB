@@ -1,1 +1,13 @@
 <h1>Settings Page</h1>
+<%= form_for(@user, url: settings_path) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control', value: @user.name %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username, class: 'form-control', value: @user.username %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email_field, class: 'form-control', value: @user.email %>
+
+  <%= f.submit "Save changes", class: "btn btn-primary" %>
+<% end %>

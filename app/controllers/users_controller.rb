@@ -15,9 +15,16 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
+    if @user.update_attributes(user_params_without_password)
+      redirect_to @user
+    else
+      render :settings
+    end
   end
 
   def settings
+    @user = current_user
   end
 
   def create
@@ -36,6 +43,14 @@ class UsersController < ApplicationController
       :email,
       :password,
       :password_confirmation
+    )
+  end
+
+  def user_params_without_password
+    params.require(:user).permit(
+      :name,
+      :username,
+      :email,
     )
   end
 end

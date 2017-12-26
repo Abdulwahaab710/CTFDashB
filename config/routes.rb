@@ -23,7 +23,9 @@ Rails.application.routes.draw do
 
   get '/users/:id', to: 'users#show', as: :user
   delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
+
   get '/settings', to: 'users#settings', as: :settings
+  patch '/settings', to: 'users#edit'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

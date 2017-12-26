@@ -1,6 +1,6 @@
 # User controller
 class UsersController < ApplicationController
-  before_action :user_logged_in?, only: [:edit]
+  before_action :user_logged_in?, only: [:edit, :settings]
   include SessionsHelper
 
   def new

@@ -1,4 +1,6 @@
 class ChallengesController < ApplicationController
+  before_action :user_logged_in?, except: [:index]
+
   def new
   end
 

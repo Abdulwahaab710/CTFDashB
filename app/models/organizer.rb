@@ -1,0 +1,2 @@
+class Organizer < ApplicationRecord
+end

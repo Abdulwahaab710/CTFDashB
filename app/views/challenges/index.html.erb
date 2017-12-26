@@ -1,2 +1,6 @@
-<h1>Challenges#index</h1>
-<p>Find me in app/views/challenges/index.html.erb</p>
+<%= render 'challenge_categories' %>
+<% if @challenges.nil? %>
+  <h1>No challenges has been added yet.</h1>
+<% else %>
+  <%= render 'challenges' %>
+<% end %>

@@ -1,0 +1,8 @@
+<% unless @categories.nil? %>
+  <ul class="nav nav-tabs">
+    <% @categories.each do |category| %>
+      <li><a href="#<%= category.link %>"><%= category.name %></a></li>
+      <%# <li class="active"><a href="#">Home</a></li> %>
+    <% end %>
+  </ul>
+<% end %>

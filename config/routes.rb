@@ -23,11 +23,12 @@ Rails.application.routes.draw do
 
   get '/users/:id', to: 'users#show', as: :user
   delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
+  get '/settings', to: 'users#settings', as: :settings
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
-  get '/scores', to: 'scores#index'
+  get '/scores', to: 'scores#index', as: :score_board
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

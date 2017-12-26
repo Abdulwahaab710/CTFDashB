@@ -15,6 +15,10 @@ module SessionsHelper
     session.delete(:forwarding_url)
   end
 
+  def is_logged_in_user?(user)
+    return !current_user.nil? && user.id == current_user.id
+  end
+
   def current_user
     @current_user ||= Session.find_by(id: session[:user_session_id])
     return @current_user.user if !@current_user.nil? && @current_user.class == Session

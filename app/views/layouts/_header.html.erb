@@ -2,24 +2,28 @@
   <div class="container">
     <%# <%= link_to "sample app", root_path, id: "logo" %1> %>
     <nav>
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Challenges", root_path %></a></li>
+        <li><%= link_to "Score Board", score_board_path %></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
-        <%# <li><%= link_to "Home", root_path %1></li> %>
-        <%# <li><%= link_to "Help", help_path %1></li> %>
+        <%# <li><%= link_to "home", root_path %1></li> %>
+        <%# <li><%= link_to "help", help_path %1></li> %>
         <% if logged_in? %>
-          <%# <li><%= link_to 'Capture the Flags', ctfs_path %1></li> %>
+          <%# <li><%= link_to 'capture the flags', ctfs_path %1></li> %>
           <li style="display: flex; align-items: center;">
             <%= gravatar_for(current_user, size: 40, margin: 0) %> <%= link_to current_user.name, current_user %>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
+              account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", settings_path %></li>
+              <li><%= link_to "profile", current_user %></li>
+              <li><%= link_to "settings", settings_path %></li>
               <li class="divider"></li>
               <li>
-                <%= link_to "Log out", logout_path, method: :delete %>
+                <%= link_to "log out", logout_path, method: :delete %>
               </li>
             </ul>
           </li>

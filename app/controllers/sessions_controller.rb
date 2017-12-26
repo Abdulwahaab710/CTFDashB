@@ -21,8 +21,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_session = Session.find_by(id: session[:user_session_id])
-    current_session.destroy
+    @current_session = Session.find_by(id: session[:user_session_id])
+    @current_session.destroy
     session[:session_id] = nil
+    redirect_to root_path
   end
 end

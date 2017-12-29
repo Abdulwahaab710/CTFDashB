@@ -2,8 +2,13 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav">
-        <li><%= link_to "Challenges", root_path %></li>
-        <li><%= link_to "Add new Challenges", new_challenege_path %></li>
+        <% if current_user.is_admin? %>
+          <%= render 'organizers/challenges' %>
+          <%= render 'organizers/category' %>
+        <% else %>
+          <li><%= link_to "Challenges", root_path %></li>
+          <li><%= link_to "Categories", root_path %></li>
+        <% end %>
         <li><%= link_to "Score Board", score_board_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

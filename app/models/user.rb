@@ -18,4 +18,8 @@ class User < ApplicationRecord
             on: :create
   has_secure_password
   belongs_to :team, optional: true
+
+  def is_admin?
+    true
+  end
 end

@@ -1,2 +1,2 @@
-class CTFSetting < ApplicationRecord
+class CtfSetting < ApplicationRecord
 end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  challenges: one
+  penalty: 1.5
+  description: MyString
+  link: MyString
+
+two:
+  challenges: two
+  penalty: 1.5
+  description: MyString
+  link: MyString

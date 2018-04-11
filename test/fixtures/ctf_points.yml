@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  users: one
+  challenges: one
+  teams: one
+  points: 1.5
+
+two:
+  users: two
+  challenges: two
+  teams: two
+  points: 1.5

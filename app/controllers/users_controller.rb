@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # User controller
 class UsersController < ApplicationController
   before_action :user_logged_in?, except: [:new, :create, :show]
@@ -53,9 +52,5 @@ class UsersController < ApplicationController
       :username,
       :email,
     )
-=======
-class UsersController < ApplicationController
-  def new
->>>>>>> User controller init
   end
 end

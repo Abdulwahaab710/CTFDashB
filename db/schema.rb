@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20171226041644) do
 
+  create_table "capture_the_flags", force: :cascade do |t|
+    t.string   "name"
+    t.string   "info"
+    t.integer  "max_teammates"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "challenge_categories", force: :cascade do |t|
     t.string   "name"
     t.string   "link"
@@ -30,11 +38,42 @@ ActiveRecord::Schema.define(version: 20171226041644) do
     t.index ["challenge_category_id"], name: "index_challenges_on_challenge_category_id"
   end
 
+  create_table "ctf_admins", force: :cascade do |t|
+    t.integer  "users_id"
+    t.integer  "capture_the_flag_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["capture_the_flag_id"], name: "index_ctf_admins_on_capture_the_flag_id"
+    t.index ["users_id"], name: "index_ctf_admins_on_users_id"
+  end
+
+  create_table "ctf_points", force: :cascade do |t|
+    t.integer  "users_id"
+    t.integer  "challenges_id"
+    t.integer  "teams_id"
+    t.float    "points"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["challenges_id"], name: "index_ctf_points_on_challenges_id"
+    t.index ["teams_id"], name: "index_ctf_points_on_teams_id"
+    t.index ["users_id"], name: "index_ctf_points_on_users_id"
+  end
+
   create_table "ctf_settings", force: :cascade do |t|
     t.string   "key"
     t.string   "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "hints", force: :cascade do |t|
+    t.integer  "challenges_id"
+    t.float    "penalty"
+    t.string   "description"
+    t.string   "link"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["challenges_id"], name: "index_hints_on_challenges_id"
   end
 
   create_table "organizers", force: :cascade do |t|
@@ -51,6 +90,15 @@ ActiveRecord::Schema.define(version: 20171226041644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.integer  "teams_id"
+    t.integer  "users_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teams_id"], name: "index_team_members_on_teams_id"
+    t.index ["users_id"], name: "index_team_members_on_users_id"
   end
 
   create_table "teams", force: :cascade do |t|

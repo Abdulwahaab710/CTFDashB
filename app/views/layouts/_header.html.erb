@@ -2,7 +2,7 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav">
-        <% if current_user.is_admin? %>
+        <% if current_user&.is_admin? %>
           <%= render 'organizers/challenges' %>
           <%= render 'organizers/category' %>
         <% else %>

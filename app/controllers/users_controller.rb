@@ -29,9 +29,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    render :new unless @user.save!
+    render :new unless @user.save
     flash[:success] = 'Welcome to the CTFDashB, your account has been create'
-    redirect_to join_team_path
+    redirect_to join_team_path && return
   end
 
   private

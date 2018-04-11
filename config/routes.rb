@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root to: 'challenges#index'
 
-  get '/category/new', to: 'challenge_category#new', as: :new_challenege_category
-  post '/category/new', to: 'challenge_category#create'
+  get '/category/new', to: 'challenge_categories#new', as: :new_challenege_category
+  post '/category/new', to: 'challenge_categories#create'
 
   get '/challenges/new', to: 'challenges#new', as: :new_challenege
   post '/challenges/new'

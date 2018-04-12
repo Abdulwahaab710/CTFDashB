@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
-  get 'ctf_settings/show', as: :ctf_settings
-
-  get 'ctf_settings/new'
-
-  get 'ctf_settings/create'
-
-  get 'ctf_settings/edit'
+  get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
+  post 'ctf_settings', to: 'ctf_settings#edit'
+  delete 'ctf_settings', to: 'ctf_settings#edit'
 
   root to: 'challenges#index'
 

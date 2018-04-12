@@ -2,6 +2,7 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav">
+        <li><%= link_to ctf_name, root_path %></li>
         <% if current_user&.is_admin? %>
           <%= render 'organizers/challenges' %>
           <%= render 'organizers/category' %>

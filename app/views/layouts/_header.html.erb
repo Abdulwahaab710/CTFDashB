@@ -26,6 +26,10 @@
               <li><%= link_to "Your profile", current_user %></li>
               <li><%= link_to "Your team", current_user.team %></li>
               <li class="divider"></li>
+              <% if current_user&.is_admin? %>
+                <li><%= link_to "CTF Settings", ctf_settings_path %></li>
+                <li class="divider"></li>
+              <% end %>
               <li><%= link_to "Settings", settings_path %></li>
               <li>
                 <%= link_to "Log out", logout_path, method: :delete %>

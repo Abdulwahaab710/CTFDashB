@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'ctf_settings/show', as: :ctf_settings
+
+  get 'ctf_settings/new'
+
+  get 'ctf_settings/create'
+
+  get 'ctf_settings/edit'
+
   root to: 'challenges#index'
 
   get '/category/new', to: 'challenge_categories#new', as: :new_challenege_category

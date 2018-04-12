@@ -1,0 +1,16 @@
+<h1>CTF Dashboard Settings</h1>
+<div class="col-md-6 col-md-offset-3">
+  <%= form_tag do %>
+    <div id='form-body'>
+      <% @ctf_settings.each do |ctf_setting| %>
+        <%= text_field_tag "key[]",ctf_setting.key, style: 'width: 49%; text-align: center;'  %> <%= text_field_tag "value[]", ctf_setting.value, style: 'width: 49%; text-align: center;' %>
+      <% end %>
+    </div>
+    <div><%= button_tag 'Add a new field',
+      class: "btn btn-primary",
+      style: 'width: 49%;',
+      type: 'button',
+      id: 'add-field-btn'
+      %><%= submit_tag 'Update', class: "btn btn-primary", style: 'width: 49%;' %></div>
+  <% end %>
+</div>

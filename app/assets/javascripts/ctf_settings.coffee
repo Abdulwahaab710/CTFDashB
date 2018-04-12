@@ -15,11 +15,12 @@ load = ->
     last_value = document.getElementById(form_id).children[(number_of_elements_in_div form_id) - 1]
     if last_value.value != '' || last_key.value != ''
       key = document.createElement 'input'
+      style = 'width: 49%; text-align: center;'
       key.name = 'key[]'
-      key.style = 'width: 49%; margin-right: 0.8%;'
+      key.style = "#{style} margin-right: 0.8%;"
       value = document.createElement 'input'
       value.name = 'value[]'
-      value.style = 'width: 49%;'
+      value.style = style
       form.appendChild key
       form.appendChild value
       key.focus()

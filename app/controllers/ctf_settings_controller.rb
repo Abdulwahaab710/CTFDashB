@@ -15,6 +15,6 @@ class CtfSettingsController < ApplicationController
   private
 
   def settings_params
-    params[:key].zip(params[:value])
+    params[:key].zip params[:value]
   end
 end

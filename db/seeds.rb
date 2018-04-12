@@ -5,4 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-CtfSetting.find_or_create_by(key: 'team_size', value: '4')
+default_settings = [
+  {key: 'ctf_name', value: 'CTF'},
+  {key: 'ctf_logo', value: '/logo.png'},
+  {key: 'team_size', value: '4'}
+]
+default_settings.each do |setting|
+  CtfSetting.find_or_create_by(setting)
+end

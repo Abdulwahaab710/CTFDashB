@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226041644) do
+ActiveRecord::Schema.define(version: 20180412224342) do
 
   create_table "capture_the_flags", force: :cascade do |t|
     t.string   "name"
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 20171226041644) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "team_id"
+    t.boolean  "admin"
+    t.boolean  "organizer"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

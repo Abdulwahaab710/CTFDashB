@@ -20,10 +20,10 @@ class User < ApplicationRecord
   belongs_to :team, optional: true
 
   def admin?
-    true
+    admin
   end
 
   def organizer?
-    true
+    organizer
   end
 end

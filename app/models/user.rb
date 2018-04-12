@@ -19,7 +19,11 @@ class User < ApplicationRecord
   has_secure_password
   belongs_to :team, optional: true
 
-  def is_admin?
+  def admin?
+    true
+  end
+
+  def organizer?
     true
   end
 end

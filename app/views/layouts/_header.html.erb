@@ -3,7 +3,7 @@
     <nav>
       <ul class="nav navbar-nav">
         <li style="display: flex; align-items: center;">
-          <%= image_tag ctf_logo, width: 40, height: 40 %>
+          <%= image_tag ctf_logo, width: 40, height: 40 if ctf_logo %>
           <%= link_to ctf_name, root_path %>
           </li>
         <% if current_user&.admin? %>

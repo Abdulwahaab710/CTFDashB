@@ -89,6 +89,7 @@ GEM
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
+    pg (1.0.0)
     puma (3.11.3)
     rack (2.0.4)
     rack-test (0.6.3)
@@ -179,6 +180,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  pg
   puma (~> 3.0)
   rails (~> 5.0.6)
   rails-controller-testing

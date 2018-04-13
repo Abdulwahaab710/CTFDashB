@@ -1,3 +1,7 @@
-<% @challenges.each do |challenge| %>
-  <%= challenge.link %>
+<% @challenges.each do |ctf_challenge| %>
+  <div class="panel panel-primary">
+    <%= render 'challenge_panel_header', ctf_challenge: ctf_challenge %>
+    <%= render 'challenge_panel_body', ctf_challenge: ctf_challenge %>
+    <%= render 'challenge_panel_footer', ctf_challenge: ctf_challenge %>
+  </div>
 <% end %>

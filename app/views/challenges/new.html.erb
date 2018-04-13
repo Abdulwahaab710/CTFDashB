@@ -1,2 +1,27 @@
-<h1>Challenges#new</h1>
-<p>Find me in app/views/challenges/new.html.erb</p>
+<% provide(:title, 'Add a new challenge') %>
+<h1>Add a new challenge</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@challenge, url: new_challenge_path) do |f| %>
+      <%= render 'shared/error_messages', obj: @user %>
+
+      <%= f.label :title, 'Challenge title' %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+
+      <%= f.label :link %>
+      <%= f.text_field :link, class: 'form-control' %>
+
+      <%= f.label :points %>
+      <%= f.number_field :points, class: 'form-control' %>
+
+      <%= f.label :max_tries %>
+      <%= f.number_field :max_tries, class: 'form-control' %>
+
+      <%= f.submit "Add challenge", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

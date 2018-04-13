@@ -1,4 +1,4 @@
-<% if obj.errors.any? %>
+<% if obj&.errors&.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
       The form contains <%= pluralize(obj.errors.count, "error") %>.

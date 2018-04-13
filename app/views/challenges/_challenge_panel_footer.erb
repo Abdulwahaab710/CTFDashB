@@ -1,0 +1,18 @@
+<div class="panel-footer">
+  <table style='width: 100%;'>
+    <tr>
+      <td>
+        <div style="float:left; width:50%;">
+          <strong>
+            <%= ctf_challenge.points.to_i %> <%= ctf_challenge.points > 1 ? 'Points' : 'Point' %>
+          </strong>
+        </div>
+      </td>
+      <td>
+        <div style="float:right; width:50%; text-align: right;">
+          <%= link_to 'Go to the challenge', ctf_challenge %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

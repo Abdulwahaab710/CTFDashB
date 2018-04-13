@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412224342) do
+ActiveRecord::Schema.define(version: 20180413223849) do
 
   create_table "capture_the_flags", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20180412224342) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.integer  "challenge_category_id"
+    t.string   "title"
     t.index ["challenge_category_id"], name: "index_challenges_on_challenge_category_id"
   end
 
@@ -74,13 +75,6 @@ ActiveRecord::Schema.define(version: 20180412224342) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["challenges_id"], name: "index_hints_on_challenges_id"
-  end
-
-  create_table "organizers", force: :cascade do |t|
-    t.integer  "User_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["User_id"], name: "index_organizers_on_User_id"
   end
 
   create_table "sessions", force: :cascade do |t|

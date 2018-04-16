@@ -1,7 +1,7 @@
 # User controller
 class UsersController < ApplicationController
   before_action :user_logged_in?, except: %i[new create show]
-  include SessionsHelper
+  include Sessions
 
   def new
     redirect_back_or current_user if logged_in?
@@ -11,13 +11,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    redirect_to join_team_path if @user.team.nil? && is_logged_in_user?(@user) && !@user.organizer?
+    redirect_to join_team_path if @user.team.nil? && logged_in_user?(@user) && !@user.organizer?
   end
 
   def edit
     @user = current_user
     redirect_to @user if @user.update_attributes(user_params_without_password)
-    render :settings
+    render :settings unless performed?
   end
 
   def settings

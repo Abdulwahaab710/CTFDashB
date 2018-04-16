@@ -1,0 +1,11 @@
+<% provide(:title, 'Edit Category') %>
+<% if @category %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1><%= @category.name %></h1>
+      <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
+      <%= link_to 'Delete', delete_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+      <hr>
+    </div>
+  </div>
+<% end %>

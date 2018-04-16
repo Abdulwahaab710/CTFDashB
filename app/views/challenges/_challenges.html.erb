@@ -1,5 +1,5 @@
-<% if @challenges %>
-  <% @challenges.each do |ctf_challenge| %>
-    <%= render 'challenge_panel', ctf_challenge: ctf_challenge %>
+<% if challenges %>
+  <% challenges.each do |ctf_challenge| %>
+    <%= render 'challenges/challenge_panel', ctf_challenge: ctf_challenge %>
   <% end %>
 <% end %>

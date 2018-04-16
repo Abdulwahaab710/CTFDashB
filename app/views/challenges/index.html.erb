@@ -2,5 +2,5 @@
 <% if @challenges.nil? %>
   <h1>No challenges has been added yet.</h1>
 <% else %>
-  <%= render 'challenges' %>
+  <%= render 'challenges', challenges: @challenges %>
 <% end %>

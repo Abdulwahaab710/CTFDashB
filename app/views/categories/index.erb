@@ -1,0 +1,17 @@
+<% provide(:title, 'Categories') %>
+<h1>Categories</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% if @categories %>
+      <ul>
+        <% @categories.each do |category| %>
+          <li><%= link_to category.name, category %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h2>There are not categories.</h3>
+      <h4><%= link_to 'Click here to create a category', new_category_path %></h4>
+    <% end %>
+  </div>
+</div>

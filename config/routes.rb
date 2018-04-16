@@ -5,8 +5,16 @@ Rails.application.routes.draw do
 
   root to: 'challenges#index'
 
-  get '/category/new', to: 'challenge_categories#new', as: :new_challenege_category
-  post '/category/new', to: 'challenge_categories#create'
+  get '/category/new', to: 'categories#new', as: :new_category
+  post '/category/new', to: 'categories#create'
+
+  get '/category', to: 'categories#index', as: :categories
+  get '/category/:id', to: 'categories#show', as: :category
+
+  get '/category/:id/edit', to: 'categories#edit', as: :edit_category
+  patch '/category/:id/edit', to: 'categories#update'
+
+  delete '/category/:id/', to: 'categories#destroy', as: :delete_category
 
   get '/challenges/new', to: 'challenges#new', as: :new_challenege
   post '/challenges/new'

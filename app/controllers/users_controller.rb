@@ -1,6 +1,6 @@
 # User controller
 class UsersController < ApplicationController
-  before_action :user_logged_in?, except: [:new, :create, :show]
+  before_action :user_logged_in?, except: %i[new create show]
   include SessionsHelper
 
   def new
@@ -16,11 +16,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    if @user.update_attributes(user_params_without_password)
-      redirect_to @user
-    else
-      render :settings
-    end
+    redirect_to @user if @user.update_attributes(user_params_without_password)
+    render :settings
   end
 
   def settings
@@ -37,20 +34,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(
-      :name,
-      :username,
-      :email,
-      :password,
-      :password_confirmation
-    )
+    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)
   end
 
   def user_params_without_password
-    params.require(:user).permit(
-      :name,
-      :username,
-      :email,
-    )
+    params.require(:user).permit(:name, :username, :email)
   end
 end

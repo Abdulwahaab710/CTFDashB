@@ -12,22 +12,31 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(challenge_params)
+    @category = Category.new(category_params)
     render :new unless @category.save
+    redirect_to @category unless performed?
   end
 
   def edit
-    @category = Category.update_attr
+    @category = Category.find_by(id: params[:id])
+  end
+
+  def update
+    @category = Category.find_by(id: params[:id])
+    render :edit unless @category.update_attributes(category_params)
+    redirect_to @category unless performed?
   end
 
   def destroy
     @category = Category.find_by(id: params[:id])
-    @category.destroy
+    redirect_to :show unless @category.destroy
+    flash[:success] = "You have successfully delete #{@category.name}"
+    redirect_to categories_path unless performed?
   end
 
   private
 
-  def challenge_params
+  def category_params
     params.require(:category).permit(:name)
   end
 end

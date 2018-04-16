@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get '/category', to: 'categories#index', as: :categories
   get '/category/:id', to: 'categories#show', as: :category
 
+  get '/category/:id/edit', to: 'categories#edit', as: :edit_category
+  patch '/category/:id/edit', to: 'categories#update'
+
+  delete '/category/:id/', to: 'categories#destroy', as: :delete_category
+
   get '/challenges/new', to: 'challenges#new', as: :new_challenege
   post '/challenges/new'
 

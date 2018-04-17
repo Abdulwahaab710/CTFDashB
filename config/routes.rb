@@ -27,8 +27,8 @@ Rails.application.routes.draw do
 
   delete '/challenges/:id', to: 'challenges#destroy', as: :delete_challenge
 
-  put '/challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge
-  put '/challenges/:id/deactivate', to: 'challenges#deactivate', as: :deactivate_challenge
+  patch '/challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge
+  patch '/challenges/:id/deactivate', to: 'challenges#deactivate', as: :deactivate_challenge
 
   get '/teams/new', to: 'teams#new', as: :new_team
   post '/teams/new', to: 'teams#create'

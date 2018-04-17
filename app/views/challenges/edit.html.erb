@@ -1,0 +1,36 @@
+<% provide(:title, 'Edit challenge') %>
+<h1>Edit challenge</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@challenge, url: edit_challenge_path) do |f| %>
+      <%= render 'shared/error_messages', obj: @challenge %>
+
+      <%= f.label :title, 'Challenge title' %>
+      <%= f.text_field :title, class: 'form-control', value: @challenge.title %>
+
+
+      <div class="dropdown">
+        <%= f.label :category %>
+        <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true, selected: @challenge.category_id %>
+      </div>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', value: @challenge.description %>
+
+      <%= f.label :link %>
+      <%= f.text_field :link, class: 'form-control', value: @challenge.link %>
+
+      <%= f.label :points %>
+      <%= f.number_field :points, class: 'form-control', value: @challenge.points %>
+
+      <%= f.label :max_tries %>
+      <%= f.number_field :max_tries, class: 'form-control', value: @challenge.max_tries %>
+
+      <%= f.label :active %>
+      <%= f.check_box :active, class: 'form-control', checked: @challenge.active %>
+
+      <%= f.submit "Add challenge", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

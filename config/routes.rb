@@ -19,8 +19,12 @@ Rails.application.routes.draw do
   get '/challenges/new', to: 'challenges#new', as: :new_challenge
   post '/challenges/new', to: 'challenges#create'
 
+  get '/challenges/:id/edit', to: 'challenges#edit', as: :edit_challenge
+  patch '/challenges/:id/edit', to: 'challenges#update'
+
   get '/challenges', to: 'challenges#index', as: :challenges
   get '/challenges/:id', to: 'challenges#show', as: :challenge
+
   delete '/challenges/:id', to: 'challenges#destroy', as: :delete_challenge
 
   put '/challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge

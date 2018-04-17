@@ -19,6 +19,16 @@ class ChallengesController < ApplicationController
     render :new unless performed?
   end
 
+  def edit
+    @challenge = Challenge.find_by(id: params[:id])
+  end
+
+  def update
+    @challenge = Challenge.find_by(id: params[:id])
+    render :edit unless @challenge.update_attributes(challenge_params)
+    redirect_to @challenge unless performed?
+  end
+
   def show
     @challenge = Challenge.find_by(id: params[:id])
   end

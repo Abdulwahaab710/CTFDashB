@@ -35,18 +35,19 @@ class ChallengesController < ApplicationController
   end
 
   def destroy
-    @challenge = Challenge.find_by(id: params[:id])
-    @challenge.destroy
+    Challenge.find_by(id: params[:id])&.destroy
   end
 
   def activate
     @challenge = Challenge.find_by(id: params[:id])
-    @challenge.activate
+    @challenge.active = true
+    redirect_to action: :index if @challenge.save!
   end
 
   def deactivate
-    @challenge = Challenge.find_by(id: params[:id]).deactivate
-    @challenge.activate
+    @challenge = Challenge.find_by(id: params[:id])
+    @challenge.active = false
+    redirect_to action: :index if @challenge.save!
   end
 
   private
@@ -57,6 +58,7 @@ class ChallengesController < ApplicationController
       :description,
       :link,
       :points,
+      :flag,
       :max_tries,
       :active,
       :category_id

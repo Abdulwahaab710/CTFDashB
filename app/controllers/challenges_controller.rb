@@ -5,7 +5,8 @@ class ChallengesController < ApplicationController
   include Users
 
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.where(active: true)
+    @challenges = Challenge.all if current_user.organizer?
   end
 
   def new

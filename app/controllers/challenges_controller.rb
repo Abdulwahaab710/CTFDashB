@@ -32,6 +32,7 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find_by(id: params[:id])
+    @challenge_submission = Submission.new
   end
 
   def destroy

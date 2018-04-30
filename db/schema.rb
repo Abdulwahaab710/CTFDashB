@@ -87,6 +87,18 @@ ActiveRecord::Schema.define(version: 20180429024506) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.string   "flag"
+    t.integer  "challenge_id"
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["challenge_id"], name: "index_submissions_on_challenge_id"
+    t.index ["team_id"], name: "index_submissions_on_team_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "team_members", force: :cascade do |t|
     t.integer  "teams_id"
     t.integer  "users_id"

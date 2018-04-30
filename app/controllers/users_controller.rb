@@ -1,13 +1,16 @@
 # User controller
 class UsersController < ApplicationController
-  # before_action :user_logged_in?, except: %i[new create show]
-  before_action :user_logged_in?, except: %i[new create]
+  skip_before_action :user_logged_in?, only: %i[new create]
   include Sessions
+  include CtfSettings
 
   def new
-    redirect_back_or current_user if logged_in?
-    @user = User.new
-    render :new
+    if logged_in?
+      redirect_back_or current_user
+    else
+      @user = User.new
+      render :new
+    end
   end
 
   def show
@@ -17,8 +20,11 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    redirect_to @user if @user.update_attributes(user_params_without_password)
-    render :settings unless performed?
+    if @user.update_attributes(user_params_without_password)
+      redirect_to @user
+    else
+      render :settings
+    end
   end
 
   def settings
@@ -27,9 +33,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    render :new unless @user.save
-    flash[:success] = 'Welcome to the CTFDashB, your account has been create'
-    redirect_to join_team_path unless performed?
+    if @user.save
+      log_in @user
+      flash[:success] = "Welcome to the #{ctf_name}, your account has been create"
+      redirect_to join_team_path
+    else
+      render :new unless @user.save
+    end
   end
 
   private

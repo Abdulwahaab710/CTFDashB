@@ -9,6 +9,11 @@ module UsersHelper
     )
   end
 
+  def current_user_team_link
+    return link_to 'Your team', current_user&.team if current_user&.team
+    link_to 'Join a team', join_team_path
+  end
+
   private
 
   def build_gravatar_url(gravatar_id, gravatar_size)

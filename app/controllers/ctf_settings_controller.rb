@@ -1,4 +1,9 @@
 class CtfSettingsController < ApplicationController
+  before_action :user_logged_in?
+  before_action :user_has_permission?
+
+  include Users
+
   def edit
     settings_params.each do |param|
       setting = CtfSetting.find_or_create_by!(key: param[0])

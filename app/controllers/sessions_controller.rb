@@ -1,10 +1,10 @@
 # Session controller
 class SessionsController < ApplicationController
-  include SessionsHelper
+  include Sessions
 
   def new
     redirect_back_or current_user if logged_in?
-    render :new
+    render :new unless performed?
   end
 
   def create

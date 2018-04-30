@@ -1,3 +1,5 @@
-<% @challenges.each do |challenge| %>
-  <%= challenge.link %>
+<% if challenges %>
+  <% challenges.each do |ctf_challenge| %>
+    <%= render 'challenges/challenge_panel', ctf_challenge: ctf_challenge %>
+  <% end %>
 <% end %>

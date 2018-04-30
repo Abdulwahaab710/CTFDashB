@@ -1,8 +1,10 @@
-<% provide(:title, "Log in") %>
-<h1>Log in</h1>
+<div class="col-md-6 col-md-offset-3">
+  <div class="row">
+    <% provide(:title, "Log in") %>
+    <h1>Log in</h1>
+  </div>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="row">
     <%= form_for(:session, url: login_path) do |f| %>
 
       <%= f.label :email %>

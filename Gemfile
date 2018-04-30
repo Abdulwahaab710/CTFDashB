@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails-controller-testing'
 
+gem 'better_html'
+
 gem 'bootstrap-sass', '3.3.7'
 gem 'font-awesome-rails'
 
@@ -57,6 +59,3 @@ end
 group :production do
   gem 'pg'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

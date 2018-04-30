@@ -1,5 +1,41 @@
 <div class="panel panel-primary">
-  <%= render 'challenges/challenge_panel_header', ctf_challenge: ctf_challenge %>
-  <%= render 'challenges/challenge_panel_body', ctf_challenge: ctf_challenge, body: challenge_panel_body ||= nil %>
-  <%= render 'challenges/challenge_panel_footer', ctf_challenge: ctf_challenge %>
+  <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
+    <h3 class="panel-title"><%= link_to ctf_challenge.title, ctf_challenge %></h3>
+    <% if current_user.organizer? %>
+      <div>
+        <%= link_to 'Edit', edit_challenge_path(ctf_challenge), class: 'btn btn-warning' %>
+        <%= link_to 'Delete',
+          delete_challenge_path(ctf_challenge),
+          class: 'btn btn-danger',
+          method: :delete,
+          data: { confirm: "Are you sure you want to delete #{ctf_challenge.title}" }
+        %>
+        <%= challenge_status_button_tag(ctf_challenge) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <%= ctf_challenge.description %>
+    <%= yield %>
+  </div>
+  <div class="panel-footer">
+    <table style='width: 100%;'>
+      <tr>
+        <td>
+          <div style="float:left; width:50%;">
+            <strong>
+              <%= ctf_challenge.points.to_i %> <%= ctf_challenge.points > 1 ? 'Points' : 'Point' %>
+            </strong>
+          </div>
+        </td>
+        <td>
+          <div style="float:right; width:50%; text-align: right;">
+            <%= link_to 'Go to the challenge', ctf_challenge %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
+
+

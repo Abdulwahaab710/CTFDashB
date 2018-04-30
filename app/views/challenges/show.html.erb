@@ -3,11 +3,12 @@
     <div class="col-md-6 col-md-offset-3">
       <%= form_for(@challenge_submission, url: submit_flag_path) do |f| %>
         <%= render 'shared/error_messages', obj: @user %>
+        <% if current_user %>
+          <%= f.label :flag %>
+          <%= text_field_tag name: 'flag', class: 'form-control' %>
 
-        <%= f.label :flag %>
-        <%= text_field_tag name: 'flag', class: 'form-control' %>
-
-        <%= f.submit "Submit flag", class: "btn btn-success" %>
+          <%= f.submit "Submit flag", class: "btn btn-success" %>
+        <% end %>
       <% end %>
     </div>
   </div>

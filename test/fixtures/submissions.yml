@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flag: MyString
+  team: one
+  user: one
+
+two:
+  flag: MyString
+  team: two
+  user: two

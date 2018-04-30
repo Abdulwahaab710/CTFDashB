@@ -28,7 +28,7 @@
               <li style="padding: 3px 20px;">Signed in as <br> <%= current_user.name %></li>
               <li class="divider"></li>
               <li><%= link_to "Your profile", current_user %></li>
-              <li><%= link_to "Your team", current_user.team %></li>
+              <li><%= current_user_team_link %></li>
               <li class="divider"></li>
               <% if current_user&.admin? %>
                 <li><%= link_to "CTF Settings", ctf_settings_path %></li>

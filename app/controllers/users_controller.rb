@@ -1,6 +1,7 @@
 # User controller
 class UsersController < ApplicationController
-  before_action :user_logged_in?, except: %i[new create show]
+  # before_action :user_logged_in?, except: %i[new create show]
+  before_action :user_logged_in?, except: %i[new create]
   include Sessions
 
   def new
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    redirect_to join_team_path if @user.team.nil? && logged_in_user?(@user) && !@user.organizer?
+    redirect_to join_team_path if @user&.team && logged_in_user?(@user) && !@user.organizer?
   end
 
   def edit

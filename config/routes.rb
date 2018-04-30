@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   get '/challenges', to: 'challenges#index', as: :challenges
   get '/challenges/:id', to: 'challenges#show', as: :challenge
 
+  post '/challenges/:id', to: 'submissions#create', as: :submit_flag
+
   delete '/challenges/:id', to: 'challenges#destroy', as: :delete_challenge
 
   patch '/challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge

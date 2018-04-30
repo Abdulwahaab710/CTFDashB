@@ -8,12 +8,4 @@ class Challenge < ApplicationRecord
   def flag=(flag)
     write_attribute(:flag, BCrypt::Password.create(flag))
   end
-
-  def activate
-    self.active = true
-  end
-
-  def deactivate
-    self.active = false
-  end
 end

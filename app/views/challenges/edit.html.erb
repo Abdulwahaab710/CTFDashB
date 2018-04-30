@@ -12,7 +12,7 @@
 
       <div class="dropdown">
         <%= f.label :category %>
-        <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true, selected: @challenge.category_id %>
+        <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true, selected: @challenge.category_id, class: 'form-control' %>
       </div>
 
       <%= f.label :description %>
@@ -28,9 +28,9 @@
       <%= f.number_field :max_tries, class: 'form-control', value: @challenge.max_tries %>
 
       <%= f.label :active %>
-      <%= f.check_box :active, class: 'form-control', checked: @challenge.active %>
+      <%= f.check_box :active, checked: @challenge.active, style: 'width: auto;' %>
 
-      <%= f.submit "Add challenge", class: "btn btn-primary" %>
+      <%= f.submit "Update challenge", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

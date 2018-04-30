@@ -1,7 +1,8 @@
 # Session controller
 class SessionsController < ApplicationController
-  include Sessions
+  skip_before_action :user_logged_in?, only: %i[new create]
 
+  include Sessions
   def new
     redirect_back_or current_user if logged_in?
     render :new unless performed?

@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :user_logged_in?
+
   include Sessions
+
   private
 
   def user_logged_in?

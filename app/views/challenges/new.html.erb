@@ -15,6 +15,7 @@
         <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
       </div>
 
+
       <%= f.label :description %>
       <%= f.text_area :description, class: 'form-control' %>
 
@@ -31,9 +32,12 @@
       <%= f.number_field :max_tries, class: 'form-control' %>
 
       <%= f.label :active %>
-      <%= f.check_box :active, class: 'form-control' %>
+      <%= f.check_box :active, style: 'width: auto;' %>
+
 
       <%= f.submit "Add challenge", class: "btn btn-primary" %>
     <% end %>
   </div>
+
+
 </div>

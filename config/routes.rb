@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   scope :categories do
-    resources :challenges, only: %i[new create], as: :challenge
+    resources :challenges, only: %i[new create index], as: :challenge
   end
 
   get '/challenges', to: 'challenges#index', as: :all_challenges

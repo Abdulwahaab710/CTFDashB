@@ -1,14 +1,14 @@
 <%= render 'challenge_panel', ctf_challenge: @challenge do %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <%= form_for(@challenge_submission, url: submit_flag_path) do |f| %>
-        <%= render 'shared/error_messages', obj: @user %>
+      <%# <%= form_for(@challenge_submission, url: submit_flag_path) do |f| %1> %>
+      <%#   <%= render 'shared/error_messages', obj: @user %1> %>
 
-        <%= f.label :flag %>
-        <%= text_field_tag name: 'flag', class: 'form-control' %>
+      <%#   <%= f.label :flag %1> %>
+      <%#   <%= text_field_tag name: 'flag', class: 'form-control' %1> %>
 
-        <%= f.submit "Submit flag", class: "btn btn-success" %>
-      <% end %>
+      <%#   <%= f.submit "Submit flag", class: "btn btn-success" %1> %>
+      <%# <% end %1> %>
     </div>
   </div>
 <% end %>

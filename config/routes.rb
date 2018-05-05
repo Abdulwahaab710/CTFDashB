@@ -1,34 +1,33 @@
 Rails.application.routes.draw do
+  root to: 'challenges#index'
+
   get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
   post 'ctf_settings', to: 'ctf_settings#edit'
   delete 'ctf_settings', to: 'ctf_settings#edit'
 
-  root to: 'challenges#index'
+  resources :categories, except: %i[edit update destroy] do |categories|
+    member do
+      get 'edit'       => 'categories#edit', as: :edit
+      patch 'edit'     => 'categories#update'
+      delete ''        => 'categories#destroy', as: :delete
+    end
 
-  get '/category/new', to: 'categories#new', as: :new_category
-  post '/category/new', to: 'categories#create'
+    resources :challenges, except: %i[new create edit update destroy], as: :challenges do
+      member do
+        get 'edit'           => 'challenges#edit', as: :edit
+        patch 'edit'         => 'challenges#update'
+        patch 'activate'     => 'challenges#activate', as: :activate
+        patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
+        delete ''            => 'challenges#destroy', as: :delete
+      end
+    end
+  end
 
-  get '/category', to: 'categories#index', as: :categories
-  get '/category/:id', to: 'categories#show', as: :category
+  scope :categories do
+    resources :challenges, only: %i[new create index], as: :challenge
+  end
 
-  get '/category/:id/edit', to: 'categories#edit', as: :edit_category
-  patch '/category/:id/edit', to: 'categories#update'
-
-  delete '/category/:id/', to: 'categories#destroy', as: :delete_category
-
-  get '/challenges/new', to: 'challenges#new', as: :new_challenge
-  post '/challenges/new', to: 'challenges#create'
-
-  get '/challenges/:id/edit', to: 'challenges#edit', as: :edit_challenge
-  patch '/challenges/:id/edit', to: 'challenges#update'
-
-  get '/challenges', to: 'challenges#index', as: :challenges
-  get '/challenges/:id', to: 'challenges#show', as: :challenge
-
-  delete '/challenges/:id', to: 'challenges#destroy', as: :delete_challenge
-
-  patch '/challenges/:id/activate', to: 'challenges#activate', as: :activate_challenge
-  patch '/challenges/:id/deactivate', to: 'challenges#deactivate', as: :deactivate_challenge
+  get '/challenges', to: 'challenges#index', as: :all_challenges
 
   get '/teams/new', to: 'teams#new', as: :new_team
   post '/teams/new', to: 'teams#create'

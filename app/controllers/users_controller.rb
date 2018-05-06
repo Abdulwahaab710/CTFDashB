@@ -4,6 +4,13 @@ class UsersController < ApplicationController
   before_action :user_logged_in?, except: %i[new create]
   include Sessions
 
+  def create
+    @user = User.new(user_params)
+    render :new unless @user.save
+    flash[:success] = 'Welcome to the CTFDashB, your account has been create'
+    redirect_to join_team_path unless performed?
+  end
+
   def new
     redirect_back_or current_user if logged_in?
     @user = User.new
@@ -12,7 +19,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by!(username: params[:id])
-    redirect_to join_team_path if @user&.team && logged_in_user?(@user) && !@user.organizer?
+    redirect_to join_team_path if @user&.team&.nil? && logged_in_user?(@user) && !@user.organizer?
   end
 
   def edit
@@ -23,13 +30,6 @@ class UsersController < ApplicationController
 
   def settings
     @user = current_user
-  end
-
-  def create
-    @user = User.new(user_params)
-    render :new unless @user.save
-    flash[:success] = 'Welcome to the CTFDashB, your account has been create'
-    redirect_to join_team_path unless performed?
   end
 
   private

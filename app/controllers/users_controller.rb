@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by!(username: params[:id])
     redirect_to join_team_path if @user&.team && logged_in_user?(@user) && !@user.organizer?
   end
 

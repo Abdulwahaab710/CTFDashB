@@ -5,4 +5,6 @@ class Team < ApplicationRecord
   validates :invitation_token,
             presence: true,
             uniqueness: { case_sensitive: false }
+
+  include Tokenable
 end

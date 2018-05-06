@@ -36,14 +36,14 @@ class TeamsController < ApplicationController
   private
 
   def render_join_team
-    return nil unless @team.nil? || @team.id.nil?
+    return nil unless @team&.id
     @team = Team.new
     flash.now[:error] = 'Invalid token'
     render :join
   end
 
   def add_team_member
-    return nil if @team.id.nil?
+    return nil unless @team&.id
     current_user.team = @team
     current_user.save!
   end

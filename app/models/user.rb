@@ -26,4 +26,8 @@ class User < ApplicationRecord
   def organizer?
     organizer
   end
+
+  def to_param
+    "#{username}".parameterize
+  end
 end

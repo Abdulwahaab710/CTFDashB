@@ -35,6 +35,8 @@ gem 'rails-controller-testing'
 gem 'bootstrap-sass', '3.3.7'
 gem 'font-awesome-rails'
 
+gem 'better_html'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

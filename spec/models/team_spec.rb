@@ -1,5 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @team = Team.create!(name: 'DC613')
+  end
+
+  context 'when creating a team' do
+    it 'is valid with valid attributes' do
+      expect(@team).to eq(Team.first)
+    end
+
+    it 'enforces uniqueness of team name' do
+      expect(Team.new(name: 'DC613').valid?).to be false
+    end
+  end
 end

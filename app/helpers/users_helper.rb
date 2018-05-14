@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # User helper
 module UsersHelper
   def gravatar_for(user, size: 40, margin: nil, gravatar_size: 400)

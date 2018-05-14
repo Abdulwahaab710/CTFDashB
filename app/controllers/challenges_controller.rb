@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChallengesController < ApplicationController
   before_action :user_logged_in?, except: %i[index]
   before_action :user_has_permission?, except: %i[index show]

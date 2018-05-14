@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # User controller
 class UsersController < ApplicationController
   # before_action :user_logged_in?, except: %i[new create show]

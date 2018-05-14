@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Session controller
 class SessionsController < ApplicationController
   include Sessions
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
   def create
     # TODO: ALLOW USERS TO LOGIN VIA USERNAME OR EMAIL
     user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    if user&.authenticate(params[:session][:password])
       log_in user
       redirect_back_or user
     else

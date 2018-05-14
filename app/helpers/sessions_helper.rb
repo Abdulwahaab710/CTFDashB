@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Session helper
 module SessionsHelper
   def log_in(user)
@@ -16,7 +18,7 @@ module SessionsHelper
   end
 
   def is_logged_in_user?(user)
-    return !current_user.nil? && user.id == current_user.id
+    !current_user.nil? && user.id == current_user.id
   end
 
   def current_user
@@ -29,6 +31,6 @@ module SessionsHelper
   end
 
   def store_location
-    session[:forwarding_url] = request.original_url if request.get?  && request.original_fullpath != '/login'
+    session[:forwarding_url] = request.original_url if request.get? && request.original_fullpath != '/login'
   end
 end

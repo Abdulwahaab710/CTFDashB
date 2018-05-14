@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :user_logged_in?, except: %i[show]
   before_action :user_has_permission?, except: %i[index show]

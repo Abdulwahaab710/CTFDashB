@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root to: 'challenges#index'
 
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
   post 'ctf_settings', to: 'ctf_settings#edit'
   delete 'ctf_settings', to: 'ctf_settings#edit'
 
-  resources :categories, except: %i[edit update destroy] do |categories|
+  resources :categories, except: %i[edit update destroy] do |_categories|
     member do
       get 'edit'       => 'categories#edit', as: :edit
       patch 'edit'     => 'categories#update'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChallengesHelper
   def challenge_status_button_tag(challenge)
     return activate_challenge_button(challenge) unless challenge.active?
@@ -14,7 +16,6 @@ module ChallengesHelper
     )
   end
 
-
   def activate_challenge_button(challenge)
     challenge_status_button(
       'Activate challenge',
@@ -25,8 +26,8 @@ module ChallengesHelper
 
   def challenge_status_button(btn_name, btn_color, path)
     link_to btn_name,
-      path,
-      class: "btn #{btn_color}",
-      method: :patch
+            path,
+            class: "btn #{btn_color}",
+            method: :patch
   end
 end

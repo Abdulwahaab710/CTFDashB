@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TeamMember, type: :model do
@@ -9,7 +11,7 @@ RSpec.describe TeamMember, type: :model do
       password: 'my amazing password'
     )
     @team = Team.create!(name: 'DC6113')
-    @tm = TeamMember.create!(user: @user, team:@team)
+    @tm = TeamMember.create!(user: @user, team: @team)
   end
 
   context 'when adding a user to a team' do

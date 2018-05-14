@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CtfSettingsController < ApplicationController
   before_action :user_logged_in?
   before_action :user_has_permission?

@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find_by!(id: params[:id])
-    render :edit unless @category.update_attributes(category_params)
+    render :edit unless @category.update(category_params)
     redirect_to @category unless performed?
   end
 

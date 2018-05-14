@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    redirect_to @user if @user.update_attributes(user_params_without_password)
+    redirect_to @user if @user.update(user_params_without_password)
     render :settings unless performed?
   end
 

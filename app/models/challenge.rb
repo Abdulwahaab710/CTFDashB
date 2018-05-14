@@ -8,6 +8,6 @@ class Challenge < ApplicationRecord
   validates :flag, uniqueness: true
 
   def flag=(flag)
-    write_attribute(:flag, BCrypt::Password.create(flag))
+    self[:flag] = BCrypt::Password.create(flag)
   end
 end

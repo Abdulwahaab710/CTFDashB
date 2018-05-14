@@ -29,7 +29,7 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.find_by!(id: params[:id])
-    render :edit unless @challenge.update_attributes(challenge_params)
+    render :edit unless @challenge.update(challenge_params)
     redirect_to [@challenge.category, @challenge] unless performed?
   end
 

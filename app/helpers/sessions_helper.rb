@@ -17,7 +17,7 @@ module SessionsHelper
     session.delete(:forwarding_url)
   end
 
-  def is_logged_in_user?(user)
+  def logged_in_user?(user)
     !current_user.nil? && user.id == current_user.id
   end
 

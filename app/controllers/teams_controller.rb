@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Teams controller
 class TeamsController < ApplicationController
   before_action :user_logged_in?

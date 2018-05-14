@@ -1,15 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
-
+ruby '2.4.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.6'
+gem 'rails', '~> 5.2.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -35,6 +33,8 @@ gem 'rails-controller-testing'
 gem 'bootstrap-sass', '3.3.7'
 gem 'font-awesome-rails'
 
+gem 'bootsnap', '>= 1.1.0', require: false
+
 gem 'better_html'
 
 # Use Capistrano for deployment
@@ -44,9 +44,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-  gem 'rspec-rails'
   gem 'guard-rspec', require: false
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'sqlite3'
 end
 
 group :development do
@@ -63,4 +64,4 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

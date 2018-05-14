@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # User models
 class User < ApplicationRecord
   before_save { email.downcase! }
@@ -28,6 +30,6 @@ class User < ApplicationRecord
   end
 
   def to_param
-    "#{username}".parameterize
+    username.to_s.parameterize
   end
 end

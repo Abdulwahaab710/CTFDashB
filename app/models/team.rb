@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Team < ApplicationRecord
-  has_many :users
+  has_many :users, through: :team_members, dependent: :nullify
   validates :name, presence: true,
-            uniqueness: { case_sensitive: false }
+                   uniqueness: { case_sensitive: false }
   validates :invitation_token,
             uniqueness: { case_sensitive: false }
 

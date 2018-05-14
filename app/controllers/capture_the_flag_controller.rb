@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CaptureTheFlagController < ApplicationController
   before_action :user_logged_in?
   def index

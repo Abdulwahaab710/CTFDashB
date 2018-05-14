@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChallengesController < ApplicationController
   before_action :user_logged_in?, except: %i[index]
   before_action :user_has_permission?, except: %i[index show]
@@ -27,7 +29,7 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.find_by!(id: params[:id])
-    render :edit unless @challenge.update_attributes(challenge_params)
+    render :edit unless @challenge.update(challenge_params)
     redirect_to [@challenge.category, @challenge] unless performed?
   end
 

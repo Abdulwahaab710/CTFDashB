@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCtfPoints < ActiveRecord::Migration[5.0]
   def change
     create_table :ctf_points do |t|

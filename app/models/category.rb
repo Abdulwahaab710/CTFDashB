@@ -1,5 +1,7 @@
-class Category < ApplicationRecord
-  has_many :challenges
+# frozen_string_literal: true
 
-  validates_uniqueness_of :name
+class Category < ApplicationRecord
+  has_many :challenges, dependent: :destroy
+
+  validates :name, uniqueness: true
 end

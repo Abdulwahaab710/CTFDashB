@@ -1,4 +1,16 @@
+AllCops:
+  Exclude:
+    - config/unicorn.rb
+    - config/routes.rb
+    - db/**
+    - Guardfile
+    - bin/**
+    - vendor/**.**
+Rails:
+  Enabled: true
 Documentation:
   Enabled: false
 Metrics/LineLength:
   Max: 120
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']

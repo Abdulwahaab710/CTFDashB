@@ -39,6 +39,7 @@ class UsersController < ApplicationController
       current_user.password = params[:new_password]
       current_user.password_confirmation = params[:password_confirmation]
       if current_user.save
+        destroy_all_session_except_current_session session[:user_session_id]
         flash[:success] = 'Password has been successfully updated'
         render :settings
       else
@@ -52,6 +53,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def destroy_all_session_except_current_session(session_id)
+    current_user.sessions.where.not(id: session_id).destroy_all
+  end
 
   def user_params
     params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)

@@ -28,4 +28,10 @@ class SessionsController < ApplicationController
     session[:session_id] = nil
     redirect_to root_path
   end
+
+  def destroy_session
+    @session = current_user.sessions.find_by(id: params[:id])
+    return head 404 if @session.nil?
+    @session.destroy
+  end
 end

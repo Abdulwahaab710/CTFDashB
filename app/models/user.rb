@@ -20,6 +20,7 @@ class User < ApplicationRecord
             on: :create
   has_secure_password
   belongs_to :team, optional: true
+  has_many :sessions
 
   def admin?
     admin

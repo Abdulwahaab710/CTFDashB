@@ -47,6 +47,9 @@ Rails.application.routes.draw do
 
   get '/settings', to: 'users#settings', as: :settings
   patch '/settings', to: 'users#edit'
+  patch '/change_password', to: 'users#change_password'
+
+  patch '/change_password', to: 'users#change_password'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

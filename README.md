@@ -1,4 +1,4 @@
-# README
+# README [![Build Status](https://travis-ci.com/Abdulwahaab710/CTFDashB.svg?token=bpyKsaqf92KAMzyEvsW1&branch=master)](https://travis-ci.com/Abdulwahaab710/CTFDashB)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

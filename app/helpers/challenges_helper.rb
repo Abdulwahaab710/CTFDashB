@@ -20,7 +20,7 @@ module ChallengesHelper
     challenge_status_button(
       'Activate challenge',
       'btn-success',
-      activate_category_challenge_path(challenge.category, challenge.category)
+      activate_category_challenge_path(challenge.category, challenge)
     )
   end
 

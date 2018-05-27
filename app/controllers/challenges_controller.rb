@@ -18,7 +18,7 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @challenge = challenge
+    @challenge = Challenge.new(challenge_params)
     redirect_to [@challenge.category, @challenge] if @challenge.save
     render :new unless performed?
   end

@@ -23,11 +23,11 @@ class User < ApplicationRecord
   has_many :sessions
 
   def admin?
-    admin
+    !admin.nil?
   end
 
   def organizer?
-    organizer
+    !organizer.nil?
   end
 
   def to_param

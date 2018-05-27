@@ -10,11 +10,19 @@ RSpec.describe User, type: :model do
       username: '007',
       password: 'my amazing password'
     )
+    @admin = User.create!(
+      name: 'James bond boss',
+      email: 'theJames.bond.boss@mi6.gov',
+      username: '001',
+      password: 'my amazing password',
+      admin: true,
+      organizer: true
+    )
   end
 
   context 'when creating a user' do
     it 'is valid with valid attributes' do
-      expect(@user).to eq(User.last)
+      expect(@user).to eq(User.first)
     end
 
     it 'enforces uniqueness of users username' do
@@ -37,6 +45,22 @@ RSpec.describe User, type: :model do
           password: 'my amazing password'
         ).valid?
       ).to eq false
+    end
+
+    it 'returns false if the user is not admin' do
+      expect(@user.admin?).to eq(false)
+    end
+
+    it 'returns true if the user is admin' do
+      expect(@admin.admin?).to eq(true)
+    end
+
+    it 'returns false if the user is not organizer' do
+      expect(@user.organizer?).to eq(false)
+    end
+
+    it 'returns true if the user is organizer' do
+      expect(@admin.organizer?).to eq(true)
     end
   end
 end

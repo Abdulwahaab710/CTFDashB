@@ -1,0 +1,6 @@
+<% @sessions.each do |_session| %>
+  <%= _session[:ip_address] %>: <%= _session[:user_agent].browser %> <%= link_to 'Logout',
+    users_sessions_path,
+    method: :delete
+  %>
+<% end %>

@@ -48,6 +48,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'sqlite3'
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do

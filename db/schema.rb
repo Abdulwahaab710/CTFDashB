@@ -154,6 +154,8 @@ ActiveRecord::Schema.define(version: 2018_05_14_233101) do
     t.integer "team_id"
     t.boolean "admin"
     t.boolean "organizer"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

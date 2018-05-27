@@ -6,9 +6,7 @@
 
   <!-- Sidebar Links -->
   <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Portfolio</a></li>
-    <li><a href="#">Contact</a></li>
+    <li class="<%= current_class?(profile_settings_path) %>"><%= link_to 'Profile', profile_settings_path %></li>
+    <li class="<%= current_class?(security_settings_path) %>"><%= link_to 'Security', security_settings_path %></li>
   </ul>
 </nav>

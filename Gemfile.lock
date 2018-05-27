@@ -61,6 +61,7 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    browser_sniffer (1.0.13)
     builder (3.2.3)
     byebug (10.0.2)
     coderay (1.1.2)
@@ -266,6 +267,7 @@ DEPENDENCIES
   better_html
   bootsnap (>= 1.1.0)
   bootstrap-sass (= 3.3.7)
+  browser_sniffer
   byebug
   coffee-rails (~> 4.2)
   font-awesome-rails

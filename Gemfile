@@ -37,6 +37,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'better_html'
 
+gem 'browser_sniffer'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

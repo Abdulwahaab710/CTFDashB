@@ -51,13 +51,11 @@ Rails.application.routes.draw do
   get '/settings', to: 'users#profile_settings', as: :profile_settings
   patch '/settings', to: 'users#edit'
 
-  # get '/settings/profile', to: 'users#profile_settings', as: :profile_settings
-  # patch '/settings/profile', to: 'users#edit'
-
   get '/settings/security', to: 'users#security_settings', as: :security_settings
   patch '/settings/security', to: 'users#change_password'
 
-  patch '/change_password', to: 'users#change_password'
+  get '/settings/sessions', to: 'sessions#users_sessions', as: :users_sessions
+  delete '/settings/sessions', to: 'sessions#destroy_session'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

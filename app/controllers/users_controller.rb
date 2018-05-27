@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   # before_action :user_logged_in?, except: %i[new create show]
   before_action :user_logged_in?, except: %i[new create]
-  layout 'settings_layout', only: %i[settings change_password]
+  layout 'settings_layout', only: %i[profile_settings security_settings change_password]
   include Sessions
 
   def create
@@ -30,7 +30,16 @@ class UsersController < ApplicationController
     render :settings unless performed?
   end
 
-  def settings
+  # def settings
+  #   @user = current_user
+  #   render :profile_settings
+  # end
+
+  def security_settings
+    @user = current_user
+  end
+
+  def profile_settings
     @user = current_user
   end
 
@@ -42,14 +51,14 @@ class UsersController < ApplicationController
       if current_user.save
         destroy_all_session_except_current_session session[:user_session_id]
         flash[:success] = 'Password has been successfully updated'
-        render :settings
+        render :security_settings
       else
         flash[:danger] = "Password confirmation doesn't match Password"
-        render :settings
+        render :security_settings
       end
     else
       flash[:danger] = 'Invalid password'
-      render :settings
+      render :security_settings
     end
   end
 

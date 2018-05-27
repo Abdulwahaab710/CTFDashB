@@ -1,0 +1,12 @@
+<nav class="col-md-3 sidebar">
+  <!-- Sidebar Header -->
+  <div class="sidebar-header">
+    <h3>Settings</h3>
+  </div>
+
+  <!-- Sidebar Links -->
+  <ul>
+    <li class="<%= current_class?(profile_settings_path) %>"><%= link_to 'Profile', profile_settings_path %></li>
+    <li class="<%= current_class?(security_settings_path) %>"><%= link_to 'Security', security_settings_path %></li>
+  </ul>
+</nav>

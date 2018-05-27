@@ -18,42 +18,46 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @challenge = Challenge.new(challenge_params)
+    @challenge = challenge
     redirect_to [@challenge.category, @challenge] if @challenge.save
     render :new unless performed?
   end
 
   def edit
-    @challenge = Challenge.find_by!(id: params[:id])
+    @challenge = challenge
   end
 
   def update
-    @challenge = Challenge.find_by!(id: params[:id])
+    @challenge = challenge
     render :edit unless @challenge.update(challenge_params)
     redirect_to [@challenge.category, @challenge] unless performed?
   end
 
   def show
-    @challenge = Challenge.find_by!(id: params[:id])
+    @challenge = challenge
   end
 
   def destroy
-    Challenge.find_by!(id: params[:id])&.destroy
+    challenge&.destroy
   end
 
   def activate
-    @challenge = Challenge.find_by!(id: params[:id])
+    @challenge = challenge
     @challenge.active = true
     redirect_to action: :index if @challenge.save!
   end
 
   def deactivate
-    @challenge = Challenge.find_by!(id: params[:id])
+    @challenge = challenge
     @challenge.active = false
     redirect_to action: :index if @challenge.save!
   end
 
   private
+
+  def challenge
+    Category.find_by!(id: params[:category_id]).challenges.find_by(id: params[:id])
+  end
 
   def fetch_categories
     @categories = Category.all

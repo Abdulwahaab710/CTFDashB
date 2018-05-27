@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     resources :challenges, only: %i[new create index], as: :challenge
   end
 
+  resources :password_resets,     only: [:new, :create, :edit, :update]
+
+
   get '/challenges', to: 'challenges#index', as: :all_challenges
 
   get '/teams/new', to: 'teams#new', as: :new_team
@@ -45,9 +48,14 @@ Rails.application.routes.draw do
   get '/users/:id', to: 'users#show', as: :user
   delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
 
-  get '/settings', to: 'users#settings', as: :settings
+  get '/settings', to: 'users#profile_settings', as: :profile_settings
   patch '/settings', to: 'users#edit'
-  patch '/change_password', to: 'users#change_password'
+
+  # get '/settings/profile', to: 'users#profile_settings', as: :profile_settings
+  # patch '/settings/profile', to: 'users#edit'
+
+  get '/settings/security', to: 'users#security_settings', as: :security_settings
+  patch '/settings/security', to: 'users#change_password'
 
   patch '/change_password', to: 'users#change_password'
 

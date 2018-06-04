@@ -33,12 +33,13 @@ class SessionsController < ApplicationController
 
   def users_sessions
     @current_session = session[:user_session_id]
-    @sessions = current_user.sessions.map { |s| {
-      user_agent: BrowserSniffer.new(s.browser),
-      ip_address: s.ip_address,
-      id: s.id
-    }
-    }
+    @sessions = current_user.sessions.map do |s|
+      {
+        user_agent: BrowserSniffer.new(s.browser),
+        ip_address: s.ip_address,
+        id: s.id
+      }
+    end
   end
 
   def destroy_session

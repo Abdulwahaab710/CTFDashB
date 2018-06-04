@@ -8,4 +8,8 @@ module CtfSettingsHelper
   def ctf_logo
     CtfSetting.find_by(key: 'ctf_logo')&.value
   end
+
+  def browser_icon(browser)
+    "#{browser}.svg"
+  end
 end

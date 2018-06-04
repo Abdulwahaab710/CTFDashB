@@ -2,6 +2,8 @@
 
 # Session controller
 class SessionsController < ApplicationController
+  skip_before_action :user_logged_in?, only: %i[new create]
+  layout 'settings_layout', only: %i[users_sessions destroy_session]
   include Sessions
 
   def new
@@ -27,6 +29,17 @@ class SessionsController < ApplicationController
     @current_session.destroy
     session[:session_id] = nil
     redirect_to root_path
+  end
+
+  def users_sessions
+    @current_session = session[:user_session_id]
+    @sessions = current_user.sessions.map do |s|
+      {
+        user_agent: BrowserSniffer.new(s.browser),
+        ip_address: s.ip_address,
+        id: s.id
+      }
+    end
   end
 
   def destroy_session

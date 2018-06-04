@@ -37,6 +37,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'better_html'
 
+gem 'browser_sniffer'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -47,8 +49,8 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'rubocop'
-  gem 'sqlite3'
   gem 'simplecov', require: false, group: :test
+  gem 'sqlite3'
 end
 
 group :development do

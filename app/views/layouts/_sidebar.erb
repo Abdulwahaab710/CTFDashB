@@ -12,5 +12,8 @@
     <%= link_to security_settings_path do %>
       <li class="<%= current_class?(security_settings_path) %>">Security</li>
     <% end %>
+    <%= link_to user_sessions_path do %>
+      <li class="<%= current_class?(user_sessions_path) %>">Sessions</li>
+    <% end %>
   </ul>
 </nav>

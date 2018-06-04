@@ -2,6 +2,7 @@
 
 # Session controller
 class SessionsController < ApplicationController
+  skip_before_action :user_logged_in?, only: %i[new create]
   layout 'settings_layout', only: %i[users_sessions destroy_session]
   include Sessions
 

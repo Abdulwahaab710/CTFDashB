@@ -80,6 +80,21 @@ html, body, .container-fluid, .row {
   }
 }
 
+@media (max-width: 991.9px) {
+  .sidebar {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: block;
+    max-width: 116px;
+  }
+  .content {
+    padding-left: 116px;
+  }
+}
+
 .row-settings {
   display: flex;
   flex-direction: column;

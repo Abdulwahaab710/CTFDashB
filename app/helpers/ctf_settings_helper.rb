@@ -10,6 +10,13 @@ module CtfSettingsHelper
   end
 
   def browser_icon(browser)
+    return 'browser.png' unless asset_exists? "#{browser}.svg"
     "#{browser}.svg"
+  end
+
+  private
+
+  def asset_exists?(asset)
+    !!Rails.application.assets.resolve(asset)
   end
 end

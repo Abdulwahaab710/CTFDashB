@@ -11,7 +11,8 @@
     <%= link_to 'Logout',
       user_session_path(_session[:id]),
       method: :delete,
-      class: 'btn btn-danger'
+      remote: true,
+      class: 'btn btn-danger logout-btn'
       %>
   </div>
 <% end %>

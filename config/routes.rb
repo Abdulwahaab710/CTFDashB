@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
+  post '/category/:category_id/challenges/:id/submit', to: 'submissions#create', as: :submit_flag
 
   get '/challenges', to: 'challenges#index', as: :all_challenges
 

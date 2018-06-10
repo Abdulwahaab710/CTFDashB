@@ -34,6 +34,7 @@ class ChallengesController < ApplicationController
   end
 
   def show
+    @challenge_submission = Submission.new
     @challenge = challenge
   end
 

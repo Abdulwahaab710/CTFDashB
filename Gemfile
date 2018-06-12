@@ -39,6 +39,8 @@ gem 'better_html'
 
 gem 'browser_sniffer'
 
+gem 'redcarpet'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

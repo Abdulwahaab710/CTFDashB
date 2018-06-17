@@ -46,10 +46,10 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
 
   get '/users/:id', to: 'users#show', as: :user
-  delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
+  # delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
 
   get '/settings', to: 'users#profile_settings', as: :profile_settings
-  patch '/settings', to: 'users#edit'
+  patch '/settings', to: 'users#update'
 
   get '/settings/security', to: 'users#security_settings', as: :security_settings
   patch '/settings/security', to: 'users#change_password'

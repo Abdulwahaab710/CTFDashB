@@ -17,8 +17,7 @@ module CtfSettingsHelper
   private
 
   def asset_exists?(asset)
-    !!Rails.application.assets.resolve(asset)
-  rescue Sprockets::FileNotFound
-    false
+    return !!Rails.application.precompiled_assets.include?(asset) if Rails.configuration.assets.compile
+    !!Rails.application.assets_manifest.assets[asset].present?
   end
 end

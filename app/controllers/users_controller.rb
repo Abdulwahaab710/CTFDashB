@@ -8,9 +8,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    render :new unless @user.save
+    render :new, status: :bad_request unless @user.save
     flash[:success] = 'Welcome to the CTFDashB, your account has been create'
     redirect_to join_team_path unless performed?
+
+  rescue ActionController::ParameterMissing
+    flash[:error] = "Required parameters are missing."
+    render :new, status: :bad_request
   end
 
   def new

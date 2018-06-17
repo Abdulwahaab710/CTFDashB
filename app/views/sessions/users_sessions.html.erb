@@ -1,7 +1,7 @@
 <h1>Sessions</h1>
 <% @sessions&.each do |_session| %>
   <div class='col-xs-4 col-sm-2 panel' style='text-align: center; margin-left: 20px; padding: 20px; height: 169px;'>
-    <%= image_tag browser_icon(_session[:user_agent].browser), width: '50' %>
+    <%= image_tag browser_icon(_session[:user_agent]&.browser), width: '50' %>
     <br>
     <%= _session[:ip_address] %>
     <% if @current_session == _session[:id] %>

@@ -55,6 +55,9 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET show' do
     context 'when the user exists' do
       before(:each) do
+        user = FactoryBot.create(:user)
+        FactoryBot.create(:session, user: user)
+        login_as(user)
         get :show, params: { id: 'sherlock_holmes' }
       end
 

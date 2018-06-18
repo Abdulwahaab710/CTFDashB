@@ -68,37 +68,37 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the user does not exist' do
+      before(:each) do
+        get :show, params: { id: 'sherlock_holmes' }
+      end
 
+      it 'redirects to the login page' do
+        expect(response).to redirect_to login_path
+      end
     end
   end
 
   describe 'GET edit' do
     context 'when the user is logged in' do
-
     end
 
     context 'when the user is not logged in' do
-
     end
   end
 
   describe 'PATCH edit' do
     context 'when the user is logged in' do
-
     end
 
     context 'when the user is not logged in' do
-
     end
   end
 
   describe 'GET settings' do
     context 'when the user is logged in' do
-
     end
 
     context 'when the user is  not logged in' do
-
     end
   end
 

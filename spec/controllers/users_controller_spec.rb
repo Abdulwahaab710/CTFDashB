@@ -107,6 +107,10 @@ RSpec.describe UsersController, type: :controller do
 
   private
 
+  def user
+    @user ||= FactoryBot.create(:user)
+  end
+
   def user_params
     {
       user: {

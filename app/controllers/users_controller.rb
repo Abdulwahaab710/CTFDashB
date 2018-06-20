@@ -8,9 +8,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    render :new unless @user.save
+    render :new, status: :bad_request unless @user.save
     flash[:success] = 'Welcome to the CTFDashB, your account has been create'
     redirect_to join_team_path unless performed?
+  rescue ActionController::ParameterMissing
+    flash[:error] = 'Required parameters are missing.'
+    render :new, status: :bad_request
   end
 
   def new
@@ -22,9 +25,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by!(username: params[:id])
     redirect_to join_team_path if @user&.team&.nil? && logged_in_user?(@user) && !@user.organizer?
+  rescue ActiveRecord::RecordNotFound
+    render file: Rails.root.join('public', '404.html'), status: :not_found
   end
 
-  def edit
+  def update
     @user = current_user
     redirect_to @user if @user.update(user_params_without_password)
     render :settings unless performed?
@@ -54,7 +59,7 @@ class UsersController < ApplicationController
         render :security_settings
       else
         flash[:danger] = "Password confirmation doesn't match Password"
-        render :security_settings
+        return render :security_settings
       end
     else
       flash[:danger] = 'Invalid password'

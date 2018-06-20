@@ -53,9 +53,8 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET show' do
-    context 'when the user exists' do
+    context 'when the user is logged in and the user_id exists' do
       before(:each) do
-        user = FactoryBot.create(:user)
         FactoryBot.create(:session, user: user)
         login_as(user)
         get :show, params: { id: 'sherlock_holmes' }
@@ -67,6 +66,18 @@ RSpec.describe UsersController, type: :controller do
 
       it 'renders the show view' do
         expect(response).to render_template('show')
+      end
+    end
+
+    context 'when the user is logged in and the user_id does not exists' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+        get :show, params: { id: 'sherlock_holmes2' }
+      end
+
+      it 'returns success' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -83,25 +94,52 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'GET edit' do
     context 'when the user is logged in' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+        get :profile_settings
+      end
+      it 'returns success' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'renders the show view' do
+        expect(response).to render_template('profile_settings')
+      end
+
+      it 'returns the users record' do
+        expect(assigns(:user)).to eq(user)
+      end
     end
 
     context 'when the user is not logged in' do
+      before(:each) do
+        get :profile_settings
+      end
+      it 'redirects to the login page' do
+        expect(response).to redirect_to login_path
+      end
     end
   end
 
-  describe 'PATCH edit' do
+  describe 'PATCH update' do
     context 'when the user is logged in' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+      end
+
+      it 'updates the user' do
+        patch :update, params: { user: { email: 'helloworld@hi.com' } }
+        expect(User.first.email).to eq('helloworld@hi.com')
+      end
     end
 
     context 'when the user is not logged in' do
-    end
-  end
-
-  describe 'GET settings' do
-    context 'when the user is logged in' do
-    end
-
-    context 'when the user is  not logged in' do
+      it 'redirects to the login page' do
+        patch :update
+        expect(response).to redirect_to login_path
+      end
     end
   end
 

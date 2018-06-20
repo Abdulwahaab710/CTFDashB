@@ -59,7 +59,7 @@ class UsersController < ApplicationController
         render :security_settings
       else
         flash[:danger] = "Password confirmation doesn't match Password"
-        render :security_settings
+        return render :security_settings
       end
     else
       flash[:danger] = 'Invalid password'

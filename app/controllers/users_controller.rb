@@ -51,19 +51,17 @@ class UsersController < ApplicationController
   def change_password
     @user = current_user
     if current_user.authenticate(params[:current_password])
-      current_user.password = params[:new_password]
-      current_user.password_confirmation = params[:password_confirmation]
-      if current_user.save
+      if current_user.update(password_params)
         destroy_all_session_except_current_session session[:user_session_id]
         flash[:success] = 'Password has been successfully updated'
         render :security_settings
       else
         flash[:danger] = "Password confirmation doesn't match Password"
-        return render :security_settings
+        return render :security_settings, status: :unprocessable_entity
       end
     else
       flash[:danger] = 'Invalid password'
-      render :security_settings
+      render :security_settings, status: :unprocessable_entity
     end
   end
 
@@ -83,7 +81,7 @@ class UsersController < ApplicationController
 
   def password_params
     params.permit(
-      :new_password,
+      :password,
       :password_confirmation
     )
   end

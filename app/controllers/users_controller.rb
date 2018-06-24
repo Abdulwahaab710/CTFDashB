@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     redirect_to @user if @user.update(user_params_without_password)
-    render :settings unless performed?
+    render :profile_settings unless performed?
   end
 
   # def settings

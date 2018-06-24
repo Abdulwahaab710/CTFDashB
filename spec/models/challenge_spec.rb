@@ -10,7 +10,7 @@ RSpec.describe Challenge, type: :model do
       points: 100,
       max_tries: 99,
       link: 'https://somedomain.com/path',
-      description: 'Finish the challenge to get the flag',
+      description: '# Finish the challenge to get the flag',
       active: false,
       flag: 'flag{hello world}',
       category: @category
@@ -40,5 +40,11 @@ RSpec.describe Challenge, type: :model do
     #     ).valid?
     #   ).to be false
     # end
+  end
+
+  context 'when calling to_md' do
+    it 'converts markdown to html' do
+      expect(@challenge.description.to_md).to eq("<h1>Finish the challenge to get the flag</h1>\n")
+    end
   end
 end

@@ -16,8 +16,15 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
   validates :password,
             presence: true,
-            length: { minimum: 6 },
             on: :create
+  validates :password,
+            confirmation: true
+
+  validates :password_confirmation,
+            presence: true,
+            length: { minimum: 6 },
+            if: ->(u) { !u.password.nil? }
+
   has_secure_password
   belongs_to :team, optional: true
   has_many :sessions

@@ -8,13 +8,15 @@ RSpec.describe User, type: :model do
       name: 'James bond',
       email: 'James.bond@mi6.gov',
       username: '007',
-      password: 'my amazing password'
+      password: 'my amazing password',
+      password_confirmation: 'my amazing password'
     )
     @admin = User.create!(
       name: 'James bond boss',
       email: 'theJames.bond.boss@mi6.gov',
       username: '001',
       password: 'my amazing password',
+      password_confirmation: 'my amazing password',
       admin: true,
       organizer: true
     )
@@ -31,9 +33,40 @@ RSpec.describe User, type: :model do
           name: 'James bond',
           email: 'James.bond2@mi6.gov',
           username: '007',
+          password: 'my amazing password',
+          password_confirmation: 'my amazing password'
+        ).valid?
+      ).to eq false
+    end
+
+    it 'enforces the presences of users password' do
+      expect(
+        User.new(
+          name: 'James bond',
+          email: 'James.bond2@mi6.gov',
+          username: '008'
+        ).valid?
+      ).to eq false
+    end
+
+    it 'enforces the presences of users password_confirmation' do
+      expect(
+        User.new(
+          name: 'James bond',
+          email: 'James.bond2@mi6.gov',
+          username: '008',
           password: 'my amazing password'
         ).valid?
       ).to eq false
+      expect(
+        User.new(
+          name: 'James bond',
+          email: 'James.bond2@mi6.gov',
+          username: '008',
+          password: 'my amazing password',
+          password_confirmation: 'my amazing password'
+        ).valid?
+      ).to eq true
     end
 
     it 'enforces uniqueness of users email' do
@@ -42,7 +75,8 @@ RSpec.describe User, type: :model do
           name: 'James bond',
           email: 'James.bond@mi6.gov',
           username: '008',
-          password: 'my amazing password'
+          password: 'my amazing password',
+          password_confirmation: 'my amazing password'
         ).valid?
       ).to eq false
     end

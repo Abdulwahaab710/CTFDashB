@@ -13,7 +13,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'returns success' do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'returns success' do
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
 
       it 'renders the show view' do
@@ -100,7 +100,7 @@ RSpec.describe UsersController, type: :controller do
         get :profile_settings
       end
       it 'returns success' do
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
 
       it 'renders the show view' do
@@ -138,6 +138,113 @@ RSpec.describe UsersController, type: :controller do
     context 'when the user is not logged in' do
       it 'redirects to the login page' do
         patch :update
+        expect(response).to redirect_to login_path
+      end
+    end
+  end
+
+  describe 'GET security_settings' do
+    context 'when the user is logged in' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+        get :security_settings
+      end
+      it 'returns success' do
+        expect(response).to be_successful
+      end
+
+      it 'renders the show view' do
+        expect(response).to render_template('security_settings')
+      end
+
+      it 'returns the users record' do
+        expect(assigns(:user)).to eq(user)
+      end
+    end
+
+    context 'when the user is not logged in' do
+      before(:each) do
+        get :security_settings
+      end
+      it 'redirects to the login page' do
+        expect(response).to redirect_to login_path
+      end
+    end
+  end
+
+  describe 'PATCH change_password' do
+    context 'when the password is correct' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+      end
+
+      it 'updates the user' do
+        patch :change_password, params: {
+          current_password: 'sher123',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+        expect(response).to be_successful
+      end
+
+      it 'flashes with Password has been successfully updated' do
+        patch :change_password, params: {
+          current_password: 'sher123',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+        expect(flash[:success]).to eq('Password has been successfully updated')
+      end
+
+      it 'returns status code unprocessable_entity' do
+        patch :change_password, params: {
+          current_password: 'sher123',
+          password: 'password123',
+          password_confirmation: 'password'
+        }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "flashes with Password confirmation doesn't match Password" do
+        patch :change_password, params: {
+          current_password: 'sher123',
+          password: 'password123',
+          password_confirmation: 'password'
+        }
+        expect(flash[:danger]).to eq("Password confirmation doesn't match Password")
+      end
+    end
+
+    context 'when the password is incorrect' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+      end
+
+      it 'returns status code unprocessable_entity' do
+        patch :change_password, params: {
+          current_password: 'password123',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'has a flash invalid password' do
+        patch :change_password, params: {
+          current_password: 'password123',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+        expect(flash[:danger]).to eq('Invalid password')
+      end
+    end
+
+    context 'when the user is not logged in' do
+      it 'redirects to the login page' do
+        patch :change_password
         expect(response).to redirect_to login_path
       end
     end

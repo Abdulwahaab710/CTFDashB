@@ -8,7 +8,8 @@ RSpec.describe Session, type: :model do
       name: 'James bond',
       email: 'James.bond@mi6.gov',
       username: '007',
-      password: 'my amazing password'
+      password: 'my amazing password',
+      password_confirmation: 'my amazing password'
     )
 
     @session = Session.create!(

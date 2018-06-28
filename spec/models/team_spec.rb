@@ -29,11 +29,11 @@ RSpec.describe Team, type: :model do
   def create_users
     @j007 = User.create!(
       name: 'James bond', email: 'James.bond@mi6.gov', username: '007',
-      password: 'my amazing password', team: @team
+      password: 'my amazing password', password_confirmation: 'my amazing password', team: @team
     )
     @j008 = User.create!(
       name: 'James bond', email: 'James.bond2@mi6.gov', username: '008',
-      password: 'my amazing password', team: @team
+      password: 'my amazing password', password_confirmation: 'my amazing password', team: @team
     )
   end
 end

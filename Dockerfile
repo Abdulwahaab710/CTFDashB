@@ -12,4 +12,4 @@ COPY Gemfile* ./
 RUN bundle install
 COPY . .
 
-CMD bundle exec rails s -p 8080
+CMD bundle exec puma -C config/puma.rb

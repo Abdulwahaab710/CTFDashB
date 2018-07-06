@@ -12,4 +12,4 @@ COPY Gemfile* ./
 RUN bundle install
 COPY . .
 
-CMD bundle exec unicorn -c ./config/unicorn.rb
+CMD bundle exec rails s -p 8080

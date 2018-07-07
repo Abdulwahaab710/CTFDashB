@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 2018_06_10_000220) do
 
   create_table "submissions", force: :cascade do |t|
     t.string "flag"
-    t.integer "team_id"
-    t.integer "user_id"
+    t.bigint "team_id"
+    t.bigint "user_id"
     t.string "submission_hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -107,5 +107,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_000220) do
 
   add_foreign_key "challenges", "categories"
   add_foreign_key "sessions", "users"
+  add_foreign_key "submissions", "teams"
+  add_foreign_key "submissions", "users"
   add_foreign_key "users", "teams"
 end

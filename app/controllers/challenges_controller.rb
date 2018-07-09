@@ -57,7 +57,7 @@ class ChallengesController < ApplicationController
   private
 
   def challenge
-    Category.find_by!(id: params[:category_id]).challenges.find_by(id: params[:id])
+    Category.find_by!(id: params[:category_id]).challenges.find_by!(id: params[:id])
   end
 
   def fetch_categories

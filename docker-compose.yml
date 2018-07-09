@@ -19,6 +19,8 @@ services:
       - .:/usr/src/app
     depends_on:
       - db
+    ports:
+      - "3000:3000"
   nginx:
     image: nginx
     links:

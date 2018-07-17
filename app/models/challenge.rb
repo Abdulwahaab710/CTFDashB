@@ -6,6 +6,9 @@ class Challenge < ApplicationRecord
   validates :title, :description, :points, :max_tries, :category, :flag, presence: true
   validates :points, :max_tries, numericality: { greater_than_or_equal_to: 1 }
   validates :flag, uniqueness: true
+  validate :flag_format, on: :create
+
+  before_save { |challenge| challenge.flag = BCrypt::Password.create(flag) }
 
   class String < SimpleDelegator
     def to_md
@@ -19,11 +22,15 @@ class Challenge < ApplicationRecord
     end
   end
 
-  def flag=(flag)
-    self[:flag] = BCrypt::Password.create(flag)
-  end
-
   def description
     String.new(self[:description])
+  end
+
+  private
+
+  def flag_format
+    flag_regex = CtfSetting.last.value
+    return unless flag_regex
+    errors.add(:flag, 'Invalid flag format.') unless self[:flag] =~ Regexp.new(flag_regex)
   end
 end

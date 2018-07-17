@@ -26,6 +26,21 @@ RSpec.describe Challenge, type: :model do
       expect(@category).to eq(Challenge.last.category)
     end
 
+    it 'validates flag format before save' do
+      expect(
+        Challenge.new(
+          title: 'sqli baby',
+          points: 100,
+          max_tries: 99,
+          link: 'https://somedomain.com/path',
+          description: '# Finish the challenge to get the flag',
+          active: false,
+          flag: 'flag(hello world)',
+          category: @category
+        )
+      ).to_not be_valid
+    end
+
     # it 'enforces uniqueness of Challenge title' do
     #   expect(
     #     Challenge.create(

@@ -29,7 +29,7 @@ class Challenge < ApplicationRecord
   private
 
   def flag_format
-    flag_regex = CtfSetting.last.value
+    flag_regex = CtfSetting.find_by(key: 'flag_regex')&.value
     return unless flag_regex
     errors.add(:flag, 'Invalid flag format.') unless self[:flag] =~ Regexp.new(flag_regex)
   end

@@ -22,7 +22,8 @@ defaults = {
   settings: [
     { key: 'ctf_name', value: 'CTF' },
     { key: 'ctf_logo', value: '/logo.svg' },
-    { key: 'team_size', value: '4' }
+    { key: 'team_size', value: '4' },
+    { key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}' }
   ]
 }
 defaults[:settings].each do |setting|

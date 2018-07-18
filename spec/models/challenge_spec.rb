@@ -12,9 +12,10 @@ RSpec.describe Challenge, type: :model do
       link: 'https://somedomain.com/path',
       description: '# Finish the challenge to get the flag',
       active: false,
-      flag: 'flag{hello world}',
+      flag: 'flag{helloworld}',
       category: @category
     )
+    CtfSetting.create(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}')
   end
 
   context 'when create a challenge' do
@@ -24,6 +25,21 @@ RSpec.describe Challenge, type: :model do
 
     it 'belongs to a category' do
       expect(@category).to eq(Challenge.last.category)
+    end
+
+    it 'validates flag format before save' do
+      expect(
+        Challenge.new(
+          title: 'XSS baby',
+          points: 100,
+          max_tries: 99,
+          link: 'https://somedomain.com/path',
+          description: '# Finish the challenge to get the flag',
+          active: false,
+          flag: 'flag(hello world)',
+          category: @category
+        )
+      ).to_not be_valid
     end
 
     # it 'enforces uniqueness of Challenge title' do

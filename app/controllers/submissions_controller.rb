@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 class SubmissionsController < ApplicationController
+  include Submissions
+
   def create
     @challenge = Category.find_by(id: params[:category_id]).challenges.find_by(id: params[:id])
     return head 404 if @challenge.nil?
-    verify_flag_format
+    return invalid_flag unless validate_flag_format(submitted_flag)
     add_submission
     verify_flag
   end
 
   private
-
-  def verify_flag_format
-    return invalid_flag unless submitted_flag =~ CtfSetting.find_by(key: 'flag_regex')
-  end
 
   def verify_flag
     flag = BCrypt::Password.new(@challenge&.flag)
@@ -43,22 +41,22 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  def submitted_flag
-    params.require(:submission).permit(:flag)[:flag]
-  end
-
   def build_submission_signature
     salt = Rails.application.secrets.submission_salt
     Digest::SHA256.hexdigest("#{@challenge.id}#{current_user&.team&.id}#{current_user.id}#{submitted_flag}#{salt}")
   end
 
   def add_submission
-    @submission = Submission.create!(
+    @submission = Submission.find_or_create_by!(
       team: current_user.team,
       user: current_user,
       category: @challenge.category,
       challenge: @challenge,
       submission_hash: build_submission_signature
     )
+  end
+
+  def submitted_flag
+    params.require(:submission).permit(:flag)[:flag]
   end
 end

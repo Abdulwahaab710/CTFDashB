@@ -1,0 +1,4 @@
+$('.alert').removeClass('alert-success')
+$('.alert').addClass('alert-danger')
+$('.alert').text('<%= flash[:danger] %>')
+$('.alert').fadeIn()

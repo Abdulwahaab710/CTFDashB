@@ -18,6 +18,41 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns success' do
         expect(response).to be_successful
+        expect(flash[:success]).to eq 'hello'
+      end
+    end
+
+    context 'when the user submit an invalid flag' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        @challenge = FactoryBot.create(:challenge)
+        login_as(user)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{INVALID_FLAG}' }
+        }, format: :js
+      end
+
+      it 'returns error' do
+        expect(flash[:danger]).to eq('Flag is incorrect')
+      end
+    end
+
+    context 'when the user submit an invalid flag format' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        @challenge = FactoryBot.create(:challenge)
+        login_as(user)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{invalid}flag format' }
+        }, format: :js
+      end
+
+      it 'returns error if the flag format is invalid' do
+        expect(flash[:danger]).to eq('Invalid flag format')
       end
     end
   end

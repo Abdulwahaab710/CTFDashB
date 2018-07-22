@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
-    <h3 class="panel-title"><%= link_to ctf_challenge.title, [ctf_challenge&.category, ctf_challenge] %></h3>
+    <h3 class="panel-title"><%= link_to ctf_challenge&.title, [ctf_challenge&.category, ctf_challenge] %></h3>
     <% if current_user&.organizer? %>
       <div>
         <%= link_to 'Edit',

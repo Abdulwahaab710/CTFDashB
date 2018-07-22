@@ -3,7 +3,7 @@
   <%= form_tag do %>
     <div id='form-body'>
       <% @ctf_settings.each do |ctf_setting| %>
-        <%= text_field_tag "key[]",ctf_setting.key, style: 'width: 45%; text-align: center;'  %> <%= text_field_tag "value[]", ctf_setting.value, style: 'width: 45%; text-align: center;' %> <%= fa_icon 'trash', class: 'btn btn-danger'  %>
+        <%= label_tag "key[]",ctf_setting.key, style: 'width: 45%; text-align: center;'  %> <%= text_field_tag "value[]", ctf_setting.value, style: 'width: 45%; text-align: center;' %> <%= fa_icon 'trash', class: 'btn btn-danger'  %>
       <% end %>
     </div>
     <div>

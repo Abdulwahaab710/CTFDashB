@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_14_233101) do
+ActiveRecord::Schema.define(version: 2018_07_07_120510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,22 @@ ActiveRecord::Schema.define(version: 2018_05_14_233101) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.string "flag"
+    t.bigint "team_id"
+    t.bigint "user_id"
+    t.string "submission_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "valid_submission"
+    t.bigint "category_id"
+    t.bigint "challenge_id"
+    t.index ["category_id"], name: "index_submissions_on_category_id"
+    t.index ["challenge_id"], name: "index_submissions_on_challenge_id"
+    t.index ["team_id"], name: "index_submissions_on_team_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "teams", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -96,5 +112,9 @@ ActiveRecord::Schema.define(version: 2018_05_14_233101) do
 
   add_foreign_key "challenges", "categories"
   add_foreign_key "sessions", "users"
+  add_foreign_key "submissions", "categories"
+  add_foreign_key "submissions", "challenges"
+  add_foreign_key "submissions", "teams"
+  add_foreign_key "submissions", "users"
   add_foreign_key "users", "teams"
 end

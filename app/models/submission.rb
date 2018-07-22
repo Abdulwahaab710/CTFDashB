@@ -7,5 +7,5 @@ class Submission < ApplicationRecord
   belongs_to :category
 
   validates :submission_hash, presence: true, uniqueness: true
-  validates :user, :team, :valid_submission, :challenge, :category, presence: true
+  validates :user, :team, :challenge, :category, presence: true
 end

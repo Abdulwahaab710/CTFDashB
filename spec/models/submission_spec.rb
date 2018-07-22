@@ -72,19 +72,6 @@ RSpec.describe Submission, type: :model do
       ).to_not be_valid
     end
 
-    it 'is invalid without a valid_submission boolean' do
-      expect(
-        Submission.new(
-          flag: 'flag{someflag}',
-          team: @user.team,
-          user: @user,
-          submission_hash: 'somehash',
-          category: @challenge.category,
-          challenge: @challenge
-        )
-      ).to_not be_valid
-    end
-
     it 'is invalid without a challenge' do
       expect(
         Submission.new(

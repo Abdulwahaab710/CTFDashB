@@ -4,6 +4,10 @@ require 'rails_helper'
 
 RSpec.describe SubmissionsController, type: :controller do
   describe 'POST create' do
+    before :each do
+      CtfSetting.create(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}')
+    end
+
     context 'when the user is logged in and the challenges exits' do
       before(:each) do
         FactoryBot.create(:session, user: user)
@@ -18,7 +22,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns success' do
         expect(response).to be_successful
-        expect(flash[:success]).to eq 'hello'
+        expect(flash[:success]).to eq 'Woohoo, you have successfully submitted your flag'
       end
     end
 

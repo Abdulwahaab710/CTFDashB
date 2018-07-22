@@ -79,6 +79,11 @@ ActiveRecord::Schema.define(version: 2018_07_07_120510) do
     t.string "submission_hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "valid_submission"
+    t.bigint "category_id"
+    t.bigint "challenge_id"
+    t.index ["category_id"], name: "index_submissions_on_category_id"
+    t.index ["challenge_id"], name: "index_submissions_on_challenge_id"
     t.index ["team_id"], name: "index_submissions_on_team_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
@@ -107,6 +112,8 @@ ActiveRecord::Schema.define(version: 2018_07_07_120510) do
 
   add_foreign_key "challenges", "categories"
   add_foreign_key "sessions", "users"
+  add_foreign_key "submissions", "categories"
+  add_foreign_key "submissions", "challenges"
   add_foreign_key "submissions", "teams"
   add_foreign_key "submissions", "users"
   add_foreign_key "users", "teams"

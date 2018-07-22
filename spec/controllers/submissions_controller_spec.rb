@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe SubmissionsController, type: :controller do
   describe 'POST create' do
     before :each do
-      CtfSetting.create(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}')
+      @challenge = FactoryBot.create(:challenge)
+      FactoryBot.create(:flag_regex)
     end
 
     context 'when the user is logged in and the challenges exits' do
       before(:each) do
         FactoryBot.create(:session, user: user)
-        @challenge = FactoryBot.create(:challenge)
         login_as(user)
         post :create, params: {
           category_id: @challenge.category_id,
@@ -29,13 +29,16 @@ RSpec.describe SubmissionsController, type: :controller do
     context 'when the user submit an invalid flag' do
       before(:each) do
         FactoryBot.create(:session, user: user)
-        @challenge = FactoryBot.create(:challenge)
         login_as(user)
         post :create, params: {
           category_id: @challenge.category_id,
           id: @challenge.id,
           submission: { flag: 'flag{INVALID_FLAG}' }
         }, format: :js
+      end
+
+      it 'returns 422' do
+        expect(response).to have_http_status(422)
       end
 
       it 'returns error' do
@@ -46,13 +49,16 @@ RSpec.describe SubmissionsController, type: :controller do
     context 'when the user submit an invalid flag format' do
       before(:each) do
         FactoryBot.create(:session, user: user)
-        @challenge = FactoryBot.create(:challenge)
         login_as(user)
         post :create, params: {
           category_id: @challenge.category_id,
           id: @challenge.id,
-          submission: { flag: 'flag{invalid}flag format' }
+          submission: { flag: 'flag{invalid flag}format' }
         }, format: :js
+      end
+
+      it 'returns 422' do
+        expect(response).to have_http_status(422)
       end
 
       it 'returns error if the flag format is invalid' do

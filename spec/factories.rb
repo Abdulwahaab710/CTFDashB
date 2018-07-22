@@ -35,4 +35,9 @@ FactoryBot.define do
     max_tries 100
     active true
   end
+
+  factory :flag_regex, class: CtfSetting do
+    key 'flag_regex'
+    value 'flag{[A-Za-z0-9_]+}'
+  end
 end

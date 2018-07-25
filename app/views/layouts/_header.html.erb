@@ -34,6 +34,12 @@
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
             <li style="display: flex; align-items: center;">
+              <%= link_to(
+                (current_user.team.nil? ? 'Not enrolled' : current_user.team.score.to_i),
+                current_user.team
+              ) %>
+            </li>
+            <li style="display: flex; align-items: center;">
               <%= gravatar_for(current_user, size: 40, margin: 0) %> <%= link_to current_user.name, current_user %>
             </li>
             <li class="dropdown">

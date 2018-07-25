@@ -14,17 +14,24 @@ class SubmissionsController < ApplicationController
   private
 
   def verify_flag
-    flag = BCrypt::Password.new(@challenge&.flag)
     if flag == submitted_flag
-      flash[:success] = 'Woohoo, you have successfully submitted your flag'
-      @submission.update(valid_submission: true)
-      render_alert
+      successful_submission
     else
-      flash[:danger] = 'Flag is incorrect'
-      @submission.update(valid_submission: false, flag: submitted_flag)
-      respond_to do |f|
-        f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
-      end
+      unsuccessful_submission
+    end
+  end
+
+  def successful_submission
+    @submission.update(valid_submission: true)
+    update_score
+    render_alert
+  end
+
+  def unsuccessful_submission
+    flash[:danger] = 'Flag is incorrect'
+    @submission.update(valid_submission: false, flag: submitted_flag)
+    respond_to do |f|
+      f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
     end
   end
 
@@ -36,6 +43,7 @@ class SubmissionsController < ApplicationController
   end
 
   def render_alert
+    flash[:success] = 'Woohoo, you have successfully submitted your flag'
     respond_to do |f|
       f.js { render 'successful_submission', status: :ok }
     end
@@ -46,17 +54,16 @@ class SubmissionsController < ApplicationController
     Digest::SHA256.hexdigest("#{@challenge.id}#{current_user&.team&.id}#{submitted_flag}#{salt}")
   end
 
-  def add_submission
-    @submission = Submission.find_or_create_by!(
-      team: current_user.team,
-      user: current_user,
-      category: @challenge.category,
-      challenge: @challenge,
-      submission_hash: build_submission_signature
-    )
-  end
-
   def submitted_flag
     params.require(:submission).permit(:flag)[:flag]
+  end
+
+  def update_score
+    score = current_user.team.score.to_i + @challenge.points.to_i
+    current_user.team.update(score: score)
+  end
+
+  def flag
+    @flag ||= BCrypt::Password.new(@challenge&.flag)
   end
 end

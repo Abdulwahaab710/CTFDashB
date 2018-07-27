@@ -1,2 +1,18 @@
-<h1>Scores#index</h1>
-<p>Find me in app/views/scores/index.html.erb</p>
+<% if @teams.empty? %>
+  <h1>There are no teams</h1>
+<% else %>
+  <table style='width: 100%;'>
+    <thead>
+      <th>Team name</th>
+      <th>Score</th>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <td><%= team&.name %></td>
+          <td><%= team&.score %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

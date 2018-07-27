@@ -24,6 +24,10 @@ RSpec.describe SubmissionsController, type: :controller do
         expect(response).to be_successful
         expect(flash[:success]).to eq 'Woohoo, you have successfully submitted your flag'
       end
+
+      it 'adds the challenge points to the team score' do
+        expect(Team.find_by(id: user.team.id).score).to eq(100)
+      end
     end
 
     context 'when the user submit an invalid flag' do

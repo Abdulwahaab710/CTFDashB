@@ -2,7 +2,7 @@
 
 # Teams controller
 class TeamsController < ApplicationController
-  before_action :user_logged_in?
+  skip_before_action :user_logged_in?, only: :show
 
   def new
     redirect_to current_user.team unless current_user.team.nil?

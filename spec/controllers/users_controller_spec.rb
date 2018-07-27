@@ -86,8 +86,8 @@ RSpec.describe UsersController, type: :controller do
         get :show, params: { id: 'sherlock_holmes' }
       end
 
-      it 'redirects to the login page' do
-        expect(response).to redirect_to login_path
+      it 'returns 404' do
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

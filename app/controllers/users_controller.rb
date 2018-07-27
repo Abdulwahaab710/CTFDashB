@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   # before_action :user_logged_in?, except: %i[new create show]
-  skip_before_action :user_logged_in?, only: %i[new create]
+  skip_before_action :user_logged_in?, only: %i[new create show]
   layout 'settings_layout', only: %i[profile_settings security_settings change_password]
   include Sessions
 

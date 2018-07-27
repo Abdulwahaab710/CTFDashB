@@ -38,6 +38,7 @@ class User < ApplicationRecord
   end
 
   def to_param
-    username.to_s.parameterize
+    # TODO: fix username.to_s.parameterize ---> so that it doesn't make the letters lowercase
+    username.to_s
   end
 end

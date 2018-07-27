@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
   include Submissions
 
   def create
-    @challenge = Category.find_by(id: params[:category_id]).challenges.find_by(id: params[:id])
+    @challenge = challenge
     return head 404 if @challenge.nil?
     return invalid_flag unless validate_flag_format(submitted_flag)
     add_submission
@@ -65,5 +65,9 @@ class SubmissionsController < ApplicationController
 
   def flag
     @flag ||= BCrypt::Password.new(@challenge&.flag)
+  end
+
+  def challenge
+    Category.find_by(id: params[:category_id])&.challenges&.where(active: true)&.find_by(id: params[:id])
   end
 end

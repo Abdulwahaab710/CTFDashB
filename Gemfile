@@ -47,6 +47,7 @@ gem 'redcarpet'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'codecov', require: false, group: :test
   gem 'factory_bot_rails', '~> 4.0'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'

@@ -1,4 +1,6 @@
-# README [![Build Status](https://travis-ci.com/Abdulwahaab710/CTFDashB.svg?token=bpyKsaqf92KAMzyEvsW1&branch=master)](https://travis-ci.com/Abdulwahaab710/CTFDashB)
+# README 
+[![Build Status](https://travis-ci.com/Abdulwahaab710/CTFDashB.svg?token=bpyKsaqf92KAMzyEvsW1&branch=master)](https://travis-ci.com/Abdulwahaab710/CTFDashB)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Abdulwahaab710/CTFDashB&identifier=107459121)](https://dependabot.com)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

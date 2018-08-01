@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :user do
     name 'Sherlock Holmes'
     email 'sherlock_holmes@21baker.street'
-    username 'sherlock_holmes'
+    username '5her10ck_h01mes'
     password 'sher123'
     password_confirmation 'sher123'
     team

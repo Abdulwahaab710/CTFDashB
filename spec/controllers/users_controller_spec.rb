@@ -57,7 +57,7 @@ RSpec.describe UsersController, type: :controller do
       before(:each) do
         FactoryBot.create(:session, user: user)
         login_as(user)
-        get :show, params: { id: 'sherlock_holmes' }
+        get :show, params: { id: user.username }
       end
 
       it 'returns success' do

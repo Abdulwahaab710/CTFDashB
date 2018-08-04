@@ -6,6 +6,7 @@ AllCops:
     - Guardfile
     - bin/**
     - vendor/**.**
+    - spec/factories.rb
 Rails:
   Enabled: true
 Documentation:

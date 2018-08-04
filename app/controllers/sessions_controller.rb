@@ -12,14 +12,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # TODO: ALLOW USERS TO LOGIN VIA USERNAME OR EMAIL
-    user = User.find_by(email: params[:session][:email].downcase)
+    user = find_user
     if user&.authenticate(params[:session][:password])
       log_in user
       redirect_back_or user
     else
       flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      render 'new', status: :unauthorized
     end
   end
 
@@ -45,5 +44,19 @@ class SessionsController < ApplicationController
     @session = current_user.sessions.find_by(id: params[:id])
     return head 404 if @session.nil?
     @session.destroy
+  end
+
+  private
+
+  def find_user
+    if email?(params[:session][:email])
+      User.find_by(email: params[:session][:email].downcase)
+    else
+      User.find_by(username: params[:session][:email].downcase)
+    end
+  end
+
+  def email?(email)
+    email =~ /[A-Za-z0-9\.]+@[A-Za-z0-9\.]+/
   end
 end

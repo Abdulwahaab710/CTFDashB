@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_160511) do
+ActiveRecord::Schema.define(version: 2018_08_06_234753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2018_07_25_160511) do
     t.boolean "active"
     t.string "flag"
     t.integer "category_id"
+    t.boolean "default_activision"
     t.index ["category_id"], name: "index_challenges_on_category_id"
   end
 

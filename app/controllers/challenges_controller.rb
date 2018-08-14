@@ -19,6 +19,7 @@ class ChallengesController < ApplicationController
 
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
     redirect_to [@challenge.category, @challenge] if @challenge.save
     render :new unless performed?
   end

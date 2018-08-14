@@ -7,13 +7,15 @@
     <div class="col-md-8 col-md-offset-2">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1><%= @category.name %></h1>
-        <div>
-          <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
-          <%= link_to 'Delete', delete_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
-        </div>
+        <% if current_user&.organizer? %>
+          <div>
+            <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
+            <%= link_to 'Delete', delete_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+          </div>
+        <% end %>
       </div>
       <hr>
-      <%= render 'challenges/challenges', challenges: @category.challenges %>
+      <%= render 'challenges/challenges', challenges: @category.challenges.where(active: true) %>
     </div>
   </div>
 <% end %>

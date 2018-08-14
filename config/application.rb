@@ -18,5 +18,9 @@ module CTFDashB
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.force_ssl = true if Rails.env.production?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.log_tags  = [:subdomain, :uuid]
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 end

@@ -1,9 +1,5 @@
 version: "3"
 
-volumes:
-  db-data:
-    external: false
-
 services:
   db:
     environment:
@@ -12,6 +8,11 @@ services:
     image: postgres:9.5
     volumes:
       - db-data:/user/local/pgsql/data
+  redis:
+    image: redis:latest
+    command: redis-server
+    volumes:
+      - redis-data:/data
 
   web:
     build: .
@@ -21,6 +22,32 @@ services:
       - db
     ports:
       - "3000:3000"
+    env_file:
+      - .env
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+
+  cable:
+    depends_on:
+      - redis
+    build: .
+    command: puma -p 28080 cable/config.ru
+    ports:
+      - "28080:28080"
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+
   nginx:
     image: nginx
     links:
@@ -30,3 +57,8 @@ services:
     ports:
       - "4000:80"
 
+volumes:
+  db-data:
+    external: false
+  redis-data:
+    external: false

@@ -2,6 +2,7 @@
 
 class Challenge < ApplicationRecord
   belongs_to :category
+  has_many_attached :challenge_files
 
   validates :title, :description, :points, :max_tries, :category, :flag, presence: true
   validates :points, :max_tries, numericality: { greater_than_or_equal_to: 1 }

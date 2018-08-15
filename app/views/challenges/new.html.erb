@@ -19,6 +19,9 @@
       <%= f.label :description %>
       <%= f.text_area :description, class: 'form-control' %>
 
+      <%= f.label :challenge_files %>
+      <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
+
       <%= f.label :link %>
       <%= f.text_field :link, class: 'form-control' %>
 

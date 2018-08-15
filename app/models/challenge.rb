@@ -10,6 +10,7 @@ class Challenge < ApplicationRecord
   validate :flag_format, on: :create
 
   before_save { |challenge| challenge.flag = BCrypt::Password.create(flag) }
+  before_save { |challenge| challenge.default_activision = true unless challenge.active }
 
   class String < SimpleDelegator
     def to_md

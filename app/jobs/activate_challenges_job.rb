@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ActivateChallengesJob < ApplicationJob
-  queue_as :default
+  queue_as :activate_challenges
 
   def perform
     return unless Time.zone.now >= Time.zone.parse(CtfSetting.find_by(key: 'start_time').value)

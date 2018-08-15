@@ -40,4 +40,9 @@ FactoryBot.define do
     key 'flag_regex'
     value 'flag{[A-Za-z0-9_]+}'
   end
+
+  factory :start_time, class: CtfSetting do
+    key 'start_time'
+    value Time.zone.now
+  end
 end

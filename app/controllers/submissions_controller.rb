@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SubmissionsController < ApplicationController
+  before_action :return_forbidden_if_reached_max_tries, only: :create
+
   include Submissions
 
   def create
@@ -27,8 +29,16 @@ class SubmissionsController < ApplicationController
     render_alert
   end
 
+  def render_alert
+    flash.now[:success] = 'Woohoo, you have successfully submitted your flag'
+    respond_to do |f|
+      f.js { render 'successful_submission', status: :ok }
+    end
+  end
+
   def unsuccessful_submission
-    flash[:danger] = 'Flag is incorrect'
+    flash.now[:danger] = 'Flag is incorrect'
+    @max_tries = remaining_tries
     @submission.update(valid_submission: false, flag: submitted_flag)
     respond_to do |f|
       f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
@@ -36,16 +46,9 @@ class SubmissionsController < ApplicationController
   end
 
   def invalid_flag
-    flash[:danger] = 'Invalid flag format'
+    flash.now[:danger] = 'Invalid flag format'
     respond_to do |f|
       f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
-    end
-  end
-
-  def render_alert
-    flash[:success] = 'Woohoo, you have successfully submitted your flag'
-    respond_to do |f|
-      f.js { render 'successful_submission', status: :ok }
     end
   end
 
@@ -68,6 +71,28 @@ class SubmissionsController < ApplicationController
   end
 
   def challenge
-    Category.find_by(id: params[:category_id])&.challenges&.where(active: true)&.find_by(id: params[:id])
+    @challenge ||= Category.find_by(id: params[:category_id])&.challenges&.where(active: true)&.find_by(
+      id: params[:id]
+    )
+  end
+
+  def reached_the_max_number_of_tries?
+    number_of_tries >= challenge&.max_tries
+  end
+
+  def remaining_tries
+    challenge&.max_tries.to_i - number_of_tries
+  end
+
+  def number_of_tries
+    challenge&.submissions&.where(team: current_user&.team)&.count.to_i
+  end
+
+  def return_forbidden_if_reached_max_tries
+    return true unless reached_the_max_number_of_tries?
+    flash.now[:danger] = 'You have reached the maximum number of tries.'
+    respond_to do |f|
+      f.js { render 'forbidden_submission', status: :forbidden }
+    end
   end
 end

@@ -40,4 +40,13 @@ FactoryBot.define do
     key 'flag_regex'
     value 'flag{[A-Za-z0-9_]+}'
   end
+
+  factory :submission do
+    challenge
+    category
+    flag 'flag{invalid}'
+    user
+    team
+    submission_hash 'submission_hash'
+  end
 end

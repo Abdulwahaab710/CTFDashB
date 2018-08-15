@@ -15,6 +15,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find_by!(id: params[:id])
+    @team_submissions = team_submissions
   end
 
   def new
@@ -52,5 +53,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def team_submissions
+    Submission.where(team: current_user&.team).group(:challenge_id).count
   end
 end

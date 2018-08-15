@@ -17,6 +17,11 @@ module CTFDashB
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.force_ssl = true if Rails.env.production?
+    config.force_ssl                = true if Rails.env.production?
+    logger                          = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter                = config.log_formatter
+    config.log_tags                 = [:subdomain, :uuid]
+    config.logger                   = ActiveSupport::TaggedLogging.new(logger)
+    config.active_job.queue_adapter = :sidekiq
   end
 end

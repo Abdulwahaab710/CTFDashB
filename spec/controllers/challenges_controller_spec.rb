@@ -41,13 +41,13 @@ RSpec.describe ChallengesController, type: :controller do
         get :new
       end
 
-      it 'returns not found' do
+      it 'returns forbidden' do
         expect(response).to have_http_status(:forbidden)
       end
     end
   end
 
-  describe 'POST new' do
+  describe 'POST create' do
     context 'when the user is an organizer' do
       before :each do
         FactoryBot.create(:session, user: organizer)
@@ -119,7 +119,7 @@ RSpec.describe ChallengesController, type: :controller do
         get :edit, params: { category_id: challenge.category_id, id: challenge.id }
       end
 
-      it 'returns not found' do
+      it 'returns forbidden' do
         expect(response).to have_http_status(:forbidden)
       end
     end

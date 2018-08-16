@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :user_logged_in?, except: %i[show]
+  before_action :user_logged_in?, except: %i[index show]
   before_action :user_has_permission?, except: %i[index show]
   before_action :fetch_categories
 
@@ -10,11 +10,13 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all
     @challenges = Challenge.where(active: true)
+    @team_submissions = team_submissions
     return render 'challenges/index' unless current_user&.organizer?
   end
 
   def show
     @category = Category.find_by!(id: params[:id])
+    @team_submissions = team_submissions
   end
 
   def new
@@ -33,8 +35,8 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find_by!(id: params[:id])
-    render :edit unless @category.update(category_params)
-    redirect_to @category unless performed?
+    return render :edit unless @category.update(category_params)
+    redirect_to @category
   end
 
   def destroy
@@ -52,5 +54,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def team_submissions
+    Submission.where(team: current_user&.team).group(:challenge_id).count
   end
 end

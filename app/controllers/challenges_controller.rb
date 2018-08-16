@@ -10,6 +10,7 @@ class ChallengesController < ApplicationController
   def index
     @challenges = Challenge.where(active: true)
     @challenges = Challenge.all if current_user&.organizer?
+    @team_submissions = team_submissions
   end
 
   def new
@@ -37,6 +38,7 @@ class ChallengesController < ApplicationController
   def show
     @challenge_submission = Submission.new
     @challenge = challenge
+    @team_submissions = Submission.where(team: current_user&.team).group(:challenge_id).count
   end
 
   def destroy
@@ -63,6 +65,10 @@ class ChallengesController < ApplicationController
 
   def fetch_categories
     @categories = Category.all
+  end
+
+  def team_submissions
+    Submission.where(team: current_user&.team).group(:challenge_id).count
   end
 
   def challenge_params

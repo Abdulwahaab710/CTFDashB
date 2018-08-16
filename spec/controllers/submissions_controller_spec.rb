@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SubmissionsController, type: :controller do
   describe 'POST create' do
     before :each do
-      @challenge = FactoryBot.create(:challenge)
+      @challenge = FactoryBot.create(:challenge, max_tries: 1)
       FactoryBot.create(:flag_regex)
     end
 
@@ -67,6 +67,29 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns error if the flag format is invalid' do
         expect(flash[:danger]).to eq('Invalid flag format')
+      end
+    end
+
+    context 'when the user has reached the maximum number of tries' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        FactoryBot.create(
+          :submission, user: user, team: user.team, challenge: @challenge, category: @challenge.category
+        )
+        login_as(user)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{invalid flag}' }
+        }, format: :js
+      end
+
+      it 'returns forbidden' do
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'flashes with You have reached the maximum number of tries.' do
+        expect(flash[:danger]).to eq('You have reached the maximum number of tries.')
       end
     end
   end

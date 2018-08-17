@@ -16,6 +16,16 @@ module Submissions
     )
   end
 
+  def return_forbidden_if_submitted_valid_flag_before
+    return head :forbidden if submitted_valid_flag_before?
+  end
+
+  def submitted_valid_flag_before?
+    !Submission.where(
+      team: current_user.team, challenge: challenge, category: challenge.category, valid_submission: true
+    ).empty?
+  end
+
   private
 
   def flag_regex

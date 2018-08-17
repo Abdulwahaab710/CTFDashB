@@ -2,6 +2,7 @@
 
 class SubmissionsController < ApplicationController
   before_action :return_forbidden_if_reached_max_tries, only: :create
+  before_action :return_forbidden_if_submitted_valid_flag_before, only: :create
 
   include Submissions
 
@@ -62,7 +63,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update_score
-    score = current_user.team.score.to_i + @challenge.points.to_i
+    score = Submission.where(team: current_user.team, valid_submission: true).map { |s| s.challenge.points }.sum
     current_user.team.update(score: score)
   end
 

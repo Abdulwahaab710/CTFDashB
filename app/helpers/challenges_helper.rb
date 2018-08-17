@@ -36,6 +36,6 @@ module ChallengesHelper
   end
 
   def solved_challenges
-    @solved_challenges ||= Submission.where(team: current_user&.team, valid_submission: true).pluck(:id)
+    @solved_challenges ||= Submission.where(team: current_user&.team, valid_submission: true).pluck(:challenge_id)
   end
 end

@@ -92,6 +92,26 @@ RSpec.describe SubmissionsController, type: :controller do
         expect(flash[:danger]).to eq('You have reached the maximum number of tries.')
       end
     end
+
+    context 'when the user has already submitted a valid flag' do
+      before :each do
+        FactoryBot.create(:session, user: user)
+        FactoryBot.create(
+          :submission, user: user, team: user.team, challenge: @challenge,
+                       category: @challenge.category, valid_submission: true
+        )
+        login_as(user)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{5QL1_15_AWES0ME}' }
+        }, format: :js
+      end
+
+      it 'returns forbidden' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   private

@@ -31,7 +31,11 @@ module Scraper
     def download_files(files)
       challenge_files = []
       files.each do |url|
-        challenge_files << send_request(url, parse: false)
+        url.to_s
+        challenge_files << {
+          challenge_file: JSON.parse(send_request(url, parse: false)),
+          url: challenge_root_url(url)
+        }
       end
       challenge_files
     end
@@ -72,6 +76,10 @@ module Scraper
         files << send_request(url)
       end
       files
+    end
+
+    def challenge_root_url(path)
+      path.to_s.gsub(@filename, 'challenge_file_url')
     end
 
     def url_query

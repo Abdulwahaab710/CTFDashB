@@ -2,7 +2,7 @@
 
 class Challenge < ApplicationRecord
   belongs_to :category
-  has_many :submissions
+  has_many :submissions, dependent: :destroy
   has_many_attached :challenge_files
 
   validates :title, :description, :points, :max_tries, :category, :flag, presence: true

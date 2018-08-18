@@ -26,9 +26,9 @@ class TeamsController < ApplicationController
   end
 
   def join_team
-    @ctf = CTFSetting.find_by(key: 'max_teammates')
-    @team = Team.find_by(invitation_token: invitation_token)
-    render_join_team
+    @ctf = CtfSetting.find_by(key: 'team_size')
+    @team = Team.find_by(invitation_token: invitation_token[:invitation_token])
+    return render_join_team unless @team&.id
     return unless team_full?
     return redirect_to @team if add_team_member
     flash.now[:error] = 'Invalid token'

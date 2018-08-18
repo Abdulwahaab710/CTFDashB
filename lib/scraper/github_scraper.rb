@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'error'
+require 'net/http'
 
 module Scraper
   class GithubScraper

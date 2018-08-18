@@ -20,7 +20,7 @@ module Parser
         challenge = challenge[:challenge_file]
         challenge_obj = find_or_create_challenge(
           title: challenge['title'], category: find_or_create_category(challenge['category']),
-          description: challenge['description'], points: 1,
+          description: challenge['description'], points: challenge['points'].to_i,
           max_tries: challenge['max_tries'], link: challenge['link'],
           flag: challenge['flag'], active: false
         )

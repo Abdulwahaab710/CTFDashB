@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   has_secure_password
   belongs_to :team, optional: true
-  has_many :sessions
+  has_many :sessions, dependent: :destroy
 
   def admin?
     !admin.nil?

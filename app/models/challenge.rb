@@ -5,7 +5,7 @@ class Challenge < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many_attached :challenge_files
 
-  validates :title, :description, :points, :max_tries, :category, :flag, presence: true
+  validates :title, :points, :max_tries, :category, :flag, presence: true
   validates :points, :max_tries, numericality: { greater_than_or_equal_to: 1 }
   validates :flag, uniqueness: true
   validate :flag_format, on: :create

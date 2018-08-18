@@ -161,6 +161,48 @@ RSpec.describe ChallengesController, type: :controller do
     end
   end
 
+  describe 'PATCH update_flag' do
+    context 'when the user is an organizer' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        @challenge = FactoryBot.create(:challenge)
+        @new_flag = 'flag{new_flag}'
+        patch :update_flag, params: {
+          category_id: @challenge.category_id, id: @challenge.id, challenge: { flag: @new_flag }
+        }
+      end
+
+      it 'redirects to the challenge' do
+        expect(response).to redirect_to(category_challenge_path(@challenge.category, @challenge))
+      end
+
+      it 'updates the flag' do
+        expect(BCrypt::Password.new(Challenge.first&.flag)).to eq(@new_flag)
+      end
+
+      it 'flashes with You have successfully updated the challenge flag' do
+        expect(flash[:success]).to eq('You have successfully updated the challenge flag')
+      end
+    end
+
+    context 'when the user is not an organizer' do
+      before :each do
+        FactoryBot.create(:session, user: user)
+        login_as user
+        @challenge = FactoryBot.create(:challenge)
+        @new_flag = 'flag{new_flag}'
+        patch :update_flag, params: {
+          category_id: @challenge.category_id, id: @challenge.id, challenge: { flag: @new_flag }
+        }
+      end
+
+      it 'returns forbidden' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   describe 'GET show' do
     context 'when the user is logged in' do
       before :each do

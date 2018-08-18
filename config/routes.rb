@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       member do
         get 'edit'           => 'challenges#edit', as: :edit
         patch 'edit'         => 'challenges#update'
+        patch 'update-flag'  => 'challenges#update_flag', as: :update_flag
         patch 'activate'     => 'challenges#activate', as: :activate
         patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
         delete ''            => 'challenges#destroy', as: :delete

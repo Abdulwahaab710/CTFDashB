@@ -37,3 +37,19 @@
     <% end %>
   </div>
 </div>
+
+<br>
+
+<div class='row'>
+  <div class="col-md-6 col-md-offset-3">
+    <h2>Update challenge flag</h2>
+    <%= form_for(@challenge, url: update_flag_category_challenge_path) do |f| %>
+      <%= render 'shared/error_messages', obj: @challenge %>
+
+      <%= f.label :flag, 'Flag' %>
+      <%= f.text_field :flag, class: 'form-control', placeholder: 'Update challenge flag', value: '' %>
+
+      <%= f.submit "Update flag", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

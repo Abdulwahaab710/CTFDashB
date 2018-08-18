@@ -9,4 +9,9 @@ module Users
            status: :forbidden,
            layout: false
   end
+
+  def user_is_enrolled_in_a_team?
+    return if current_user&.organizer?
+    return redirect_to join_team_path if current_user.team.nil?
+  end
 end

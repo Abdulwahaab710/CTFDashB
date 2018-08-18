@@ -32,6 +32,7 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = challenge
+    @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
     render :edit unless @challenge.update(challenge_params)
     redirect_to [@challenge.category, @challenge] unless performed?
   end

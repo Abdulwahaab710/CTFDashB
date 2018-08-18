@@ -47,6 +47,7 @@ class ChallengesController < ApplicationController
   def show
     @challenge_submission = Submission.new
     @challenge = challenge
+    @challenge_submissions = @challenge.submissions.where(valid_submission: true)
     @team_submissions = Submission.where(team: current_user&.team).group(:challenge_id).count
   end
 

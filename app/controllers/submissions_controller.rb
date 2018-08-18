@@ -25,7 +25,7 @@ class SubmissionsController < ApplicationController
   end
 
   def successful_submission
-    @submission.update(valid_submission: true)
+    @submission&.update(valid_submission: true)
     update_score
     render_alert
   end
@@ -40,7 +40,7 @@ class SubmissionsController < ApplicationController
   def unsuccessful_submission
     flash.now[:danger] = 'Flag is incorrect'
     @max_tries = remaining_tries
-    @submission.update(valid_submission: false, flag: submitted_flag)
+    @submission&.update(valid_submission: false, flag: submitted_flag)
     respond_to do |f|
       f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
     end
@@ -63,6 +63,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update_score
+    return if current_user.organizer?
     score = Submission.where(team: current_user.team, valid_submission: true).map { |s| s.challenge.points }.sum
     current_user.team.update(score: score)
   end
@@ -72,6 +73,11 @@ class SubmissionsController < ApplicationController
   end
 
   def challenge
+    if current_user.organizer?
+      @challenge ||= Category.find_by(id: params[:category_id])&.challenges&.find_by(
+        id: params[:id]
+      )
+    end
     @challenge ||= Category.find_by(id: params[:category_id])&.challenges&.where(active: true)&.find_by(
       id: params[:id]
     )

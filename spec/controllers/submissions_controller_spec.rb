@@ -30,6 +30,52 @@ RSpec.describe SubmissionsController, type: :controller do
       end
     end
 
+    context 'when the user is an organizer and the flag is correct' do
+      before(:each) do
+        FactoryBot.create(:session, user: organizer)
+        login_as(organizer)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{5QL1_15_AWES0ME}' }
+        }, format: :js
+      end
+
+      it 'returns success' do
+        expect(response).to be_successful
+        expect(flash[:success]).to eq 'Woohoo, you have successfully submitted your flag'
+      end
+
+      it 'does not update the score' do
+        expect(Team.find_by(id: organizer.team.id).score).to eq(0)
+      end
+
+      it 'does not add a submission' do
+        expect(Submission.count).to eq(0)
+      end
+    end
+
+    context 'when the user is an organizer and the flag is incorrect' do
+      before(:each) do
+        FactoryBot.create(:session, user: organizer)
+        login_as(organizer)
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{invalid_flag}' }
+        }, format: :js
+      end
+
+      it 'returns 422' do
+        expect(response).to have_http_status(422)
+        expect(flash[:danger]).to eq 'Flag is incorrect'
+      end
+
+      it 'does not add a submission' do
+        expect(Submission.count).to eq(0)
+      end
+    end
+
     context 'when the user submit an invalid flag' do
       before(:each) do
         FactoryBot.create(:session, user: user)
@@ -118,5 +164,9 @@ RSpec.describe SubmissionsController, type: :controller do
 
   def user
     @user ||= FactoryBot.create(:user)
+  end
+
+  def organizer
+    @organizer ||= FactoryBot.create(:user, organizer: true)
   end
 end

@@ -7,6 +7,7 @@ module Submissions
   end
 
   def add_submission
+    return nil if current_user.organizer?
     @submission = Submission.find_or_create_by!(
       team: current_user.team,
       user: current_user,

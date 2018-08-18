@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
     if email?(params[:session][:email])
       User.find_by(email: params[:session][:email].downcase)
     else
-      User.find_by(username: params[:session][:email].downcase)
+      User.find_by(username: params[:session][:email])
     end
   end
 

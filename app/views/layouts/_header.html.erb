@@ -34,10 +34,11 @@
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
             <li style="display: flex; align-items: center;">
-              <%= link_to(
-                (current_user.team.nil? ? 'Not enrolled' : current_user.team.score.to_i),
-                current_user.team
-              ) %>
+              <% if current_user.team.nil? %>
+                <%= link_to 'Not enrolled', join_team_path %>
+              <% else %>
+                <%= link_to current_user.team.score.to_i, current_user.team %>
+              <% end %>
             </li>
             <li style="display: flex; align-items: center;">
               <%= gravatar_for(current_user, size: 40, margin: 0) %> <%= link_to current_user.name, current_user %>
@@ -50,7 +51,11 @@
                 <li style="padding: 3px 20px;">Signed in as <br> <%= current_user.name %></li>
                 <li class="divider"></li>
                 <li><%= link_to "Your profile", current_user %></li>
-                <li><%= link_to "Your team", current_user.team %></li>
+                <% if current_user.team.nil? %>
+                  <li><%= link_to "Create or Join a Team", join_team_path %></li>
+                <% else %>
+                  <li><%= link_to "Your team", current_user.team %></li>
+                <% end %>
                 <li class="divider"></li>
                 <% if current_user&.admin? %>
                   <li><%= link_to "CTF Settings", ctf_settings_path %></li>

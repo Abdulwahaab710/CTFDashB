@@ -3,6 +3,7 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?, except: %i[index]
   before_action :user_has_permission?, except: %i[index show]
+  before_action :user_is_enrolled_in_a_team?, only: :show
   before_action :fetch_categories
 
   include Users

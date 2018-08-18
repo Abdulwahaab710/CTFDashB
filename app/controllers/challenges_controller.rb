@@ -33,8 +33,15 @@ class ChallengesController < ApplicationController
   def update
     @challenge = challenge
     @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
-    render :edit unless @challenge.update(challenge_params)
-    redirect_to [@challenge.category, @challenge] unless performed?
+    return render :edit unless @challenge.update(challenge_params)
+    redirect_to [@challenge.category, @challenge]
+  end
+
+  def update_flag
+    @challenge = challenge
+    render :edit unless @challenge.update(flag: new_flag)
+    flash[:success] = 'You have successfully updated the challenge flag'
+    redirect_to [@challenge.category, @challenge]
   end
 
   def show
@@ -71,6 +78,10 @@ class ChallengesController < ApplicationController
 
   def team_submissions
     Submission.where(team: current_user&.team).group(:challenge_id).count
+  end
+
+  def new_flag
+    params[:challenge][:flag]
   end
 
   def challenge_params

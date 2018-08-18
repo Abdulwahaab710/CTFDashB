@@ -3,12 +3,14 @@
 <% else %>
   <table style='width: 100%;'>
     <thead>
+      <th style='width: 5vw;'>Place</th>
       <th>Team name</th>
       <th>Score</th>
     </thead>
     <tbody>
-      <% @teams.each do |team| %>
+      <% @teams.each_with_index do |team, index| %>
         <tr>
+          <td><%= index.next %></td>
           <td><%= team&.name %></td>
           <td><%= team&.score %></td>
         </tr>

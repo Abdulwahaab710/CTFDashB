@@ -24,7 +24,7 @@ module Parser
           max_tries: challenge['max_tries'], link: challenge['link'],
           flag: challenge['flag'], active: false
         )
-        add_files_challenge(challenge_obj, challenge['files'], challenge_root_url)
+        # add_files_challenge(challenge_obj, challenge['files'], challenge_root_url)
       end
     end
 

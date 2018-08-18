@@ -37,13 +37,11 @@ module Scraper
     end
 
     def extract_download_files(response)
-      response.map { |f| URI.parse(f['download_url']) }
+      response.map { |f| URI.parse((f['download_url']).to_s) if f['download_url'] }
     end
 
     def build_url
-      URI.parse(
-        "https://api.github.com/search/code\?q\=filename:#{@filename}+language:#{@format}+repo:#{@repo}?access_token=#{@access_token}"
-      )
+      URI.parse("https://api.github.com/search/code?#{url_query}")
     end
 
     def send_request(uri, parse: true)
@@ -65,7 +63,7 @@ module Scraper
     end
 
     def extract_challenge_files(files)
-      files['items'].map { |f| URI.parse(f['url']) }
+      files['items'].map { |f| URI.parse("#{f['url']}&access_token=#{@access_token}") if f['url'] }
     end
 
     def download_challenge_files(urls)
@@ -74,6 +72,10 @@ module Scraper
         files << send_request(url)
       end
       files
+    end
+
+    def url_query
+      "q=filename:#{@filename}+language:#{@format}+repo:#{@repo}&access_token=#{@access_token}"
     end
   end
 end

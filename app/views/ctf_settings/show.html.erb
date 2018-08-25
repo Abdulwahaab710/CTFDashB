@@ -1,23 +1,32 @@
 <h1>CTF Dashboard Settings</h1>
-<div class="col-md-6 col-md-offset-3" style='display: flex; justify-content: space-between; align-items: center;'>
-  <%= form_tag do %>
-    <div id='form-body'>
-      <% @ctf_settings.each do |ctf_setting| %>
-        <%= label_tag "key[]",ctf_setting.key, style: 'width: 45%; text-align: center;'  %> <%= text_field_tag "key[#{ctf_setting.key}]", ctf_setting.value, style: 'width: 45%; text-align: center;' %> <%= fa_icon 'trash', class: 'btn btn-danger'  %>
-      <% end %>
-    </div>
-    <div>
-      <span style='text-align: left;'>
-        <%= button_tag 'Add a new field',
-          class: "btn btn-primary",
-          style: 'width: 40%;',
-          type: 'button',
-          id: 'add-field-btn'
-        %>
-      </span>
-      <span style='text-align: right;'>
-        <%= submit_tag 'Update', class: "btn btn-success", style: 'width: 40%;' %>
-      </span>
-    </div>
-  <% end %>
+<div class='row'>
+  <div class="col-md-6 col-md-offset-3" style='display: flex; justify-content: space-between; align-items: center;'>
+    <%= form_tag do %>
+      <div id='form-body'>
+        <% @ctf_settings.each do |ctf_setting| %>
+          <%= label_tag "key[]",ctf_setting.key, style: 'width: 45%; text-align: center;'  %> <%= text_field_tag "key[#{ctf_setting.key}]", ctf_setting.value, style: 'width: 45%; text-align: center;' %> <%= fa_icon 'trash', class: 'btn btn-danger'  %>
+        <% end %>
+      </div>
+      <div>
+        <span style='text-align: left;'>
+          <%= button_tag 'Add a new field',
+            class: "btn btn-primary",
+            style: 'width: 40%;',
+            type: 'button',
+            id: 'add-field-btn'
+          %>
+        </span>
+        <span style='text-align: right;'>
+          <%= submit_tag 'Update', class: "btn btn-success", style: 'width: 40%;' %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>
+<hr>
+<div class='row'>
+  <div class="col-md-6 col-md-offset-3" style='display: flex; justify-content: space-between; align-items: center;'>
+    <%= link_to 'Activate all challenges', '', method: :patch, class: 'btn btn-success' %>
+    <%= link_to 'Deactivate all challenges', '', method: :patch, class: 'btn btn-danger' %>
+  </div>
 </div>

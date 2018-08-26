@@ -68,10 +68,6 @@ RSpec.describe TeamsController, type: :controller do
       it 'returns 404' do
         expect(response).to have_http_status(:not_found)
       end
-
-      # it 'redirect to the team' do
-      #   expect(response).to redirect_to(team_path(enrolled_user.team))
-      # end
     end
   end
 
@@ -130,77 +126,109 @@ RSpec.describe TeamsController, type: :controller do
     end
   end
 
-  #   describe 'POST join_team' do
-  #     context 'when the user is not enrolled in a team' do
-  #       before :each do
-  #         FactoryBot.create(:session, user: user)
-  #         login_as(user)
+  describe 'POST join_team' do
+    before do
+      FactoryBot.create(:team_size)
+    end
 
-  #         get :new
-  #       end
+    context 'when the invitation_token is invalid' do
+      before :each do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
 
-  #       it 'renders new' do
-  #         expect(response).to have_rendered('new')
-  #       end
+        post :join_team, params: { team: { invitation_token: 'invalid token' } }
+      end
 
-  #       it 'is successful' do
-  #         expect(response).to be_successful
-  #       end
-  #     end
+      it 'redirects back to the join page' do
+        expect(response).to redirect_to(join_team_path)
+      end
 
-  #     context 'when the user is not enrolled in a team' do
-  #       before :each do
-  #         FactoryBot.create(:session, user: enrolled_user)
-  #         login_as(enrolled_user)
+      it 'returns a flash with Invalid token' do
+        expect(flash[:danger]).to eq('Invalid token')
+      end
+    end
 
-  #         get :new
-  #       end
+    context 'when the invitation_token is valid' do
+      before :each do
+        FactoryBot.create(:session, user: user)
+        @team = FactoryBot.create(:team)
 
-  #       it 'returns 302' do
-  #         expect(response).to have_http_status(:redirect)
-  #       end
+        login_as(user)
 
-  #       it 'redirect to the team' do
-  #         expect(response).to redirect_to(team_path(enrolled_user.team))
-  #       end
-  #     end
-  #   end
+        post :join_team, params: { team: { invitation_token: Team.last.invitation_token } }
+      end
 
-  #   describe 'DELETE withdraw' do
-  #     context 'when the user is not enrolled in a team' do
-  #       before :each do
-  #         FactoryBot.create(:session, user: user)
-  #         login_as(user)
+      it 'returns 302' do
+        expect(response).to have_http_status(:redirect)
+      end
 
-  #         get :new
-  #       end
+      it 'redirect to the team' do
+        expect(response).to redirect_to(team_path(@team))
+      end
 
-  #       it 'renders new' do
-  #         expect(response).to have_rendered('new')
-  #       end
+      it 'adds the user to the team' do
+        expect(Team.last.users.last).to eq(user)
+      end
+    end
 
-  #       it 'is successful' do
-  #         expect(response).to be_successful
-  #       end
-  #     end
+    context 'when the invitation_token is valid and the team is full' do
+      let (:team) { FactoryBot.create(:team) }
+      before :each do
+        FactoryBot.create(:session, user: user)
+        4.times do
+          FactoryBot.create(:user, team: team)
+        end
 
-  #     context 'when the user is not enrolled in a team' do
-  #       before :each do
-  #         FactoryBot.create(:session, user: enrolled_user)
-  #         login_as(enrolled_user)
+        login_as(user)
 
-  #         get :new
-  #       end
+        post :join_team, params: { team: { invitation_token: Team.last.invitation_token } }
+      end
 
-  #       it 'returns 302' do
-  #         expect(response).to have_http_status(:redirect)
-  #       end
+      it 'returns 302' do
+        expect(response).to have_http_status(:redirect)
+      end
 
-  #       it 'redirect to the team' do
-  #         expect(response).to redirect_to(team_path(enrolled_user.team))
-  #       end
-  #     end
-  #   end
+      it 'redirect to join team' do
+        expect(response).to redirect_to(join_team_path)
+      end
+
+      it 'flashes with an error that the team is full' do
+        expect(flash[:danger]).to eq("Team #{team.name} is already full")
+      end
+    end
+  end
+
+  describe 'DELETE withdraw' do
+    context 'when the user is enrolled in a team' do
+      before :each do
+        FactoryBot.create(:session, user: enrolled_user)
+        login_as(enrolled_user)
+
+        delete :withdraw
+      end
+
+      it 'returns 302' do
+        expect(response).to have_http_status(:redirect)
+      end
+
+      it 'redirect to join team' do
+        expect(response).to redirect_to(join_team_path)
+      end
+    end
+
+    context 'when the user is not enrolled in a team' do
+      before :each do
+        FactoryBot.create(:session, user: user)
+        login_as(user)
+
+        delete :withdraw
+      end
+
+      it 'returns not found' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 
   private
 

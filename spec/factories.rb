@@ -2,16 +2,16 @@
 
 FactoryBot.define do
   factory :user do
-    name 'Sherlock Holmes'
-    email 'sherlock_holmes@21baker.street'
-    username '5her10ck_h01mes'
+    sequence(:name) { |n| "Hacker name #{n}" }
+    sequence(:email) { |n| "hacker-#{n}@ctfdashb.com" }
+    sequence(:username) { |n| "hacker-username-#{n}" }
     password 'sher123'
     password_confirmation 'sher123'
     team
   end
 
   factory :team do
-    name 'SomeRandomTeam'
+    sequence(:name) { |n| "team-#{n}" }
   end
 
   factory :session do
@@ -39,6 +39,11 @@ FactoryBot.define do
   factory :flag_regex, class: CtfSetting do
     key 'flag_regex'
     value 'flag{[A-Za-z0-9_]+}'
+  end
+
+  factory :team_size, class: CtfSetting do
+    key 'team_size'
+    value 4
   end
 
   factory :submission do

@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   end
 
   def create
+    return head 404 unless current_user.team.nil?
     @team = Team.new(team_params)
     return render :new unless @team.save
     add_team_member
@@ -33,6 +34,10 @@ class TeamsController < ApplicationController
     return redirect_to @team if add_team_member
     flash.now[:error] = 'Invalid token'
     render :join
+  end
+
+  def withdraw
+    return redirect_to join_team_path if current_user.update(team: nil)
   end
 
   private

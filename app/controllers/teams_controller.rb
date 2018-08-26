@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   end
 
   def create
+    return head 404 unless current_user.team.nil?
     @team = Team.new(team_params)
     return render :new unless @team.save
     add_team_member
@@ -28,20 +29,21 @@ class TeamsController < ApplicationController
   def join_team
     @ctf = CtfSetting.find_by(key: 'team_size')
     @team = Team.find_by(invitation_token: invitation_token[:invitation_token])
-    return render_join_team unless @team&.id
-    return unless team_full?
+    return render_join_team if @team.nil?
+    return render_team_full unless team_full?
     return redirect_to @team if add_team_member
-    flash.now[:error] = 'Invalid token'
-    render :join
+  end
+
+  def withdraw
+    return head :not_found if current_user.team.nil?
+    return redirect_to join_team_path if current_user.update(team: nil)
   end
 
   private
 
   def render_join_team
-    return nil unless @team&.id
-    @team = Team.new
-    flash.now[:error] = 'Invalid token'
-    render :join
+    flash[:danger] = 'Invalid token'
+    redirect_to action: 'join'
   end
 
   def add_team_member
@@ -50,10 +52,13 @@ class TeamsController < ApplicationController
     current_user.save!
   end
 
+  def render_team_full
+    flash[:danger] = "Team #{@team.name} is already full"
+    redirect_to action: 'join'
+  end
+
   def team_full?
-    return true if (@team.users.count + 1) <= @ctf.value.to_i
-    flash.now[:error] = "Team #{@team.name} is already full"
-    render :join
+    true if (@team.users.count + 1) <= @ctf.value.to_i
   end
 
   def team_params

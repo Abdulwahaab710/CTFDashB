@@ -1,4 +1,5 @@
 <h1><%= @team.name %></h1>
+<%= link_to 'Withdraw', withdraw_from_team_path, method: :patch %>
 <ul>
   <% @team.users.each do |hacker| %>
     <li><%= link_to hacker.name, hacker %></li>

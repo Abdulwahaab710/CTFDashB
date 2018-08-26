@@ -42,6 +42,8 @@ Rails.application.routes.draw do
   get '/teams/join', to: 'teams#join', as: :join_team
   post '/teams/join', to: 'teams#join_team'
 
+  delete '/teams/withdraw', to: 'teams#withdraw', as: :withdraw_from_team
+
   get '/teams/:id', to: 'teams#show', as: :team
 
   get '/signup', to: 'users#new', as: :signup

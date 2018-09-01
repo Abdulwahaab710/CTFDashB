@@ -5,8 +5,8 @@ FactoryBot.define do
     sequence(:name) { |n| "Hacker name #{n}" }
     sequence(:email) { |n| "hacker-#{n}@ctfdashb.com" }
     sequence(:username) { |n| "hacker-username-#{n}" }
-    password 'sher123'
-    password_confirmation 'sher123'
+    password { 'sher123' }
+    password_confirmation { 'sher123' }
     team
   end
 
@@ -16,42 +16,42 @@ FactoryBot.define do
 
   factory :session do
     user
-    ip_address '192.168.1.1'
-    browser 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) '\
-      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36'
+    ip_address { '192.168.1.1' }
+    browser { 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) '\
+      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' }
   end
 
   factory :category do
-    name 'web'
+    name { 'web' }
   end
 
   factory :challenge do
-    title 'SQLi baby'
+    title { 'SQLi baby' }
     category
-    description 'you need the flag'
-    link 'sqli.baby'
-    flag 'flag{5QL1_15_AWES0ME}'
-    points 100
-    max_tries 100
-    active true
+    description { 'you need the flag' }
+    link { 'sqli.baby' }
+    flag { 'flag{5QL1_15_AWES0ME}' }
+    points { 100 }
+    max_tries { 100 }
+    active { true }
   end
 
   factory :flag_regex, class: CtfSetting do
-    key 'flag_regex'
-    value 'flag{[A-Za-z0-9_]+}'
+    key { 'flag_regex' }
+    value { 'flag{[A-Za-z0-9_]+}' }
   end
 
   factory :team_size, class: CtfSetting do
-    key 'team_size'
-    value 4
+    key { 'team_size' }
+    value { 4 }
   end
 
   factory :submission do
     challenge
     category
-    flag 'flag{invalid}'
+    flag { 'flag{invalid}' }
     user
     team
-    submission_hash 'submission_hash'
+    submission_hash { 'submission_hash' }
   end
 end

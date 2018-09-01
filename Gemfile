@@ -53,6 +53,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.11'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
+  gem 'rubocop-rspec'
   gem 'rubocop'
   gem 'simplecov', require: false, group: :test
 end

@@ -63,6 +63,9 @@ GEM
       sass (>= 3.3.4)
     browser_sniffer (1.0.13)
     builder (3.2.3)
+    bullet (5.7.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11.0)
     byebug (10.0.2)
     codecov (0.1.10)
       json
@@ -271,6 +274,7 @@ GEM
     uglifier (4.1.18)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.0)
+    uniform_notifier (1.11.0)
     url (0.3.2)
     web-console (3.6.2)
       actionview (>= 5.0)
@@ -290,6 +294,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap-sass (= 3.3.7)
   browser_sniffer
+  bullet
   byebug
   codecov
   coffee-rails (~> 4.2)

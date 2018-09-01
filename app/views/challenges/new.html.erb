@@ -1,46 +1,42 @@
 <% provide(:title, 'Add a new challenge') %>
-<h1>Add a new challenge</h1>
+<div style='padding-bottom: 15vh;'>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Add a new challenge</h1>
+      <%= form_for(@challenge, url: challenge_index_path) do |f| %>
+        <%= render 'shared/error_messages', obj: @challenge %>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@challenge, url: challenge_index_path) do |f| %>
-      <%= render 'shared/error_messages', obj: @challenge %>
+        <%= f.label :title, 'Challenge title' %>
+        <%= f.text_field :title, class: 'form-control' %>
 
-      <%= f.label :title, 'Challenge title' %>
-      <%= f.text_field :title, class: 'form-control' %>
+        <div class="dropdown">
+          <%= f.label :category %>
+          <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
+        </div>
 
+        <%= f.label :description %>
+        <%= f.text_area :description, class: 'form-control' %>
 
-      <div class="dropdown">
-        <%= f.label :category %>
-        <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
-      </div>
+        <%= f.label :challenge_files %>
+        <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
 
+        <%= f.label :link %>
+        <%= f.text_field :link, class: 'form-control' %>
 
-      <%= f.label :description %>
-      <%= f.text_area :description, class: 'form-control' %>
+        <%= f.label :flag %>
+        <%= f.text_field :flag, class: 'form-control' %>
 
-      <%= f.label :challenge_files %>
-      <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
+        <%= f.label :points %>
+        <%= f.number_field :points, class: 'form-control' %>
 
-      <%= f.label :link %>
-      <%= f.text_field :link, class: 'form-control' %>
+        <%= f.label :max_tries %>
+        <%= f.number_field :max_tries, class: 'form-control' %>
 
-      <%= f.label :flag %>
-      <%= f.text_field :flag, class: 'form-control' %>
+        <%= f.label :active %>
+        <%= f.check_box :active, style: 'width: auto;' %>
 
-      <%= f.label :points %>
-      <%= f.number_field :points, class: 'form-control' %>
-
-      <%= f.label :max_tries %>
-      <%= f.number_field :max_tries, class: 'form-control' %>
-
-      <%= f.label :active %>
-      <%= f.check_box :active, style: 'width: auto;' %>
-
-
-      <%= f.submit "Add challenge", class: "btn btn-primary" %>
-    <% end %>
+        <%= f.submit "Add challenge", class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
-
-
 </div>

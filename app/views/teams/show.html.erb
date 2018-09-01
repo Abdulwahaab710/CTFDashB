@@ -1,5 +1,10 @@
-<h1><%= @team.name %></h1>
-<%= link_to 'Withdraw', withdraw_from_team_path, method: :patch %>
+<h1>
+  <%= @team.name %>
+  <%= link_to 'Withdraw', withdraw_from_team_path,
+    method: :patch, class: 'btn btn-danger',
+    data: { confirm: "Are you sure you want to withdraw from #{@team.name} ?" } %>
+</h1>
+
 <ul>
   <% @team.users.each do |hacker| %>
     <li><%= link_to hacker.name, hacker %></li>

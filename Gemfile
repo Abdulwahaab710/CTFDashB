@@ -53,12 +53,14 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.11'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
+  gem 'rubocop-rspec'
   gem 'rubocop'
   gem 'simplecov', require: false, group: :test
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'bullet'
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

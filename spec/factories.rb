@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :hint do
-    challenge nil
-    hint_text "MyText"
-    penalty 1.5
+    challenge { nil }
+    hint_text { "MyText" }
+    penalty { 1.5 }
   end
   factory :user do
     sequence(:name) { |n| "Hacker name #{n}" }

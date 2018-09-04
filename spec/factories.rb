@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :hint do
+    challenge { nil }
+    hint_text { "MyText" }
+    penalty { 1.5 }
+  end
   factory :user do
     sequence(:name) { |n| "Hacker name #{n}" }
     sequence(:email) { |n| "hacker-#{n}@ctfdashb.com" }

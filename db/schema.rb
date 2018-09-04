@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_160511) do
+ActiveRecord::Schema.define(version: 2018_09_04_024245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 2018_07_25_160511) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hints", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.text "hint_text"
+    t.float "penalty", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_hints_on_challenge_id"
+  end
+
   create_table "sessions", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "ip_address"
@@ -112,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_07_25_160511) do
   end
 
   add_foreign_key "challenges", "categories"
+  add_foreign_key "hints", "challenges"
   add_foreign_key "sessions", "users"
   add_foreign_key "submissions", "categories"
   add_foreign_key "submissions", "challenges"

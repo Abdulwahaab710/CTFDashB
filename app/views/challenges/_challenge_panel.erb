@@ -21,6 +21,7 @@
     <%= ctf_challenge&.description.to_md.html_safe %>
     <%= yield %>
     <%= render 'challenges/challenge_files_section', challenge_files: ctf_challenge&.challenge_files %>
+    <%= render 'challenges/hints' %>
     <%= render 'challenges/challenge_valid_submissions' %>
   </div>
   <div class="panel-footer">

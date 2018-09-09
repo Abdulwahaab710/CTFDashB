@@ -17,7 +17,7 @@ class SubmissionsController < ApplicationController
   private
 
   def verify_flag
-    if flag == submitted_flag
+    if flag.is_password?(submitted_flag)
       successful_submission
     else
       unsuccessful_submission
@@ -73,14 +73,8 @@ class SubmissionsController < ApplicationController
   end
 
   def challenge
-    if current_user.organizer?
-      @challenge ||= Category.find_by(id: params[:category_id])&.challenges&.find_by(
-        id: params[:id]
-      )
-    end
-    @challenge ||= Category.find_by(id: params[:category_id])&.challenges&.where(active: true)&.find_by(
-      id: params[:id]
-    )
+    return @challenge ||= all_challenges if current_user.organizer?
+    @challenge ||= active_challenges
   end
 
   def reached_the_max_number_of_tries?
@@ -101,5 +95,17 @@ class SubmissionsController < ApplicationController
     respond_to do |f|
       f.js { render 'forbidden_submission', status: :forbidden }
     end
+  end
+
+  def category
+    @category ||= Category.find_by(id: params[:category_id])
+  end
+
+  def all_challenges
+    category&.challenges&.find_by(id: params[:id])
+  end
+
+  def active_challenges
+    category&.challenges&.where(active: true)&.find_by(id: params[:id])
   end
 end

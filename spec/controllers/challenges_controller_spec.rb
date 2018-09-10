@@ -275,7 +275,7 @@ RSpec.describe ChallengesController, type: :controller do
       end
 
       it 'activates the challenge' do
-        expect(Challenge.where(active: true).count).to eq(1)
+        expect(Challenge.active.count).to eq(1)
         expect(Challenge.where(active: false).count).to eq(0)
       end
     end
@@ -308,7 +308,7 @@ RSpec.describe ChallengesController, type: :controller do
       end
 
       it 'deactivates the challenge' do
-        expect(Challenge.where(active: true).count).to eq(0)
+        expect(Challenge.active.count).to eq(0)
         expect(Challenge.where(active: false).count).to eq(1)
       end
     end

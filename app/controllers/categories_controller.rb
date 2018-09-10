@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
-    @challenges = Challenge.where(active: true)
+    @challenges = Challenge.active
     @team_submissions = team_submissions
     return render 'challenges/index' unless current_user&.organizer?
   end

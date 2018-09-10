@@ -15,7 +15,7 @@
         <% end %>
       </div>
       <hr>
-      <%= render 'challenges/challenges', challenges: @category.challenges.where(active: true) %>
+      <%= render 'challenges/challenges', challenges: @category.challenges.active %>
     </div>
   </div>
 <% end %>

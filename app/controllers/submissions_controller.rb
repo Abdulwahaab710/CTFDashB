@@ -106,6 +106,6 @@ class SubmissionsController < ApplicationController
   end
 
   def active_challenges
-    category&.challenges&.where(active: true)&.find_by(id: params[:id])
+    category&.challenges&.active&.find_by(id: params[:id])
   end
 end

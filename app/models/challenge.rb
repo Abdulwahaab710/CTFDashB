@@ -12,6 +12,8 @@ class Challenge < ApplicationRecord
 
   before_save { |challenge| challenge.flag = BCrypt::Password.create(flag) }
 
+  scope :active, -> { where(active: true) }
+
   class String < SimpleDelegator
     def to_md
       markdown.render(to_s) if self

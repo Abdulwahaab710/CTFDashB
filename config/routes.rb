@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :challenges, only: %i[new create index], as: :challenge
   end
 
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :password_resets, only: %i[new create edit update]
 
   post '/category/:category_id/challenges/:id/submit', to: 'submissions#create', as: :submit_flag
 
@@ -49,8 +49,14 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create'
 
+  get '/users', to: 'users#index', as: :users
   get '/users/:id', to: 'users#show', as: :user
-  # delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
+  patch '/users/:id/activate', to: 'users#activate', as: :activate_user
+  patch '/users/:id/admin', to: 'users#add_admin', as: :add_admin
+  patch '/users/:id/organizer', to: 'users#add_organizer', as: :add_organizer
+  delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
+  delete '/users/:id/admin', to: 'users#remove_admin', as: :remove_admin
+  delete '/users/:id/organizer', to: 'users#remove_organizer', as: :remove_organizer
 
   get '/settings', to: 'users#profile_settings', as: :profile_settings
   patch '/settings', to: 'users#update'

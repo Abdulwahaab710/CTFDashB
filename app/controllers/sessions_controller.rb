@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
   def create
     user = find_user
     if user&.authenticate(params[:session][:password])
+      return account_is_disabled unless user.active?
       log_in user
       redirect_back_or user
     else
@@ -47,6 +48,11 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def account_is_disabled
+    flash[:danger] = 'Your account is disabled'
+    render 'new', status: :unauthorized
+  end
 
   def find_user
     if email?(params[:session][:email])

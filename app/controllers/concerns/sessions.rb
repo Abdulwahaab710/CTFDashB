@@ -34,4 +34,14 @@ module Sessions
   def store_location
     session[:forwarding_url] = request.original_url if request.get? && request.original_fullpath != '/login'
   end
+
+  def logout_all_sessions_for_a_user(user)
+    user.sessions.delete_all
+  end
+
+  private
+
+  def destroy_all_session_except_current_session(session_id)
+    current_user.sessions.where.not(id: session_id).destroy_all
+  end
 end

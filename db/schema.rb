@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_024245) do
+ActiveRecord::Schema.define(version: 2018_09_10_021907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2018_09_04_024245) do
     t.boolean "organizer"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean "active"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

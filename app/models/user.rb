@@ -2,7 +2,9 @@
 
 # User models
 class User < ApplicationRecord
-  before_save { email.downcase! }
+  before_create { |user| user.active = true if user.active.nil? }
+  before_save { |user| user.email.downcase! }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true, length: { maximum: 255 }
   validates :email,
@@ -30,11 +32,11 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
 
   def admin?
-    !admin.nil?
+    admin == true
   end
 
   def organizer?
-    !organizer.nil?
+    organizer == true
   end
 
   def to_param

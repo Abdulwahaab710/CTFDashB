@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   def destroy
     @current_session = Session.find_by(id: session[:user_session_id])
     @current_session.destroy
-    session[:session_id] = nil
+    session[:user_session_id] = nil
     redirect_to root_path
   end
 
@@ -51,7 +51,7 @@ class SessionsController < ApplicationController
 
   def account_is_disabled
     flash[:danger] = 'Your account is disabled'
-    render 'new', status: :unauthorized
+    render 'new', status: :forbidden
   end
 
   def find_user

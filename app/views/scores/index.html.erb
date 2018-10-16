@@ -1,7 +1,24 @@
+<style type="text/css" media="screen">
+tbody > tr:nth-child(1) {
+  background-color: #DAA520 !important;
+}
+
+tbody > tr:nth-child(2) {
+  background-color: silver !important;
+}
+
+tbody > tr:nth-child(3) {
+  background-color: #cd7f32 !important;
+}
+
+tbody > tr:nth-child(even) {
+  background-color: lightgrey;
+}
+</style>
 <% if @teams.empty? %>
   <h1>There are no teams</h1>
 <% else %>
-  <table style='width: 100%;'>
+  <table style='width: 100%;' class='table table-striped'>
     <thead>
       <th style='width: 5vw;'>Place</th>
       <th>Team name</th>
@@ -11,7 +28,7 @@
       <% @teams.each_with_index do |team, index| %>
         <tr>
           <td><%= index.next %></td>
-          <td><%= team&.name %></td>
+          <td><%= link_to team&.name, team, target: '_blank' %></td>
           <td><%= team&.score %></td>
         </tr>
       <% end %>

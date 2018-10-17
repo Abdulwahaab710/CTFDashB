@@ -6,10 +6,11 @@ module CtfSettings
   end
 
   def ctf_has_started?
-    return render 'shared/countdown' if ctf_started? && !current_user&.organizer?
+    return if current_user&.organizer?
+    return render 'shared/countdown' unless ctf_started?
   end
 
   def ctf_started?
-    Time.zone.now.to_f > CtfSetting.find_by(key: 'start_time').to_f
+    Time.zone.now.to_f > CtfSetting.find_by(key: 'start_time')&.value.to_f
   end
 end

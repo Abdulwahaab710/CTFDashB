@@ -3,9 +3,11 @@
 class CategoriesController < ApplicationController
   before_action :user_logged_in?, except: %i[index show]
   before_action :user_has_permission?, except: %i[index show]
+  before_action :ctf_has_started?, only: %i[index show]
   before_action :fetch_categories
 
   include Users
+  include CtfSettings
 
   def index
     @categories = Category.all

@@ -23,7 +23,8 @@ defaults = {
     { key: 'ctf_name', value: 'CTF' },
     { key: 'ctf_logo', value: '/logo.svg' },
     { key: 'team_size', value: '4' },
-    { key: 'flag_regex', value: 'flag{[A-Za-z0-9_\-]+}' }
+    { key: 'flag_regex', value: 'flag{[A-Za-z0-9_\-]+}' },
+    { key: 'start_time', value: Time.zone.now }
   ]
 }
 defaults[:settings].each do |setting|

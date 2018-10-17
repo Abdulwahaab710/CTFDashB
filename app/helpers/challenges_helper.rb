@@ -10,6 +10,14 @@ module ChallengesHelper
     deactivate_challenge_button(challenge)
   end
 
+  def ctf_start_time
+    Time.parse(CtfSetting.find_by(key: 'start_time')&.value).httpdate
+  end
+
+  def time_now
+    Time.zone.now.httpdate
+  end
+
   private
 
   def deactivate_challenge_button(challenge)

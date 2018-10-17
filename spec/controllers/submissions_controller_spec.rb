@@ -13,11 +13,18 @@ RSpec.describe SubmissionsController, type: :controller do
       before(:each) do
         FactoryBot.create(:session, user: user)
         login_as(user)
+      end
+
+      let(:response) do
         post :create, params: {
           category_id: @challenge.category_id,
           id: @challenge.id,
           submission: { flag: 'flag{5QL1_15_AWES0ME}' }
         }, format: :js
+      end
+
+      it 'broadcast the new scores' do
+        expect { response }.to have_broadcasted_to('scores_channel')
       end
 
       it 'returns success' do
@@ -26,6 +33,7 @@ RSpec.describe SubmissionsController, type: :controller do
       end
 
       it 'adds the challenge points to the team score' do
+        response
         expect(Team.find_by(id: user.team.id).score).to eq(100)
       end
     end

@@ -64,8 +64,12 @@ class SubmissionsController < ApplicationController
 
   def update_score
     return if current_user.organizer?
-    score = Submission.where(team: current_user.team, valid_submission: true).map { |s| s.challenge.points }.sum
-    current_user.team.update(score: score)
+    current_user.team.update(score: calculate_team_new_score)
+    ActionCable.server.broadcast 'scores_channel', message: Team.order(score: :desc).pluck(:name, :score).to_json
+  end
+
+  def calculate_team_new_score
+    Submission.where(team: current_user.team, valid_submission: true).map { |s| s.challenge.points }.sum
   end
 
   def flag

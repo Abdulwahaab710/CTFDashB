@@ -35,13 +35,13 @@ class ChallengesController < ApplicationController
   def update
     @challenge = challenge
     @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
-    return render :edit unless @challenge.update(challenge_params)
+    return render :edit unless @challenge.update(challenge_params_without_flag)
     redirect_to [@challenge.category, @challenge]
   end
 
   def update_flag
     @challenge = challenge
-    render :edit unless @challenge.update(flag: new_flag)
+    render :edit unless @challenge.update(flag: BCrypt::Password.create(new_flag))
     flash[:success] = 'You have successfully updated the challenge flag'
     redirect_to [@challenge.category, @challenge]
   end
@@ -96,6 +96,20 @@ class ChallengesController < ApplicationController
       :flag,
       :max_tries,
       :active,
+      :after_message,
+      :category_id
+    )
+  end
+
+  def challenge_params_without_flag
+    params.require(:challenge).permit(
+      :title,
+      :description,
+      :link,
+      :points,
+      :max_tries,
+      :active,
+      :after_message,
       :category_id
     )
   end

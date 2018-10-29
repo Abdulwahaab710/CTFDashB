@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require sweetalert2
+//= require sweet-alert2-rails
 //= require_tree .

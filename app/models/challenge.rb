@@ -10,7 +10,7 @@ class Challenge < ApplicationRecord
   validates :flag, uniqueness: true
   validate :flag_format, on: :create
 
-  before_save { |challenge| challenge.flag = BCrypt::Password.create(flag) }
+  before_create { |challenge| challenge.flag = BCrypt::Password.create(flag) }
 
   scope :active, -> { where(active: true) }
 
@@ -28,6 +28,10 @@ class Challenge < ApplicationRecord
 
   def description
     String.new(self[:description])
+  end
+
+  def after_message
+    String.new(self[:after_message])
   end
 
   private

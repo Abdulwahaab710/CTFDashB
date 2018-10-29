@@ -31,6 +31,7 @@ class SubmissionsController < ApplicationController
   end
 
   def render_alert
+    @message = @challenge.after_message
     flash.now[:success] = 'Woohoo, you have successfully submitted your flag'
     respond_to do |f|
       f.js { render 'successful_submission', status: :ok }

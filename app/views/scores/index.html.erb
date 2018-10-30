@@ -18,18 +18,20 @@ tbody > tr:nth-child(even) {
 <% if @teams.empty? %>
   <h1>There are no teams</h1>
 <% else %>
-  <table style='width: 100%;' class='table table-striped'>
+  <table style='width: 100%;' class='table table-striped scoreboard'>
     <thead>
       <th style='width: 5vw;'>Place</th>
       <th>Team name</th>
       <th>Score</th>
+      <th>Number of teammates</th>
     </thead>
     <tbody>
       <% @teams.each_with_index do |team, index| %>
         <tr>
           <td><%= index.next %></td>
           <td><%= link_to team&.name, team, target: '_blank' %></td>
-          <td><%= team&.score %></td>
+	  <td><%= team&.score %></td>
+	  <td><%= team&.users&.count %></td>
         </tr>
       <% end %>
     </tbody>

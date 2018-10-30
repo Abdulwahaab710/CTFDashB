@@ -3,10 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 App.room = App.cable.subscriptions.create "ScoresChannel",
   received: (data) ->
-    $('table tbody').children().remove()
+    $('.scoreboard').children().remove()
     cnt = 0
     for team in JSON.parse(data['message'])
       cnt++
       console.log "#{team[0]} - #{team[1]}"
-      $('table tbody').append("<tr><td>#{cnt}</td><td>#{team[0]}</td><td>#{team[1]}</td></tr>")
+      $('.scoreboard').append("<tr><td>#{cnt}</td><td id='teamname-#{cnt}'></td><td>#{team[1]}</td><td></td></tr>")
+      $("#teamname-#{cnt}").text(team[0])
     # $('#messages').append data['message']

@@ -1,6 +1,6 @@
 // Set the date we're counting down to
 $(document).ready(
-  () => {
+  function() {
     var countDownDate = new Date($('#countdown').data('countdown').toString()).getTime();
 
     // Update the count down every 1 second
@@ -20,10 +20,10 @@ $(document).ready(
 
       // Output the result in an element with id="countdown"
       var timeLeft = '';
-      if(days > 0) { timeLeft += `${days} d `; }
-      if(hours > 0) { timeLeft += `${hours} h `; }
-      if(minutes > 0) { timeLeft += `${minutes} m `; }
-      if(seconds > 0) { timeLeft += `${seconds} s `; }
+      if(days > 0) { timeLeft += days + " d "; }
+      if(hours > 0) { timeLeft += hours + " h "; }
+      if(minutes > 0) { timeLeft += minutes + " m "; }
+      if(seconds > 0) { timeLeft += seconds + " s "; }
       document.getElementById("countdown").innerHTML = timeLeft;
 
       // If the count down is over, write some text

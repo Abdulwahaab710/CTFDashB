@@ -9,11 +9,14 @@ volumes:
 services:
   db:
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     image: postgres:9.5
     volumes:
       - db-data:/user/local/pgsql/data
+    env_file:
+      - .env
   redis:
     image: redis:latest
     command: redis-server
@@ -45,6 +48,7 @@ services:
   cable:
     depends_on:
       - redis
+      - web
     build: .
     command: puma -p 28080 cable/config.ru
     ports:
@@ -59,5 +63,3 @@ services:
       - web
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "4000:80"

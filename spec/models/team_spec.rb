@@ -24,6 +24,15 @@ RSpec.describe Team, type: :model do
     end
   end
 
+  context 'when calling #solved_challenges' do
+    let(:team) { FactoryBot.create(:team) }
+    let(:submission) { FactoryBot.create(:submission, valid_submission: true, flag: nil, team: team) }
+
+    it 'returns a list of valid submissions' do
+      expect(team.solved_challenges).to eq([submission])
+    end
+  end
+
   private
 
   def create_users

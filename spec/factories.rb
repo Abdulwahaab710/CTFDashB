@@ -27,7 +27,7 @@ FactoryBot.define do
   end
 
   factory :category do
-    name { 'web' }
+    sequence(:name) { |n| "category-#{n}" }
   end
 
   factory :challenge do
@@ -53,7 +53,7 @@ FactoryBot.define do
 
   factory :submission do
     challenge
-    category
+    category { challenge.category }
     flag { 'flag{invalid}' }
     user
     team

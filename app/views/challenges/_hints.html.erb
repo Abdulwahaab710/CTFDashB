@@ -1,0 +1,11 @@
+<% unless @challenge.nil? || @challenge&.hints&.empty? %>
+  <h4>Hints</h4>
+  <hr>
+  <ul>
+    <% @challenge.hints.each do |hint| %>
+      <% unless hint.penalty > 0 %>
+        <li><%= hint.hint_text %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

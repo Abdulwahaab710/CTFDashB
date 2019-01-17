@@ -15,7 +15,7 @@
         <% end %>
       </div>
       <hr>
-      <%= render 'challenges/challenges', challenges: @category.challenges.active %>
+      <%= render 'challenges/challenges', challenges: @category.challenges.active.order(:title) %>
     </div>
   </div>
 <% end %>

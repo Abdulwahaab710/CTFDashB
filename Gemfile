@@ -45,6 +45,8 @@ gem 'redcarpet'
 
 gem 'sidekiq'
 
+gem 'secure_headers'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

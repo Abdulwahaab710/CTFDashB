@@ -1,0 +1,15 @@
+<%= render 'challenges/challenge_categories' %>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>All Challenges</h1>
+    </div>
+    <hr>
+    <% if @challenges.nil? %>
+      <h1>No challenges has been added yet.</h1>
+    <% else %>
+      <%= render 'challenges/challenges', challenges: @challenges %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<% unless @categories.nil? %>
+  <ul class="nav nav-pills">
+      <li class="<%= current_class?(root_path) %>" ><%= link_to "All Challenges", root_path %></li>
+    <% @categories.each do |category| %>
+      <li class="<%= current_class?(category_path(category)) %>" ><%= link_to category&.name, category %></li>
+    <% end %>
+  </ul>
+<% end %>

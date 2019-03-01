@@ -1,0 +1,18 @@
+<%= render 'challenge_panel', ctf_challenge: @challenge do %>
+  <div class="alert alert-success collapse" role="alert">
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <% unless challenge_solved?(@challenge) %>
+        <%= form_for(@challenge_submission, url: submit_flag_path, remote: true) do |f| %>
+          <%= render 'shared/error_messages', obj: @challenge_submission %>
+
+          <%= f.label :flag %>
+          <%= f.text_field :flag %>
+
+          <%= f.submit "Submit flag", class: "btn btn-success" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

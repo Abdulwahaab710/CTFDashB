@@ -7,27 +7,35 @@ Rails.application.routes.draw do
   post 'ctf_settings', to: 'ctf_settings#edit'
   delete 'ctf_settings', to: 'ctf_settings#edit'
 
-  resources :categories, except: %i[edit update destroy] do |_categories|
-    member do
-      get 'edit'       => 'categories#edit', as: :edit
-      patch 'edit'     => 'categories#update'
-      delete ''        => 'categories#destroy', as: :delete
-    end
+  namespace :admin do
+    resources :challenges, only: %i[new create index], as: :challenge
 
-    resources :challenges, except: %i[new create edit update destroy], as: :challenges do
+    resources :categories, except: %i[edit update destroy] do
       member do
-        get 'edit'           => 'challenges#edit', as: :edit
-        patch 'edit'         => 'challenges#update'
-        patch 'update-flag'  => 'challenges#update_flag', as: :update_flag
-        patch 'activate'     => 'challenges#activate', as: :activate
-        patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
-        delete ''            => 'challenges#destroy', as: :delete
+        get 'edit'       => 'categories#edit', as: :edit
+        patch 'edit'     => 'categories#update'
+        delete ''        => 'categories#destroy', as: :delete
+      end
+
+      resources :challenges, except: %i[new create edit update destroy], as: :challenges do
+        member do
+          get 'edit'           => 'challenges#edit', as: :edit
+          patch 'edit'         => 'challenges#update'
+          patch 'update-flag'  => 'challenges#update_flag', as: :update_flag
+          patch 'activate'     => 'challenges#activate', as: :activate
+          patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
+          delete ''            => 'challenges#destroy', as: :delete
+        end
       end
     end
   end
 
   scope :categories do
     resources :challenges, only: %i[new create index], as: :challenge
+  end
+
+  resource :categories, only: %i[index show] do
+    resource :challenges, only: %i[index show]
   end
 
   resources :password_resets, only: %i[new create edit update]

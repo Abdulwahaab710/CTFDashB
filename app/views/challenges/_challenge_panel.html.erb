@@ -1,21 +1,6 @@
 <div class="panel panel-<%= challenge_solved?(ctf_challenge) ? "success" : "primary"%>">
   <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
     <h3 class="panel-title"><%= link_to ctf_challenge&.title, [ctf_challenge&.category, ctf_challenge] %></h3>
-    <% if current_user&.organizer? %>
-      <div>
-        <%= link_to 'Edit',
-          edit_category_challenge_path(ctf_challenge&.category, ctf_challenge),
-          class: 'btn btn-warning'
-        %>
-        <%= link_to 'Delete',
-          delete_category_challenge_path(ctf_challenge&.category, ctf_challenge),
-          class: 'btn btn-danger',
-          method: :delete,
-          data: { confirm: "Are you sure you want to delete #{ctf_challenge&.title}" }
-        %>
-        <%= challenge_status_button_tag(ctf_challenge) %>
-      </div>
-    <% end %>
   </div>
   <div class="panel-body">
     <%= ctf_challenge&.description.to_md.html_safe %>

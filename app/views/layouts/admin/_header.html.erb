@@ -1,0 +1,52 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <nav>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to root_path, class: 'navbar-brand', style: 'padding: 0' do %>
+          <%= image_tag ctf_logo, width: 40, height: 40 if ctf_logo %> <%= ctf_name %>
+        <% end %>
+
+      </div>
+      <div id='navbar' class='navbar-collapse collapse'>
+        <ul class="nav navbar-nav">
+          <li style="display: flex; align-items: center;">
+          </li>
+          <%= render 'organizers/challenges' %>
+          <%= render 'organizers/category' %>
+          <li><%= link_to "Users", admin_users_path %></li>
+          <li><%= link_to "Score Board", score_board_path %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li style="display: flex; align-items: center;">
+              <%= gravatar_for(current_user, size: 40, margin: 0) %> <%= link_to current_user.name, current_user %>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li style="padding: 3px 20px;">Signed in as <br> <%= current_user.name %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Your profile", current_user %></li>
+                <li class="divider"></li>
+                <% if current_user&.admin? %>
+                  <li><%= link_to "CTF Settings", admin_ctf_settings_path %></li>
+                  <li class="divider"></li>
+                <% end %>
+                <li><%= link_to "Settings", settings_path %></li>
+                <li>
+                  <%= link_to "Log out", logout_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -6,6 +6,8 @@ module Admin
 
     include ::Sessions
 
+    layout 'admin'
+
     private
 
     def current_user
@@ -14,7 +16,7 @@ module Admin
     end
 
     def user_has_permission?
-      return if current_user&.organizer?
+      return if current_user&.organizer? || current_user&.admin
 
       render file: Rails.root.join('public', '404.html'),
              status: :forbidden,

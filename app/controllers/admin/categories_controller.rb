@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
 module Admin
-  class CategoriesController < ApplicationController
+  class CategoriesController < AdminController
     before_action :fetch_categories
+    before_action :fetch_category, except: %i[index new create]
 
     include Users
     include CtfSettings
 
     def index
-      @categories = Category.all
       @challenges = Challenge.active
       @team_submissions = team_submissions
       return render 'challenges/index' unless current_user&.organizer?
     end
 
     def show
-      @category = Category.find_by!(id: params[:id])
       @team_submissions = team_submissions
     end
 
@@ -27,28 +26,30 @@ module Admin
       @category = Category.new(category_params)
       return render :new unless @category.save
 
-      redirect_to polymorphic_path([:admin, @category])
+      redirect_to admin_category
     end
 
     def edit
-      @category = Category.find_by!(id: params[:id])
     end
 
     def update
-      @category = Category.find_by!(id: params[:id])
       return render :edit unless @category.update(category_params)
 
-      redirect_to @category
+      redirect_to admin_category
     end
 
     def destroy
-      @category = Category.find_by!(id: params[:id])
-      redirect_to :show unless @category.destroy
-      flash[:success] = "You have successfully delete #{@category.name}"
-      redirect_to categories_path unless performed?
+      return redirect_to :show unless @category.destroy
+
+      flash[:success] = "You have successfully deleted #{@category.name}"
+      redirect_to admin_categories_path
     end
 
     private
+
+    def fetch_category
+      @category = Category.find_by!(id: params[:id])
+    end
 
     def fetch_categories
       @categories = Category.all
@@ -60,6 +61,10 @@ module Admin
 
     def team_submissions
       Submission.where(team: current_user&.team).group(:challenge_id).count
+    end
+
+    def admin_category
+      polymorphic_path([:admin, @category])
     end
   end
 end

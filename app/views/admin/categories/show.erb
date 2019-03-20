@@ -1,6 +1,6 @@
 <% provide(:title, 'Category') %>
 
-<%= render 'challenges/challenge_categories' %>
+<%= render 'admin/challenges/challenge_categories' %>
 
 <% if @category %>
   <div class="row">
@@ -9,13 +9,13 @@
         <h1><%= @category.name %></h1>
         <% if current_user&.organizer? %>
           <div>
-            <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
-            <%= link_to 'Delete', delete_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+            <%= link_to 'Edit', edit_admin_category_path(@category), class: 'btn btn-warning' %>
+            <%= link_to 'Delete', delete_admin_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
           </div>
         <% end %>
       </div>
       <hr>
-      <%= render 'challenges/challenges', challenges: @category.challenges.active %>
+      <%= render 'admin/challenges/challenges', challenges: @category.challenges.active %>
     </div>
   </div>
 <% end %>

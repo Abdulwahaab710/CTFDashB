@@ -20,7 +20,7 @@ module Admin
     def create
       @challenge = Challenge.new(challenge_params)
       @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
-      return redirect_to [@challenge.category, @challenge] if @challenge.save
+      return redirect_to challenge_path if @challenge.save
 
       render :new, status: :unprocessable_entity
     end
@@ -34,14 +34,14 @@ module Admin
       @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
       return render :edit unless @challenge.update(challenge_params_without_flag)
 
-      redirect_to [@challenge.category, @challenge]
+      redirect_to challenge_path
     end
 
     def update_flag
       @challenge = challenge
       render :edit unless @challenge.update(flag: BCrypt::Password.create(new_flag))
       flash[:success] = 'You have successfully updated the challenge flag'
-      redirect_to [@challenge.category, @challenge]
+      redirect_to challenge_path
     end
 
     def show
@@ -110,6 +110,10 @@ module Admin
         :after_message,
         :category_id
       )
+    end
+
+    def challenge_path
+      polymorphic_path([:admin, @challenge.category, @challenge])
     end
   end
 end

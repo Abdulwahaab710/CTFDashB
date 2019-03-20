@@ -2,7 +2,7 @@
 
 class ChallengesController < ApplicationController
   before_action :user_logged_in?, except: %i[index]
-  before_action :ctf_has_started?, only: %i[index show]
+  before_action :ctf_has_started?
   before_action :user_is_enrolled_in_a_team?, only: :show
   before_action :fetch_categories
   before_action :fetch_team_submissions

@@ -1,4 +1,4 @@
-<%= render 'challenges/challenge_categories' %>
+<%= render 'admin/challenges/challenge_categories' %>
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
@@ -9,7 +9,7 @@
     <% if @challenges.nil? %>
       <h1>No challenges has been added yet.</h1>
     <% else %>
-      <%= render 'challenges/challenges', challenges: @challenges %>
+      <%= render 'admin/challenges/challenges', challenges: @challenges %>
     <% end %>
   </div>
 </div>

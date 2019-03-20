@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@challenge, url: challenge_index_path) do |f| %>
+    <%= form_for(@challenge, url: admin_challenge_index_path) do |f| %>
       <%= render 'shared/error_messages', obj: @challenge %>
 
       <%= f.label :title, 'Challenge title' %>

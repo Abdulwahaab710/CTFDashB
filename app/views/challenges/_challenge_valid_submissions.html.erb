@@ -1,0 +1,9 @@
+<% unless @challenge_submissions&.empty? || @challenge_submissions.nil? %>
+  <hr>
+  <h5>Solved by</h4>
+  <ul>
+    <% @challenge_submissions.each do |submission| %>
+      <li><%= link_to submission&.team&.name, submission&.team %></li>
+    <% end %>
+  </ul>
+<% end %>

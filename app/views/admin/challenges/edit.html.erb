@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@challenge, url: edit_category_challenge_path) do |f| %>
+    <%= form_for(@challenge, url: edit_admin_category_challenge_path) do |f| %>
       <%= render 'shared/error_messages', obj: @challenge %>
 
       <%= f.label :title, 'Challenge title' %>
@@ -46,7 +46,7 @@
 <div class='row'>
   <div class="col-md-6 col-md-offset-3">
     <h2>Update challenge flag</h2>
-    <%= form_for(@challenge, url: update_flag_category_challenge_path) do |f| %>
+    <%= form_for(@challenge, url: update_flag_admin_category_challenge_path) do |f| %>
       <%= render 'shared/error_messages', obj: @challenge %>
 
       <%= f.label :flag, 'Flag' %>

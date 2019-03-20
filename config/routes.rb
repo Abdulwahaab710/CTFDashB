@@ -3,18 +3,19 @@
 Rails.application.routes.draw do
   root to: 'challenges#index'
 
-  get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
-  post 'ctf_settings', to: 'ctf_settings#edit'
-  delete 'ctf_settings', to: 'ctf_settings#edit'
-
   namespace :admin do
+    root to: 'challenges#index'
+    get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
+    post 'ctf_settings', to: 'ctf_settings#edit'
+    delete 'ctf_settings', to: 'ctf_settings#edit'
+
     resources :challenges, only: %i[new create index], as: :challenge
 
     resources :categories, except: %i[edit update destroy] do
       member do
         get 'edit'       => 'categories#edit', as: :edit
         patch 'edit'     => 'categories#update'
-        delete ''        => 'categories#destroy', as: :delete
+        delete '/' => 'categories#destroy', as: :delete
       end
 
       resources :challenges, except: %i[new create edit update destroy], as: :challenges do
@@ -24,17 +25,37 @@ Rails.application.routes.draw do
           patch 'update-flag'  => 'challenges#update_flag', as: :update_flag
           patch 'activate'     => 'challenges#activate', as: :activate
           patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
-          delete ''            => 'challenges#destroy', as: :delete
+          delete '/' => 'challenges#destroy', as: :delete
         end
       end
     end
+
+    get '/users', to: 'user_managements#index', as: :users
+
+    resources :users do
+      member do
+        patch '/activate', to: 'user_managements#activate', as: :activate_user
+        patch '/admin', to: 'user_managements#add_admin', as: :add_admin
+        patch '/organizer', to: 'user_managements#add_organizer', as: :add_organizer
+        delete '/', to: 'user_managements#deactivate', as: :deactivate_user
+        delete '/admin', to: 'user_managements#remove_admin', as: :remove_admin
+        delete '/organizer', to: 'user_managements#remove_organizer', as: :remove_organizer
+      end
+    end
   end
+
+  get '/categories/:id', to: 'categories#show', as: :category
+
+  get '/categories/:category_id/challenges/:id', to: 'challenges#show', as: :category_challenge
 
   scope :categories do
     resources :challenges, only: %i[new create index], as: :challenge
   end
 
   resource :categories, only: %i[index show] do
+    member do
+      get '' => 'categories#index'
+    end
     resource :challenges, only: %i[index show]
   end
 
@@ -56,15 +77,7 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create'
-
-  get '/users', to: 'users#index', as: :users
   get '/users/:id', to: 'users#show', as: :user
-  patch '/users/:id/activate', to: 'users#activate', as: :activate_user
-  patch '/users/:id/admin', to: 'users#add_admin', as: :add_admin
-  patch '/users/:id/organizer', to: 'users#add_organizer', as: :add_organizer
-  delete '/users/:id', to: 'users#deactivate', as: :deactivate_user
-  delete '/users/:id/admin', to: 'users#remove_admin', as: :remove_admin
-  delete '/users/:id/organizer', to: 'users#remove_organizer', as: :remove_organizer
 
   get '/settings', to: 'users#profile_settings', as: :profile_settings
   patch '/settings', to: 'users#update'
@@ -80,5 +93,4 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   get '/scores', to: 'scores#index', as: :score_board
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

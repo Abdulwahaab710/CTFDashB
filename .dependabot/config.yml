@@ -1,0 +1,21 @@
+version: 1
+update_configs:
+  # Update your Gemfile (& lockfiles) as soon as
+  # new versions are published to the RubyGems registry
+  - package_manager: "ruby:bundler"
+    directory: "/"
+    update_schedule: "live"
+
+    # Apply default reviewer and label to created
+    # pull requests
+    default_reviewers:
+      - "Abdulwahaab710"
+    default_labels:
+      - "dependencies"
+
+    # Automerge all development updates and production
+    # security (semver patch) updates (waiting for CI to pass)
+    automerged_updates:
+      - match:
+          dependency_type: "production"
+          update_type: "security:patch"

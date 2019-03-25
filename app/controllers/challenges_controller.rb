@@ -25,6 +25,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new(challenge_params)
     @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
     return redirect_to [@challenge.category, @challenge] if @challenge.save
+
     render :new, status: :unprocessable_entity
   end
 
@@ -36,6 +37,7 @@ class ChallengesController < ApplicationController
     @challenge = challenge
     @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
     return render :edit unless @challenge.update(challenge_params_without_flag)
+
     redirect_to [@challenge.category, @challenge]
   end
 
@@ -89,16 +91,12 @@ class ChallengesController < ApplicationController
 
   def challenge_params
     params.require(:challenge).permit(
-      :title,
-      :description,
-      :link,
-      :points,
-      :flag,
-      :max_tries,
-      :active,
-      :after_message,
+      :title, :description,
+      :link, :points,
+      :flag, :max_tries,
+      :active, :after_message,
       :category_id
-    )
+    ).merge(user: current_user)
   end
 
   def challenge_params_without_flag

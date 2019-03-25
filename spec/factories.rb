@@ -62,4 +62,9 @@ FactoryBot.define do
     team
     submission_hash { 'submission_hash' }
   end
+
+  factory :ctf_setting do
+    key { '' }
+    value { '' }
+  end
 end

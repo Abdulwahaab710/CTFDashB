@@ -7,10 +7,17 @@ module CtfSettings
 
   def ctf_has_started?
     return if current_user&.organizer?
-    return render 'shared/countdown' unless ctf_started?
+
+    return render 'shared/countdown' if ctf_started?
   end
 
   def ctf_started?
-    Time.zone.now.to_f > Time.zone.parse(CtfSetting.find_by(key: 'start_time')&.value).to_f
+    return false unless start_time
+
+    Time.zone.now.to_f > Time.zone.parse(start_time&.value).to_f
+  end
+
+  def start_time
+    @start_time ||= CtfSetting.find_by(key: 'start_time')
   end
 end

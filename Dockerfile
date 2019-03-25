@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby@sha256:0048434fd0ea67f0c8fc5d959a38751fced429c3c80c28e293518486f9039723
 
 RUN apt-get update -yqq \
   && apt-get install -yqq --no-install-recommends \

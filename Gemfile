@@ -32,7 +32,7 @@ gem 'rails-controller-testing'
 
 gem 'bootstrap-sass', '3.4.1'
 gem 'font-awesome-rails'
-gem 'rails-assets-sweetalert2', '~> 8.6.0', source: 'https://rails-assets.org'
+gem 'rails-assets-sweetalert2', '~> 8.8.0', source: 'https://rails-assets.org'
 gem 'sweet-alert2-rails'
 
 gem 'bootsnap', '>= 1.1.0', require: false

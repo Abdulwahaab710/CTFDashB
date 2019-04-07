@@ -5,11 +5,11 @@ App.room = App.cable.subscriptions.create "ScoresChannel",
   received: (data) ->
     $('table#leaderboard tbody').children().remove()
     cnt = 0
-    $('.scores').append('<tr><td>Place</td><td>Team name</td><td>Score</td></tr>')
+    $('table#leaderboard tbody').append('<tr><td>Place</td><td>Team name</td><td>Score</td></tr>')
     for team in JSON.parse(data['message'])
       cnt++
       console.log "#{team[0]} - #{team[1]}"
-      $('.scores').append($("<tr/>").html([
+      $('table#leaderboard tbody').append($("<tr/>").html([
         $("<td/>").text(cnt),
         $("<td/>").text(team[0]),
         $("<td/>").text(team[1])

@@ -21,19 +21,36 @@ Before we start you will need to have docker and docker-compose installed. You c
 git clone git@github.com:Abdulwahaab710/CTFDashB.git
 ```
 
-2. Build the containers
+2. cd into the folder and create a dotenv file, like the following
+
+```bash
+# CTFDashB/.env
+DATABASE_HOST=db
+DATABASE_USERNAME=root
+DATABASE_PASSWORD=S0ME_RANDOM_PASSWORD # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()
+REDIS_URL=redis://redis
+```
+if this is for **production**, you will have to set the RAILS_ENV to be like the following
+
+```bash
+# CTFDashB/.env
+...
+RAILS_ENV=production
+```
+
+3. Build the containers
 
 ```sh
 docker-compose build
 ```
 
-3. Create the database, run Migration and seed the database
+4. Create the database, run Migration and seed the database
 
 ```sh
 docker-compose run web rake db:create db:migrate db:seed
 ```
 
-4. Run the application
+5. Run the application
 
 ```sh
 docker-compose up
@@ -41,35 +58,27 @@ docker-compose up
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+To run tests
 
 ```
-Give an example
+docker-compose run web bundle exec rspec
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+### And coding style (rubocop)
 
 ```
-Give an example
+docker-compose run web bundle exec rubocop
+```
+
+To auto fix the violiation for rubocop
+
+```
+docker-compose run web bundle exec rubocop
 ```
 
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## License
 

@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Challenge, type: :model do
   before(:each) do
-    @category = Category.create(name: 'web 101')
+    @user = FactoryBot.create(:user)
+    @category = FactoryBot.create(:category, name: 'web 101')
     @challenge = Challenge.create(
       title: 'sqli baby',
       points: 100,
@@ -13,7 +14,8 @@ RSpec.describe Challenge, type: :model do
       description: '# Finish the challenge to get the flag',
       active: false,
       flag: 'flag{helloworld}',
-      category: @category
+      category: @category,
+      user: @user
     )
     CtfSetting.create(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}')
   end
@@ -37,25 +39,27 @@ RSpec.describe Challenge, type: :model do
           description: '# Finish the challenge to get the flag',
           active: false,
           flag: 'flag(hello world)',
-          category: @category
+          category: @category,
+          user: @user
         )
       ).to_not be_valid
     end
 
-    # it 'enforces uniqueness of Challenge title' do
-    #   expect(
-    #     Challenge.create(
-    #       title: 'sqli baby',
-    #       points: 100,
-    #       max_tries: 99,
-    #       link: 'https://somedomain.com/path',
-    #       description: 'Finish the challenge to get the flag',
-    #       active: false,
-    #       flag: 'flag{hello world}',
-    #       category: @category
-    #     ).valid?
-    #   ).to be false
-    # end
+    it 'is not valid without a user' do
+      expect(
+        Challenge.new(
+          title: 'XSS baby',
+          points: 100,
+          max_tries: 99,
+          link: 'https://somedomain.com/path',
+          description: '# Finish the challenge to get the flag',
+          active: false,
+          flag: 'flag{flag}',
+          category: @category,
+          user: nil
+        )
+      ).to_not be_valid
+    end
   end
 
   context 'when calling to_md' do

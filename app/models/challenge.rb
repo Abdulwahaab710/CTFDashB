@@ -2,6 +2,7 @@
 
 class Challenge < ApplicationRecord
   belongs_to :category
+  belongs_to :user
   has_many :submissions, dependent: :destroy
   has_many_attached :challenge_files
 
@@ -39,6 +40,7 @@ class Challenge < ApplicationRecord
   def flag_format
     flag_regex = CtfSetting.find_by(key: 'flag_regex')&.value
     return unless flag_regex
+
     errors.add(:flag, 'Invalid flag format.') unless self[:flag] =~ Regexp.new(flag_regex)
   end
 end

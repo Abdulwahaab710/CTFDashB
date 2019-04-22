@@ -20,11 +20,11 @@ $(document).ready(
 
       // Output the result in an element with id="countdown"
       var timeLeft = '';
-      if(days > 0) { timeLeft += days + " d "; }
-      if(hours > 0) { timeLeft += hours + " h "; }
-      if(minutes > 0) { timeLeft += minutes + " m "; }
-      if(seconds > 0) { timeLeft += seconds + " s "; }
-      document.getElementById("countdown").innerHTML = timeLeft;
+      if(days > 0) { timeLeft += `${days} d `; }
+      if(hours > 0) { timeLeft += `${hours} h `; }
+      if(minutes > 0) { timeLeft += `${minutes} m `; }
+      if(seconds > 0) { timeLeft += `${seconds} s `; }
+      document.getElementById("countdown").textContent = timeLeft;
 
       // If the count down is over, write some text
       if (distance < 0) {

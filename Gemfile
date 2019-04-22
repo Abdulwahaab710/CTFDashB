@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use Puma as the app server
@@ -30,9 +30,9 @@ gem 'bcrypt', '~> 3.1.12'
 
 gem 'rails-controller-testing'
 
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'font-awesome-rails'
-gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
+gem 'rails-assets-sweetalert2', '~> 8.8.1', source: 'https://rails-assets.org'
 gem 'sweet-alert2-rails'
 
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -53,7 +53,7 @@ group :development, :test do
   gem 'action-cable-testing'
   gem 'byebug', platform: :mri
   gem 'codecov', require: false, group: :test
-  gem 'factory_bot_rails', '~> 4.11'
+  gem 'factory_bot_rails', '~> 5.0'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'rubocop'

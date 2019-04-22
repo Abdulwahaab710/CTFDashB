@@ -9,13 +9,13 @@ volumes:
 services:
   db:
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-    image: postgres:9.5
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    image: postgres@sha256:d4729fad66e863ffc6100716ee4e4479045086a98feca58a732c7624dad86ecd
     volumes:
       - db-data:/user/local/pgsql/data
   redis:
-    image: redis:latest
+    image: redis@sha256:b22a5030704efa865bf03fdc4f5828d969f0edd1be9c159f0e9dc2f33be31f5b
     command: redis-server
     volumes:
       - redis-data:/data

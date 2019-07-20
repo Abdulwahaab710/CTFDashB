@@ -1,10 +1,10 @@
 <h1><%= @team.name %></h1>
-<%= link_to 'Withdraw', withdraw_from_team_path, method: :patch %>
+<%= link_to 'Withdraw', withdraw_from_team_path, method: :delete %>
 <ul>
   <% @team.users.each do |hacker| %>
     <li><%= link_to hacker.name, hacker %></li>
   <% end %>
 </ul>
-<% if current_user&.team.id == @team.id %>
+<% if current_user&.team&.id == @team.id %>
   <h2>Team invitation token: <%= @team.invitation_token %></h2>
 <% end %>

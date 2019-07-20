@@ -8,15 +8,15 @@
         <% @categories.each do |category| %>
           <tr>
             <td><%= link_to category.name, category %></td>
-            <td><%= link_to 'Edit', edit_category_path(category) %></td>
-            <td><%= link_to 'Delete', delete_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
+            <td><%= link_to 'Delete', delete_admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <td></td>
           </tr>
         <% end %>
       </table>
     <% else %>
       <h2>There are not categories.</h3>
-      <h4><%= link_to 'Click here to create a category', new_category_path %></h4>
+      <h4><%= link_to 'Click here to create a category', admin_new_category_path %></h4>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,9 @@
+<% unless challenge_files.empty? %>
+  <hr>
+  <h5>Challenge files</h5>
+  <ul>
+    <% challenge_files&.each do |challenge_file| %>
+      <li><%= link_to challenge_file.filename, rails_blob_path(challenge_file, disposition: "attachment") %></li>
+    <% end %>
+  </ul>
+<% end %>

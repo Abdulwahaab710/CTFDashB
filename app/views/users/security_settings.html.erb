@@ -1,6 +1,7 @@
 <h1>Security settings</h1>
 <div class='col-md-6'>
   <%= form_tag security_settings_path, method: 'patch' do |f| %>
+    <%= render 'shared/error_messages', obj: @user %>
     <%= label_tag :current_password %>
     <%= password_field_tag :current_password, nil, class: 'form-control' %>
 

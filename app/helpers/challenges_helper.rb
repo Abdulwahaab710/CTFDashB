@@ -25,7 +25,7 @@ module ChallengesHelper
     challenge_status_button(
       'Deactivate challenge',
       'btn-danger',
-      deactivate_category_challenge_path(challenge.category, challenge)
+      deactivate_admin_category_challenge_path(challenge.category, challenge)
     )
   end
 
@@ -33,7 +33,7 @@ module ChallengesHelper
     challenge_status_button(
       'Activate challenge',
       'btn-success',
-      activate_category_challenge_path(challenge.category, challenge)
+      activate_admin_category_challenge_path(challenge.category, challenge)
     )
   end
 

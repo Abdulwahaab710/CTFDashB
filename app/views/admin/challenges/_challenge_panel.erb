@@ -1,0 +1,53 @@
+<div class="panel panel-<%= challenge_solved?(ctf_challenge) ? "success" : "primary"%>">
+  <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
+    <h3 class="panel-title">
+      <%= link_to ctf_challenge&.title, polymorphic_path([:admin, ctf_challenge&.category, ctf_challenge]) %>
+    </h3>
+    <% if current_user&.organizer? %>
+      <div>
+        <%= link_to 'Edit',
+          edit_admin_category_challenge_path(ctf_challenge&.category, ctf_challenge),
+          class: 'btn btn-warning'
+        %>
+        <%= link_to 'Delete',
+          delete_admin_category_challenge_path(ctf_challenge&.category, ctf_challenge),
+          class: 'btn btn-danger',
+          method: :delete,
+          data: { confirm: "Are you sure you want to delete #{ctf_challenge&.title}" }
+        %>
+        <%= challenge_status_button_tag(ctf_challenge) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <%= ctf_challenge&.description.to_md.html_safe %>
+    <%= yield %>
+    <%= render 'challenges/challenge_files_section', challenge_files: ctf_challenge&.challenge_files %>
+    <%= render 'challenges/challenge_valid_submissions' %>
+  </div>
+  <div class="panel-footer">
+    <table style='width: 100%;'>
+      <tr>
+        <td>
+          <div style="float:left; width:50%;">
+              <span class='label label-default' style='margin-right: 0.5vw;'>
+                <strong>
+                  <%= ctf_challenge&.points&.to_i %> <%= ctf_challenge&.points > 1 ? 'Points' : 'Point' %>
+                </strong>
+              </span>
+              <span class='max-tries-label label label-default' style='margin-right: 0.5vw;'>
+                <strong>
+                  <%= ctf_challenge&.max_tries - @team_submissions[ctf_challenge&.id].to_i %> Tries left
+                </strong>
+              </span>
+          </div>
+        </td>
+        <td>
+          <div style="float:right; width:50%; text-align: right;">
+            <%= link_to 'Go to the challenge', polymorphic_path([:admin, ctf_challenge&.category, ctf_challenge]) %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -17,18 +17,12 @@
         <ul class="nav navbar-nav">
           <li style="display: flex; align-items: center;">
           </li>
-          <li><%= link_to "Challenges", root_path %></li>
+          <%= render 'organizers/challenges' %>
+          <%= render 'organizers/category' %>
+          <li><%= link_to "Users", admin_users_path %></li>
           <li><%= link_to "Score Board", score_board_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <% if logged_in? %>
-            <li style="display: flex; align-items: center;">
-              <% if current_user.team.nil? %>
-                <%= link_to 'Not enrolled', join_team_path %>
-              <% else %>
-                <%= link_to current_user.team.score.to_i, current_user.team %>
-              <% end %>
-            </li>
             <li style="display: flex; align-items: center;">
               <%= gravatar_for(current_user, size: 40, margin: 0) %> <%= link_to current_user.name, current_user %>
             </li>
@@ -40,21 +34,17 @@
                 <li style="padding: 3px 20px;">Signed in as <br> <%= current_user.name %></li>
                 <li class="divider"></li>
                 <li><%= link_to "Your profile", current_user %></li>
-                <% if current_user.team.nil? %>
-                  <li><%= link_to "Create or Join a Team", join_team_path %></li>
-                <% else %>
-                  <li><%= link_to "Your team", current_user.team %></li>
-                <% end %>
                 <li class="divider"></li>
+                <% if current_user&.admin? %>
+                  <li><%= link_to "CTF Settings", admin_ctf_settings_path %></li>
+                  <li class="divider"></li>
+                <% end %>
                 <li><%= link_to "Settings", settings_path %></li>
                 <li>
                   <%= link_to "Log out", logout_path, method: :delete %>
                 </li>
               </ul>
             </li>
-          <% else %>
-            <li><%= link_to "Log in", login_path %></li>
-          <% end %>
         </ul>
       </div>
     </div>

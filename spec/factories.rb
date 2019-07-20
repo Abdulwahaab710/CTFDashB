@@ -17,6 +17,7 @@ FactoryBot.define do
 
   factory :team do
     sequence(:name) { |n| "team-#{n}" }
+    sequence(:invitation_token) { |n| "token-#{n}" }
   end
 
   factory :session do
@@ -60,7 +61,7 @@ FactoryBot.define do
     flag { 'flag{invalid}' }
     user
     team
-    submission_hash { 'submission_hash' }
+    sequence(:submission_hash) { |n| "submission_hash-#{n}" }
   end
 
   factory :ctf_setting do

@@ -56,7 +56,7 @@ class SubmissionsController < ApplicationController
 
   def build_submission_signature
     salt = Rails.application.secrets.submission_salt
-    Digest::SHA256.hexdigest("#{@challenge.id}#{current_user&.team&.id}#{submitted_flag}#{salt}")
+    Digest::SHA256.hexdigest("#{@challenge.id}-#{current_user&.team&.id}-#{submitted_flag}-#{salt}")
   end
 
   def submitted_flag

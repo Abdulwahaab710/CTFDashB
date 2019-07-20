@@ -7,11 +7,12 @@ module ChallengesHelper
 
   def challenge_status_button_tag(challenge)
     return activate_challenge_button(challenge) unless challenge.active?
+
     deactivate_challenge_button(challenge)
   end
 
   def ctf_start_time
-    Time.parse(CtfSetting.find_by(key: 'start_time')&.value).httpdate
+    Time.zone.parse(CtfSetting.find_by(key: 'start_time')&.value).httpdate
   end
 
   def time_now

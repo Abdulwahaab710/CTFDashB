@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_26_231206) do
+ActiveRecord::Schema.define(version: 2019_03_23_194348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,9 @@ ActiveRecord::Schema.define(version: 2018_10_26_231206) do
     t.string "flag"
     t.integer "category_id"
     t.string "after_message"
+    t.bigint "user_id"
     t.index ["category_id"], name: "index_challenges_on_category_id"
+    t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
   create_table "ctf_settings", id: :serial, force: :cascade do |t|
@@ -122,7 +124,9 @@ ActiveRecord::Schema.define(version: 2018_10_26_231206) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "categories"
+  add_foreign_key "challenges", "users"
   add_foreign_key "hints", "challenges"
   add_foreign_key "sessions", "users"
   add_foreign_key "submissions", "categories"

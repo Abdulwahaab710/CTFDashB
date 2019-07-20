@@ -10,8 +10,12 @@ module CtfSettings
   end
 
   def ctf_started?
-    return true unless CtfSetting.find_by(key: 'start_time')
+    return true unless start_time
 
-    Time.zone.now.to_f > Time.parse(CtfSetting.find_by(key: 'start_time')&.value).to_f
+    Time.zone.now.to_i > Time.zone.parse(start_time&.value).to_i
+  end
+
+  def start_time
+    @start_time ||= CtfSetting.find_by(key: 'start_time')
   end
 end

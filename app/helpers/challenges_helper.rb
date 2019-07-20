@@ -12,7 +12,7 @@ module ChallengesHelper
   end
 
   def ctf_start_time
-    Time.parse(CtfSetting.find_by(key: 'start_time')&.value).httpdate
+    Time.zone.parse(CtfSetting.find_by(key: 'start_time')&.value).httpdate
   end
 
   def time_now

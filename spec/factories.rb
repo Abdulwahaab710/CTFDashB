@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :hint do
     challenge { nil }
-    hint_text { "MyText" }
+    hint_text { 'MyText' }
     penalty { 1.5 }
   end
   factory :user do
@@ -17,13 +17,16 @@ FactoryBot.define do
 
   factory :team do
     sequence(:name) { |n| "team-#{n}" }
+    sequence(:invitation_token) { |n| "token-#{n}" }
   end
 
   factory :session do
     user
     ip_address { '192.168.1.1' }
-    browser { 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) '\
-      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' }
+    browser do
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) '\
+      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36'
+    end
   end
 
   factory :category do
@@ -39,6 +42,7 @@ FactoryBot.define do
     points { 100 }
     max_tries { 100 }
     active { true }
+    user
   end
 
   factory :flag_regex, class: CtfSetting do
@@ -57,6 +61,11 @@ FactoryBot.define do
     flag { 'flag{invalid}' }
     user
     team
-    submission_hash { 'submission_hash' }
+    sequence(:submission_hash) { |n| "submission_hash-#{n}" }
+  end
+
+  factory :ctf_setting do
+    key { '' }
+    value { '' }
   end
 end

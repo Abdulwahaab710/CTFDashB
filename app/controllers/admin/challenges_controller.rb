@@ -96,7 +96,7 @@ module Admin
         :active,
         :after_message,
         :category_id
-      )
+      ).merge(user: current_user)
     end
 
     def challenge_params_without_flag

@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.com/Abdulwahaab710/CTFDashB.svg?token=bpyKsaqf92KAMzyEvsW1&branch=master)](https://travis-ci.com/Abdulwahaab710/CTFDashB)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Abdulwahaab710/CTFDashB&identifier=107459121)](https://dependabot.com)
 [![codecov](https://codecov.io/gh/Abdulwahaab710/CTFDashB/branch/master/graph/badge.svg?token=ohtoTFuMNi)](https://codecov.io/gh/Abdulwahaab710/CTFDashB)
+![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/Abdulwahaab710/CTFDashB.svg)
 
 CTFDashB is a Capture The Flag dashboard.
 

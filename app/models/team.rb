@@ -9,4 +9,8 @@ class Team < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   include Tokenable
+
+  def solved_challenges
+    submissions.valid
+  end
 end

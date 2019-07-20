@@ -111,4 +111,11 @@ RSpec.describe Submission, type: :model do
       ).to_not be_valid
     end
   end
+
+  context'when calling #valid' do
+    let(:valid_submission) { FactoryBot.create(:submission, valid_submission: true, flag: nil) }
+    it 'returns valid submissions' do
+      expect(Submission.valid).to eq([valid_submission])
+    end
+  end
 end

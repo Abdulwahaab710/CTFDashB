@@ -67,4 +67,13 @@ RSpec.describe Challenge, type: :model do
       expect(@challenge.description.to_md).to eq("<h1>Finish the challenge to get the flag</h1>\n")
     end
   end
+
+  context 'when calling for challenges' do
+    let(:challenge_second) { FactoryBot.create(:challenge, title: 'challenge2', flag: 'flag{flag}') }
+    let(:challenge_first) { FactoryBot.create(:challenge, title: 'challenge1', flag: 'flag{flag}') }
+
+    it 'returns them sorted by title' do
+      expect(Challenge.all).to eq([challenge_first, challenge_second, @challenge])
+    end
+  end
 end

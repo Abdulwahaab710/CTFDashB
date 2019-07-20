@@ -13,6 +13,7 @@ class Challenge < ApplicationRecord
 
   before_create { |challenge| challenge.flag = BCrypt::Password.create(flag) }
 
+  default_scope { order(title: :asc) }
   scope :active, -> { where(active: true) }
 
   class String < SimpleDelegator

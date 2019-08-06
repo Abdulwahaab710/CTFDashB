@@ -1,0 +1,37 @@
+<style>
+  #editor {
+    height: 70vh;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ace.js"
+        integrity="sha256-gkWBmkjy/8e1QUz5tv4CCYgEtjR8sRlGiXsMeebVeUo=" crossorigin="anonymous">
+</script>
+
+<%= form_for(@page, url: new_admin_pages_path) do |f| %>
+  <%= render 'shared/error_messages', obj: @page %>
+
+  <%= f.label :path, 'Page path' %>
+  <%= f.text_field :path, class: 'form-control' %>
+
+  <%= f.label :html_content, 'HTML' %>
+  <div id='editor' class='form-control'></div>
+  <%= f.text_area :html_content, class: 'form-control', style: 'display: none' %>
+
+  <br>
+
+  <%= f.submit 'Create page', class: 'btn btn-primary' %>
+<% end %>
+
+<script>
+  var editor = ace.edit("editor");
+  editor.setTheme('ace/theme/dracula')
+  editor.session.setMode("ace/mode/html");
+  editor.setAutoScrollEditorIntoView(true);
+
+  var textarea = $('textarea[name="page[html_content]"]');
+  textarea.val(editor.getSession().getValue());
+  editor.getSession().on("change", function () {
+    textarea.val(editor.getSession().getValue());
+  });
+</script>

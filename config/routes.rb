@@ -42,6 +42,17 @@ Rails.application.routes.draw do
         delete '/organizer', to: 'user_managements#remove_organizer', as: :remove_organizer
       end
     end
+
+    resource :pages, except: %i[show], as: :pages do
+      member do
+        get '/', to: 'pages#index'
+        get '/new', to: 'pages#new', as: :new
+        post '/new', to: 'pages#create'
+        get '/:path/edit', to: 'pages#edit', as: :edit
+        patch '/:path/edit', to: 'pages#update'
+        delete '/:path', to: 'pages#destroy', as: :delete
+      end
+    end
   end
 
   get '/categories/:id', to: 'categories#show', as: :category
@@ -93,4 +104,5 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   get '/scores', to: 'scores#index', as: :score_board
+  get '/pages/:path', to: 'pages#show', as: :page
 end

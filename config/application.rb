@@ -24,5 +24,6 @@ module CTFDashB
     config.logger                   = ActiveSupport::TaggedLogging.new(logger)
     config.active_job.queue_adapter = :sidekiq
     config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app', 'models', 'drops')
   end
 end

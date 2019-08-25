@@ -45,6 +45,9 @@ gem 'redcarpet'
 
 gem 'sidekiq'
 
+gem 'liquid', '~> 4.0'
+gem 'liquid-c', '~> 4.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

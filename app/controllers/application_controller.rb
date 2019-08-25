@@ -9,8 +9,13 @@ class ApplicationController < ActionController::Base
 
   def user_logged_in?
     return if logged_in?
+
     store_location
     flash[:danger] = 'Please log in.'
     redirect_to login_url
+  end
+
+  def render_liquid_template(template, data: {})
+    render html: Liquid::Template.parse(template).render!(data, strict_variables: true).html_safe
   end
 end

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :page do
+    sequence(:path) { |n| "page-#{n}" }
+    sequence(:html_content) { |n| "<b>#{n}</b>" }
+  end
+
   factory :hint do
     challenge { nil }
     hint_text { 'MyText' }

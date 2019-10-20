@@ -7,9 +7,9 @@
 default: &default
   adapter: postgresql
   host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  pool: 5
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || ENV['MYAPP_DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
@@ -24,11 +24,6 @@ test:
   database: ctfdashb_test
 
 production:
-  adapter: postgresql
+  <<: *default
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: ctfdashb_production
-  username: root
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

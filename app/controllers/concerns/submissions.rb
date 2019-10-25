@@ -32,4 +32,9 @@ module Submissions
   def flag_regex
     @flag_regex ||= CtfSetting.find_by(key: 'flag_regex')&.value
   end
+
+  def build_submission_signature
+    salt = Rails.application.secrets.submission_salt
+    Digest::SHA256.hexdigest("#{@challenge.id}-#{current_user&.team&.id}-#{submitted_flag}-#{salt}")
+  end
 end

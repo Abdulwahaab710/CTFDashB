@@ -201,6 +201,30 @@ RSpec.describe Admin::ChallengesController, type: :controller do
         expect(response).to have_http_status(:forbidden)
       end
     end
+
+    context 'when the organizer updates an invalid flag and a user has submitted a valid flag' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        @challenge = FactoryBot.create(:challenge)
+        @correct_flag = 'flag{correct_flag}'
+        FactoryBot.create(
+          :submission,
+          challenge: @challenge,
+          category: @challenge.category,
+          flag: @correct_flag,
+          valid_submission: false
+        )
+      end
+
+      it 'updates the submission by setting the flag to empty and changing the submission to valid submissions' do
+        expect {
+          patch :update_flag, params: {
+            category_id: @challenge.category.id, id: @challenge.id, challenge: { flag: @correct_flag }
+          }
+        }.to change{ Submission.where(valid_submission: true).count }.from(0).to(1)
+      end
+    end
   end
 
   # describe 'GET show' do

@@ -40,6 +40,7 @@ module Admin
     def update_flag
       @challenge = challenge
       render :edit unless @challenge.update(flag: BCrypt::Password.create(new_flag))
+      update_submissions(new_flag)
       flash[:success] = 'You have successfully updated the challenge flag'
       redirect_to challenge_path
     end
@@ -68,6 +69,10 @@ module Admin
     end
 
     private
+
+    def update_submissions(flag)
+      @challenge.submissions.where(flag: flag).update(valid_submission: true, flag: '')
+    end
 
     def challenge
       @challenge ||= Category.find_by!(id: params[:category_id]).challenges.find_by!(id: params[:id])

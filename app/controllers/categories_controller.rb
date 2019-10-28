@@ -9,11 +9,6 @@ class CategoriesController < ApplicationController
   include Users
   include CtfSettings
 
-  def index
-    @challenges = Challenge.active.includes(:challenge_files_attachments, :category, :user).page(params[:page] || 1)
-    render 'challenges/index'
-  end
-
   def show
     @category = Category.find_by!(id: params[:id])
     @challenges = Challenge.where(category_id: params[:id], active: true)

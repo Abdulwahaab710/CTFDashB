@@ -11,8 +11,7 @@ class ChallengesController < ApplicationController
   include CtfSettings
 
   def index
-    @challenges = Challenge.active
-    @challenges = Challenge.all if current_user&.organizer?
+    @challenges = Challenge.active.includes(:category, :challenge_files_attachments).page(params[:page] || 1)
   end
 
   def show

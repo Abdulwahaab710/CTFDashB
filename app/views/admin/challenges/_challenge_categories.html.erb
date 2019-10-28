@@ -1,8 +1,12 @@
 <% unless @categories.nil? %>
   <ul class="nav nav-pills">
-      <li class="<%= current_class?(admin_root_path) %>" ><%= link_to "All Challenges", admin_root_path %></li>
+    <li class="<%= current_class?(admin_challenge_index_path) %>">
+      <%= link_to "All Challenges", admin_challenge_index_path %>
+    </li>
     <% @categories.each do |category| %>
-      <li class="<%= current_class?(admin_category_path(category)) %>" ><%= link_to category&.name, admin_category_path(category) %></li>
+      <li class="<%= current_class?(admin_category_path(category)) %>">
+        <%= link_to category&.name, admin_category_path(category) %>
+      </li>
     <% end %>
   </ul>
 <% end %>

@@ -43,6 +43,7 @@ gem 'browser_sniffer'
 
 gem 'redcarpet'
 
+gem 'kaminari'
 gem 'sidekiq'
 
 # Use Capistrano for deployment
@@ -74,6 +75,3 @@ end
 group :production do
   gem 'pg'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -3,6 +3,40 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UserManagementsController, type: :controller do
+  describe 'GET index' do
+    context 'when the user is an admin' do
+      before :each do
+        FactoryBot.create(:session, user: admin)
+        login_as(admin)
+        get :index
+      end
+
+      it 'returns all users' do
+        expect(assigns[:users]).to eq(User.page(1))
+      end
+
+      it 'returns 200' do
+        expect(response).to be_successful
+      end
+
+      it 'renders index' do
+        expect(response).to render_template('index')
+      end
+    end
+
+    context 'when the user is not an admin' do
+      before :each do
+        FactoryBot.create(:session, user: organizer_user)
+        login_as(organizer_user)
+        get :index
+      end
+
+      it 'returns 404' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe 'PATCH add_admin' do
     context 'when the user is not an admin' do
       before :each do

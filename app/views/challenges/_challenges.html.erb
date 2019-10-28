@@ -4,4 +4,7 @@
   <% challenges.each do |ctf_challenge| %>
     <%= render 'challenges/challenge_panel', ctf_challenge: ctf_challenge %>
   <% end %>
+  <div class="row" style="display: flex; justify-content: center;">
+    <%= paginate challenges %>
+  </div>
 <% end %>

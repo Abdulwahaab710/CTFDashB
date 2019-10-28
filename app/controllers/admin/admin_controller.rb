@@ -8,6 +8,10 @@ module Admin
 
     layout 'admin'
 
+    rescue_from ActiveRecord::RecordNotFound do
+      render file: Rails.root.join('public', '404.html'), status: :not_found, layout: false
+    end
+
     private
 
     def current_user

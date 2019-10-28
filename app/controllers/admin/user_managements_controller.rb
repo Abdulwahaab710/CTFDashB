@@ -5,7 +5,7 @@ module Admin
     before_action :admin_user?
 
     def index
-      @users = User.all
+      @users = User.page(params[:page] || 1)
     end
 
     def add_admin

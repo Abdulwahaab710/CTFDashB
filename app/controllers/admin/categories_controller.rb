@@ -9,13 +9,12 @@ module Admin
     include CtfSettings
 
     def index
-      @challenges = Challenge.active
-      @team_submissions = team_submissions
-      return render 'challenges/index' unless current_user&.organizer?
     end
 
     def show
       @team_submissions = team_submissions
+      @challenges = Challenge.where(category_id: params[:id]).includes(:challenge_files_attachments, :category)
+                             .page(params[:page] || 1)
     end
 
     def new

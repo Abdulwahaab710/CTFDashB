@@ -9,7 +9,7 @@
         <h1><%= @category.name %></h1>
       </div>
       <hr>
-      <%= render 'challenges/challenges', challenges: @category.challenges.active %>
+      <%= render 'challenges/challenges', challenges: @challenges %>
     </div>
   </div>
 <% end %>

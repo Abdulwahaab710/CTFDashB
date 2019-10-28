@@ -63,10 +63,7 @@ Rails.application.routes.draw do
     resources :challenges, only: %i[new create index], as: :challenge
   end
 
-  resource :categories, only: %i[index show] do
-    member do
-      get '' => 'categories#index'
-    end
+  resource :categories, only: %i[show] do
     resource :challenges, only: %i[index show]
   end
 

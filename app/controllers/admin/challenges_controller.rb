@@ -7,7 +7,7 @@ module Admin
     include CtfSettings
 
     def index
-      @challenges = Challenge.includes(:category, :challenge_files_attachments)
+      @challenges = Challenge.includes(:category, :challenge_files_attachments).page(params[:page] || 1)
       @team_submissions = team_submissions
     end
 

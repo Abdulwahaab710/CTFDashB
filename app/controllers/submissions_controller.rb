@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SubmissionsController < ApplicationController
+  before_action :return_not_found_if_challenge_is_not_active, only: :create
   before_action :return_forbidden_if_reached_max_tries, only: :create
   before_action :return_forbidden_if_submitted_valid_flag_before, only: :create
 
@@ -10,6 +11,7 @@ class SubmissionsController < ApplicationController
     @challenge = challenge
     return head 404 if @challenge.nil?
     return invalid_flag unless validate_flag_format(submitted_flag)
+
     add_submission
     verify_flag
   end
@@ -65,6 +67,7 @@ class SubmissionsController < ApplicationController
 
   def update_score
     return if current_user.organizer?
+
     current_user.team.update(score: calculate_team_new_score)
     ActionCable.server.broadcast 'scores_channel', message: Team.order(score: :desc).pluck(:name, :score).to_json
   end
@@ -78,12 +81,11 @@ class SubmissionsController < ApplicationController
   end
 
   def challenge
-    return @challenge ||= all_challenges if current_user.organizer?
-    @challenge ||= active_challenges
+    @challenge ||= Challenge.find_by(id: params[:id], category_id: params[:category_id], active: true)
   end
 
   def reached_the_max_number_of_tries?
-    number_of_tries >= challenge&.max_tries
+    number_of_tries.to_i >= challenge&.max_tries
   end
 
   def remaining_tries
@@ -91,26 +93,24 @@ class SubmissionsController < ApplicationController
   end
 
   def number_of_tries
-    challenge&.submissions&.where(team: current_user&.team)&.count.to_i
+    challenge&.submissions&.where(team: current_user&.team)&.count
   end
 
   def return_forbidden_if_reached_max_tries
     return true unless reached_the_max_number_of_tries?
+
     flash.now[:danger] = 'You have reached the maximum number of tries.'
     respond_to do |f|
       f.js { render 'forbidden_submission', status: :forbidden }
     end
   end
 
-  def category
-    @category ||= Category.find_by(id: params[:category_id])
-  end
+  def return_not_found_if_challenge_is_not_active
+    return true unless challenge.nil?
 
-  def all_challenges
-    category&.challenges&.find_by(id: params[:id])
-  end
-
-  def active_challenges
-    category&.challenges&.active&.find_by(id: params[:id])
+    flash.now[:danger] = 'Challenge was not found'
+    respond_to do |f|
+      f.js { render 'forbidden_submission', status: :not_found }
+    end
   end
 end

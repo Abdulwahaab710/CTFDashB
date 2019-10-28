@@ -7,8 +7,7 @@ module Admin
     include CtfSettings
 
     def index
-      @challenges = Challenge.active
-      @challenges = Challenge.all if current_user&.organizer?
+      @challenges = Challenge.includes(:category, :challenge_files_attachments)
       @team_submissions = team_submissions
     end
 

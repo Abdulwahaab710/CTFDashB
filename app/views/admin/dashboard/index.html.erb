@@ -1,0 +1,31 @@
+<% @user_challenges&.keys&.each do |category| %>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
+        <h3 class="panel-title"><%= category.name %></h3>
+      </div>
+      <div class="panel-body">
+        <% @user_challenges[category]&.each do |challenge| %>
+          <div class="row container-fluid">
+            <%= link_to challenge.title, polymorphic_path([:admin, challenge&.category, challenge]), target: "_blank" %>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="<%= challenge&.submissions&.valid_submissions&.count %>"
+                aria-valuemin="0"
+                aria-valuemax="<%= @total_teams %>"
+                style="width: <%= (challenge&.submissions&.valid_submissions&.count&.to_f / @total_teams) * 100 %>%;">
+                <span style="color: black;">
+                  <%= "#{((challenge&.submissions&.valid_submissions&.count&.to_f / @total_teams) * 100).round(1)} %" %>
+                </span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+      </div>
+    </div>
+  </div>
+<% end %>

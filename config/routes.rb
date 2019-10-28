@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'challenges#index'
 
   namespace :admin do
-    root to: 'challenges#index'
+    root to: 'dashboard#index'
     get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
     post 'ctf_settings', to: 'ctf_settings#edit'
     delete 'ctf_settings', to: 'ctf_settings#edit'

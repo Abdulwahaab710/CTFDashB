@@ -1,4 +1,4 @@
-FROM ruby@sha256:0048434fd0ea67f0c8fc5d959a38751fced429c3c80c28e293518486f9039723
+FROM ruby@sha256:17dfe500c50516f6f6b65e9d2a662e93da4f65561eff6e756cc411ccace41682
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -

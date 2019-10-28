@@ -38,6 +38,27 @@ RSpec.describe SubmissionsController, type: :controller do
       end
     end
 
+    context 'when the user is logged in and the challenge is not active' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        @deactivated_challenge = FactoryBot.create(:challenge, category: @challenge.category, active: false)
+        login_as(user)
+      end
+
+      let(:response) do
+        post :create, params: {
+          category_id: @deactivated_challenge.category_id,
+          id: @deactivated_challenge.id,
+          submission: { flag: 'flag{5QL1_15_AWES0ME}' }
+        }, format: :js
+      end
+
+      it 'returns not found' do
+        expect(response).to have_http_status(:not_found)
+        expect(flash[:danger]).to eq 'Challenge was not found'
+      end
+    end
+
     context 'when the user is an organizer and the flag is correct' do
       before(:each) do
         FactoryBot.create(:session, user: organizer)

@@ -8,4 +8,6 @@ class Submission < ApplicationRecord
 
   validates :submission_hash, presence: true, uniqueness: true
   validates :user, :team, :challenge, :category, presence: true
+
+  scope :valid_submissions, -> { where(valid_submission: true) }
 end

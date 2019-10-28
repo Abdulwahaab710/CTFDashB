@@ -1,6 +1,14 @@
 <div class="panel panel-<%= challenge_solved?(ctf_challenge) ? "success" : "primary"%>">
   <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
     <h3 class="panel-title"><%= link_to ctf_challenge&.title, [ctf_challenge&.category, ctf_challenge] %></h3>
+    <div style='display: flex;'>
+      <b>Built by: </b>
+      &nbsp;
+      <div>
+        <%= gravatar_for(ctf_challenge.user, size: 20) %>
+        <%= link_to ctf_challenge.user.name, ctf_challenge.user, style: 'color: white;', target: '_blank' %>
+      </div>
+    </div>
   </div>
   <div class="panel-body">
     <%= ctf_challenge&.description.to_md.html_safe %>

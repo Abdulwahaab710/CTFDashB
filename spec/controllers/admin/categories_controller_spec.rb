@@ -21,7 +21,6 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       end
 
       it 'list all the challenges' do
-        expect(assigns[:challenges]).to eq([@challenge])
         expect(assigns[:categories]).to eq([@challenge.category])
       end
     end
@@ -42,8 +41,47 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       end
 
       it 'returns empty list for challenges and categories' do
-        expect(assigns[:challenges]).to eq([])
         expect(assigns[:categories]).to eq([])
+      end
+    end
+  end
+
+  describe 'GET show' do
+    context 'when the category exists' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        @challenge = FactoryBot.create(:challenge)
+
+        get :show, params: { id: @challenge.category.id }
+      end
+
+      it 'returns success' do
+        expect(response).to be_successful
+      end
+
+      it 'renders index' do
+        expect(response).to render_template('show')
+      end
+
+      it 'list all the challenges for that category' do
+        expect(assigns[:challenges]).to eq([@challenge])
+      end
+
+      it 'includes all team submissions' do
+        expect(assigns[:team_submissions]).to eq({})
+      end
+    end
+
+    context 'when the category does not exists' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        get :show, params: { id: 1337 }
+      end
+
+      it 'returns not found' do
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

@@ -9,7 +9,7 @@
     <%= f.text_field :username, class: 'form-control', value: @user.username %>
 
     <%= f.label :email %>
-    <%= f.email_field :email_field, class: 'form-control', value: @user.email %>
+    <%= f.email_field :email, class: 'form-control', value: @user.email %>
 
     <%= f.submit "Update profile", class: "btn btn-primary" %>
   <% end %>

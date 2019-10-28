@@ -72,7 +72,7 @@ module UsersHelper
   end
 
   def build_gravatar_url(gravatar_id, gravatar_size)
-    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{gravatar_size}"
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{gravatar_size}&d=mm"
   end
 
   def image_tag_params(user, size, margin)

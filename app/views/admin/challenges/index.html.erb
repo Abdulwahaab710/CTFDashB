@@ -7,7 +7,7 @@
     </div>
     <hr>
     <% if @challenges.nil? %>
-      <h1>No challenges has been added yet.</h1>
+      <h1>No challenges have been added yet.</h1>
     <% else %>
       <%= render 'admin/challenges/challenges', challenges: @challenges %>
     <% end %>

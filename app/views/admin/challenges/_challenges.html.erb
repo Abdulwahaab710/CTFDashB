@@ -1,5 +1,5 @@
 <% if challenges.empty? %>
-  <h3>There isn't any available challenges for this category</h3>
+  <h3>There aren't any available challenges for this category</h3>
 <% else %>
   <% challenges.each do |ctf_challenge| %>
     <%= render 'admin/challenges/challenge_panel', ctf_challenge: ctf_challenge %>

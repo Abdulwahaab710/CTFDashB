@@ -1,12 +1,21 @@
 <% provide(:title, 'Category') %>
 
 <%= render 'challenges/challenge_categories' %>
+<style>
+  <%= Rouge::Themes::Base16.mode(:dark).render %>
+</style>
 
 <% if @category %>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1><%= @category.name %></h1>
+      </div>
+      <div>
+        <hr>
+        <% unless @category&.description&.nil? %>
+          <%= @category.description.to_md.html_safe %>
+        <% end %>
       </div>
       <hr>
       <%= render 'challenges/challenges', challenges: @challenges %>

@@ -1,6 +1,9 @@
 <% provide(:title, 'Category') %>
 
 <%= render 'admin/challenges/challenge_categories' %>
+<style>
+  <%= Rouge::Themes::Base16.mode(:dark).render %>
+</style>
 
 <% if @category %>
   <div class="row">
@@ -11,6 +14,12 @@
           <%= link_to 'Edit', edit_admin_category_path(@category), class: 'btn btn-warning' %>
           <%= link_to 'Delete', delete_admin_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
         </div>
+      </div>
+      <div>
+        <hr>
+        <% unless @category&.description&.nil? %>
+          <%= @category.description.to_md.html_safe %>
+        <% end %>
       </div>
       <hr>
       <%= render 'admin/challenges/challenges', challenges: @challenges %>

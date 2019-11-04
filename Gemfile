@@ -75,3 +75,4 @@ end
 group :production do
   gem 'pg'
 end
+gem 'rouge', '~> 3.12'

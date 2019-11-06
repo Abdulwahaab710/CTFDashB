@@ -9,6 +9,9 @@
       <%= f.label :name, 'Category name' %>
       <%= f.text_field :name, class: 'form-control' %>
 
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+
       <%= f.submit "Add category", class: "btn btn-primary" %>
     <% end %>
   </div>

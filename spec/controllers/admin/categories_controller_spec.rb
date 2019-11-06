@@ -185,6 +185,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
         @category = FactoryBot.create(:category)
         @category_params = @category.attributes
         @category_params['name'] = 'reverse engineering'
+        @category_params['description'] = 'New description here!'
         patch :update, params: { id: @category.id, category: @category_params }
       end
 
@@ -194,6 +195,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       it 'updates the category record' do
         expect(Category.first.name).to eq(@category_params['name'])
+        expect(Category.first.description).to eq(@category_params['description'])
       end
     end
 

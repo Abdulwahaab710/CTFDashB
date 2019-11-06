@@ -211,6 +211,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.5.0)
     redis (4.1.2)
+    rouge (3.12.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -326,6 +327,7 @@ DEPENDENCIES
   rails-controller-testing
   redcarpet
   redis (~> 4.0)
+  rouge (~> 3.12)
   rspec-rails
   rubocop
   rubocop-rspec

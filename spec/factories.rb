@@ -36,6 +36,7 @@ FactoryBot.define do
 
   factory :category do
     name { 'web' }
+    description { 'Category description here!' }
   end
 
   factory :challenge do

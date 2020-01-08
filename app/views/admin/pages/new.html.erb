@@ -23,15 +23,4 @@
   <%= f.submit 'Create page', class: 'btn btn-primary' %>
 <% end %>
 
-<script>
-  var editor = ace.edit("editor");
-  editor.setTheme('ace/theme/dracula')
-  editor.session.setMode("ace/mode/html");
-  editor.setAutoScrollEditorIntoView(true);
-
-  var textarea = $('textarea[name="page[html_content]"]');
-  textarea.val(editor.getSession().getValue());
-  editor.getSession().on("change", function () {
-    textarea.val(editor.getSession().getValue());
-  });
-</script>
+<%= javascript_include_tag 'pages', integrity: true %>

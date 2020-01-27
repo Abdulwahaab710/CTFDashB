@@ -35,7 +35,7 @@ FactoryBot.define do
   end
 
   factory :category do
-    name { 'web' }
+    sequence(:name) { |n| "category-#{n}" }
     description { 'Category description here!' }
   end
 

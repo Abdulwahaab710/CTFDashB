@@ -32,6 +32,7 @@ class User < ApplicationRecord
   belongs_to :team, optional: true
   has_many :sessions, dependent: :destroy
   has_many :challenges, dependent: :nullify
+  has_many :submissions, dependent: :nullify
 
   def admin?
     admin == true
@@ -44,5 +45,9 @@ class User < ApplicationRecord
   def to_param
     # TODO: fix username.to_s.parameterize ---> so that it doesn't make the letters lowercase
     username.to_s
+  end
+
+  def valid_submissions
+    submissions.includes(:challenge, :category).valid_submissions
   end
 end

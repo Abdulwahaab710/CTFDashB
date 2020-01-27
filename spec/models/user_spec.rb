@@ -97,4 +97,23 @@ RSpec.describe User, type: :model do
       expect(@admin.organizer?).to eq(true)
     end
   end
+
+  context 'when calling valid_submissions' do
+    before :each do
+      @user = FactoryBot.create(:user)
+      @submission = FactoryBot.create(:submission, user: @user, team: @user.team, valid_submission: true)
+      FactoryBot.create(
+        :submission,
+        user: @user,
+        team: @user.team,
+        valid_submission: false,
+        challenge: @submission.challenge,
+        category: @submission.category
+      )
+    end
+
+    it 'returns all valid submissions for a user' do
+      expect(@user.valid_submissions).to eq([@submission])
+    end
+  end
 end

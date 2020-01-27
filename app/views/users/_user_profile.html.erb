@@ -1,0 +1,32 @@
+<div class="profile-sidebar">
+  <div class="profile-userpic">
+    <%= gravatar_for(user) %>
+  </div>
+  <div class="profile-user">
+    <div class="profile-user-name">
+      <%= user.name %><br>
+    </div>
+    <div class="profile-user-username">
+      <%= "@#{user.username}" %>
+    </div>
+
+    <div class="profile-user-team">
+      <% if user.organizer? %>
+        <span class="label label-primary">CTF Organizer</span>
+      <% else %>
+        <% if user.team.nil? %>
+          <span style='color: red;'>not enrolled in a team yet</span>
+        <% else %>
+          <span class="profile-user-teamname">
+            Team:
+            <%= link_to user.team.name, user.team %>
+          </span>
+          <br>
+          <span>
+            Points: <%= user.team.score %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

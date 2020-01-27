@@ -28,7 +28,8 @@ git clone git@github.com:Abdulwahaab710/CTFDashB.git
 # CTFDashB/.env
 DATABASE_HOST=db
 DATABASE_USERNAME=root
-DATABASE_PASSWORD=S0ME_RANDOM_PASSWORD # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()
+DATABASE_PASSWORD=S0ME_RANDOM_PASSWORD # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()"
+SECRET_KEY_BASE=S0ME_RANDOM_5TR1NG # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()"
 REDIS_URL=redis://redis
 ```
 if this is for **production**, you will have to set the RAILS_ENV to be like the following
@@ -74,7 +75,7 @@ docker-compose run web bundle exec rubocop
 To auto fix the violiation for rubocop
 
 ```
-docker-compose run web bundle exec rubocop
+docker-compose run web bundle exec rubocop -a
 ```
 
 ## Deployment

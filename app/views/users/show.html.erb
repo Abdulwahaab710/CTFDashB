@@ -1,14 +1,14 @@
-<%= gravatar_for(@user) %>
-<br>
-<%= @user.name %><br>
-<%= @user.email %><br>
-Team:
-<% if @user.organizer? %>
-  CTF Organizer
-<% else %>
-  <% if @user.team.nil? %>
-    <span style='color: red;'>not enrolled in a team yet</span>
-  <% else %>
-    <%= link_to @user.team.name, @user.team %>
-  <% end %>
-<% end %>
+<%= stylesheet_link_tag 'user_profile' %>
+
+<div class="container">
+  <div class="row profile">
+    <div class="col-md-3">
+      <%= render 'users/user_profile', user: @user %>
+    </div>
+    <div class="col-md-9">
+      <div class="profile-content">
+        <%= render 'users/user_activities', valid_submissions: @user.valid_submissions %>
+      </div>
+    </div>
+  </div>
+</div>

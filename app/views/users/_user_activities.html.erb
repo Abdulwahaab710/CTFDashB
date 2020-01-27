@@ -1,0 +1,8 @@
+<ul class="timeline">
+  <% valid_submissions.each do |valid_submission| %>
+    <li>
+      <span>Solved <%= link_to valid_submission.challenge.title, category_challenge_path(valid_submission.category, valid_submission.challenge), target: '_blank' %></span>
+      <span><%= time_ago_in_words(valid_submission.created_at) %> ago</span>
+    </li>
+  <% end %>
+</ul>

@@ -170,8 +170,8 @@ GEM
       method_source (~> 0.9.0)
     puma (4.3.1)
       nio4r (~> 2.0)
-    rack (2.1.1)
-    rack-protection (2.0.7)
+    rack (2.2.2)
+    rack-protection (2.0.8.1)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -254,9 +254,9 @@ GEM
       sprockets-rails
       tilt
     shellany (0.0.1)
-    sidekiq (6.0.0)
+    sidekiq (6.0.5)
       connection_pool (>= 2.2.2)
-      rack (>= 2.0.0)
+      rack (~> 2.0)
       rack-protection (>= 2.0.0)
       redis (>= 4.1.0)
     simplecov (0.17.0)

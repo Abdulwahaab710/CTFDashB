@@ -54,7 +54,7 @@ group :development, :test do
   gem 'action-cable-testing'
   gem 'byebug', platform: :mri
   gem 'codecov', require: false, group: :test
-  gem 'factory_bot_rails', '~> 5.0'
+  gem 'factory_bot_rails', '~> 5.1'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'rubocop'

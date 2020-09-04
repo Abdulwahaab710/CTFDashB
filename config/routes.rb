@@ -107,4 +107,8 @@ Rails.application.routes.draw do
 
   get '/scores', to: 'scores#index', as: :score_board
   get '/pages/:path', to: 'pages#show', as: :page
+
+  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
+
+  post "/graphql", to: "graphql#execute"
 end

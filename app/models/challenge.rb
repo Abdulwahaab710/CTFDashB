@@ -32,6 +32,20 @@ class Challenge < ApplicationRecord
     String.new(self[:after_message])
   end
 
+  def activate
+    return update(active: true) unless self.active
+
+    errors.add(:active, "Challenge has been already activated")
+    raise ActiveRecord::RecordInvalid.new(self)
+  end
+
+  def deactivate
+    return update(active: false) if self.active
+
+    errors.add(:active, "Challenge has been already deactivated")
+    raise ActiveRecord::RecordInvalid.new(self)
+  end
+
   private
 
   def flag_format

@@ -11,7 +11,7 @@ class Challenge < ApplicationRecord
   validates :flag, uniqueness: true
   validate :flag_format, on: :create
 
-  before_create { |challenge| challenge.flag = BCrypt::Password.create(flag) }
+  before_create { |challenge| challenge.flag = FlagHasher.new(flag).call }
 
   scope :active, -> { where(active: true) }
 

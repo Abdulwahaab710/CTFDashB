@@ -8,7 +8,7 @@ module Types
     field :title, String, null: false
     field :active, Boolean, null: true
     field :flag, String, null: true
-    field :category, Category, null: false
+    field :category, CategoryType, null: false
     field :user, UserType, null: false
     field :after_message, String, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false

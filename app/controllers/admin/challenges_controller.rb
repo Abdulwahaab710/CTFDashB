@@ -19,7 +19,7 @@ module Admin
     def create
       @challenge = Challenge.new(challenge_params)
       @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
-      return redirect_to challenge_path if @challenge.save
+      return redirect_to challenge_path if @challenge.save!
 
       render :new, status: :unprocessable_entity
     end

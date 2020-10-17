@@ -50,7 +50,7 @@
       <%= render 'shared/error_messages', obj: @challenge %>
 
       <%= f.label :flag, 'Flag' %>
-      <%= f.text_field :flag, class: 'form-control', placeholder: 'Update challenge flag', value: '' %>
+      <%= f.text_field :flag, class: 'form-control', placeholder: 'Update challenge flag', value: flag_value(@challenge) %>
 
       <%= f.submit "Update flag", class: "btn btn-primary" %>
     <% end %>

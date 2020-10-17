@@ -19,6 +19,12 @@ module ChallengesHelper
     Time.zone.now.httpdate
   end
 
+  def flag_value(challenge)
+    return '' if challenge&.flag&.start_with? FlagVerifier::BCRYPT_PREFIX
+
+    challenge&.flag
+  end
+
   private
 
   def deactivate_challenge_button(challenge)

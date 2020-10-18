@@ -2,6 +2,8 @@
 
 class CtfSetting < ApplicationRecord
   validates :key, presence: true, uniqueness: true
+  validates :value_type, presence: true, inclusion: { in: %w(Boolean String Time) }
+  validate  :valid_value_for_type?
 
   class << self
     def hash_challenge_flag?
@@ -9,6 +11,15 @@ class CtfSetting < ApplicationRecord
       hash_flag.update(value: 'true') if hash_flag.value.nil?
 
       hash_flag.value.downcase == "true"
+    end
+  end
+
+  private
+
+  def valid_value_for_type?
+    case value_type
+    when "Boolean"
+      errors.add(:value, "can be only true or false") unless value == "true" || value == "false"
     end
   end
 end

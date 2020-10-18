@@ -14,6 +14,19 @@ module CtfSettingsHelper
     "#{browser}.svg"
   end
 
+  def ctf_setting_tag(ctf_setting)
+    case ctf_setting.value_type
+    when "Boolean"
+      check_box_tag(
+        "key[#{ctf_setting.key}]", true, ActiveModel::Type::Boolean.new.cast(ctf_setting.value), style: 'width: auto'
+      )
+    when "Time"
+      datetime_field_tag("key[#{ctf_setting.key}]", ctf_setting.value, style: 'width: 100%; text-align: center;')
+    when "String"
+      text_field_tag("key[#{ctf_setting.key}]", ctf_setting.value, style: 'width: 100%; text-align: center;')
+    end
+  end
+
   private
 
   def asset_exists?(asset)

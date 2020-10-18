@@ -20,12 +20,12 @@ defaults = {
     }
   ],
   settings: [
-    { key: 'ctf_name', value: 'CTF' },
-    { key: 'ctf_logo', value: '/logo.svg' },
-    { key: 'team_size', value: '4' },
-    { key: 'flag_regex', value: 'flag{[A-Za-z0-9_\-]+}' },
-    { key: 'start_time', value: Time.zone.now },
-    { key: 'hash_flag', value: 'false' }
+    { key: 'ctf_name', value_type: 'String', value: 'CTF' },
+    { key: 'ctf_logo', value_type: 'String', value: '/logo.svg' },
+    { key: 'team_size', value_type: 'String', value: '4' },
+    { key: 'flag_regex', value_type: 'String', value: 'flag{[A-Za-z0-9_\-]+}' },
+    { key: 'start_time', value_type: 'Time', value: Time.zone.now }
+    { key: 'hash_flag', value_type: 'Boolean' value: 'false' }
   ]
 }
 defaults[:settings].each do |setting|

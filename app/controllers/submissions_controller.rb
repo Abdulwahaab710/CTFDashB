@@ -69,7 +69,9 @@ class SubmissionsController < ApplicationController
     return if current_user.organizer?
 
     current_user.team.update(score: calculate_team_new_score)
-    ActionCable.server.broadcast 'scores_channel', message: Team.order(score: :desc).pluck(:name, :score).to_json
+    if CtfSetting.scoreboard_enabled?
+      ActionCable.server.broadcast 'scores_channel', message: Team.order(score: :desc).pluck(:name, :score).to_json
+    end
   end
 
   def calculate_team_new_score

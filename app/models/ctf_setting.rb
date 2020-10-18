@@ -7,10 +7,18 @@ class CtfSetting < ApplicationRecord
 
   class << self
     def hash_challenge_flag?
-      hash_flag = self.find_or_create_by!(key: 'hash_flag')
-      hash_flag.update(value: 'true') if hash_flag.value.nil?
+      find_or_create_by_with_default_value(key: 'hash_flag', value_type: 'Boolean', default_value: 'false')
+    end
 
-      hash_flag.value.downcase == "true"
+    def scoreboard_enabled?
+      find_or_create_by_with_default_value(key: 'scoreboard', value_type: 'Boolean', default_value: 'true')
+    end
+
+    def find_or_create_by_with_default_value(key:, value_type:, default_value:)
+      setting = self.find_or_initialize_by(key: key)
+      setting.update(value_type: value_type, value: default_value) if setting.value.nil?
+
+      ActiveModel::Type::Boolean.new.cast(setting.value)
     end
   end
 

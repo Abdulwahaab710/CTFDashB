@@ -25,7 +25,8 @@ defaults = {
     { key: 'team_size', value_type: 'String', value: '4' },
     { key: 'flag_regex', value_type: 'String', value: 'flag{[A-Za-z0-9_\-]+}' },
     { key: 'start_time', value_type: 'Time', value: Time.zone.now }
-    { key: 'hash_flag', value_type: 'Boolean' value: 'false' }
+    { key: 'hash_flag', value_type: 'Boolean' value: 'false' },
+    { key: 'scoreboard', value_type: 'Boolean' value: 'true' }
   ]
 }
 defaults[:settings].each do |setting|

@@ -28,7 +28,7 @@ tbody > tr:nth-child(even) {
       <% @teams.each_with_index do |team, index| %>
         <tr>
           <td><%= index.next %></td>
-          <td><%= link_to team&.name, team, target: '_blank' %></td>
+          <td><%= link_to team&.name, team_path(team.id), target: '_blank' %></td>
           <td><%= team&.score %></td>
         </tr>
       <% end %>

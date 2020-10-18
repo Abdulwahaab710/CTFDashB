@@ -54,11 +54,13 @@ FactoryBot.define do
   factory :flag_regex, class: CtfSetting do
     key { 'flag_regex' }
     value { 'flag{[A-Za-z0-9_]+}' }
+    value_type { 'String' }
   end
 
   factory :team_size, class: CtfSetting do
     key { 'team_size' }
     value { 4 }
+    value_type { 'String' }
   end
 
   factory :submission do
@@ -73,5 +75,6 @@ FactoryBot.define do
   factory :ctf_setting do
     key { '' }
     value { '' }
+    value_type { 'String' }
   end
 end

@@ -24,7 +24,8 @@ defaults = {
     { key: 'ctf_logo', value: '/logo.svg' },
     { key: 'team_size', value: '4' },
     { key: 'flag_regex', value: 'flag{[A-Za-z0-9_\-]+}' },
-    { key: 'start_time', value: Time.zone.now }
+    { key: 'start_time', value: Time.zone.now },
+    { key: 'hash_flag', value: 'false' }
   ]
 }
 defaults[:settings].each do |setting|

@@ -19,7 +19,7 @@ class SubmissionsController < ApplicationController
   private
 
   def verify_flag
-    if flag.is_password?(submitted_flag)
+    if FlagVerifier.new(@challenge, submitted_flag).call
       successful_submission
     else
       unsuccessful_submission
@@ -74,10 +74,6 @@ class SubmissionsController < ApplicationController
 
   def calculate_team_new_score
     Submission.where(team: current_user.team, valid_submission: true).map { |s| s.challenge.points }.sum
-  end
-
-  def flag
-    @flag ||= BCrypt::Password.new(@challenge&.flag)
   end
 
   def challenge

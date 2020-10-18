@@ -4,6 +4,14 @@ class ScoresController < ApplicationController
   skip_before_action :user_logged_in?, only: %i[index]
 
   def index
-    @teams = Team.order(score: :desc)
+    if CtfSetting.scoreboard_enabled?
+      @teams = Team.order(score: :desc)
+    else
+      @teams = Team.pluck(:id).map { |t| BogusTeam.new(t, '?', '1337') }
+    end
   end
+
+  private
+
+  BogusTeam = Struct.new(:id, :name, :score)
 end

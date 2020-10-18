@@ -24,6 +24,7 @@ RSpec.describe SubmissionsController, type: :controller do
       end
 
       it 'broadcast the new scores' do
+        byebug
         expect { response }.to have_broadcasted_to('scores_channel')
       end
 

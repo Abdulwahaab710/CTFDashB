@@ -6,6 +6,7 @@ class SubmissionsController < ApplicationController
   before_action :return_forbidden_if_submitted_valid_flag_before, only: :create
 
   include Submissions
+  include ActionView::Helpers::DateHelper
 
   def create
     @challenge = challenge
@@ -70,7 +71,16 @@ class SubmissionsController < ApplicationController
 
     current_user.team.update(score: calculate_team_new_score)
     if CtfSetting.scoreboard_enabled?
-      ActionCable.server.broadcast 'scores_channel', message: Team.order(score: :desc).pluck(:name, :score).to_json
+      message = {
+        scoreboard: Team.order(score: :desc).pluck(:name, :score),
+        submission: {
+          team: { id: @submission.team.id, name: @submission.team.name },
+          challenge: { id: @submission.challenge.id, title: @submission.challenge.title },
+          category: { id: @submission.category.id },
+          created_at: time_ago_in_words(@submission.created_at)
+        }
+      }
+      ActionCable.server.broadcast 'scores_channel', message: message.to_json
     end
   end
 

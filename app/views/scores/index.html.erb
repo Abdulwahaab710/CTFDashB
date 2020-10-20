@@ -34,4 +34,17 @@ tbody > tr:nth-child(even) {
       <% end %>
     </tbody>
   </table>
+
+  <ul class="timeline">
+    <% @submissions.each do |submission| %>
+      <li>
+        <span>
+          <%= link_to submission.team.name, submission.team %>
+          solved
+          <%= link_to submission.challenge.title, category_challenge_path(submission.challenge, submission.category) %>
+        </span>
+        <span><%= time_ago_in_words(submission.created_at) %></span>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

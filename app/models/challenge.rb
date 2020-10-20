@@ -16,23 +16,10 @@ class Challenge < ApplicationRecord
   scope :active, -> { where(active: true) }
 
   class String < SimpleDelegator
+    include Markdownable
+
     def to_md
       markdown.render(to_s) if self
-    end
-
-    private
-
-    def markdown
-      @markdown ||= Redcarpet::Markdown.new(MarkdownRenderer, markdown_extensions)
-    end
-
-    def markdown_extensions
-      {
-        no_intra_emphasis: true,
-        autolink: true,
-        lax_spacing: true,
-        fenced_code_blocks: true
-      }
     end
   end
 

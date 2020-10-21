@@ -15,6 +15,7 @@ tbody > tr:nth-child(even) {
   background-color: lightgrey;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
 <% if @teams.empty? %>
   <h1>There are no teams</h1>
 <% else %>
@@ -48,3 +49,4 @@ tbody > tr:nth-child(even) {
     <% end %>
   </ul>
 <% end %>
+<div id='overlay'></div>

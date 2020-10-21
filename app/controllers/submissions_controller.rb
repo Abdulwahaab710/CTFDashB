@@ -69,19 +69,32 @@ class SubmissionsController < ApplicationController
   def update_score
     return if current_user.organizer?
 
+    old_scores = Team.order(score: :desc).first(3).pluck(:name, :score)
+
     current_user.team.update(score: calculate_team_new_score)
+
+    new_scores = Team.order(score: :desc).pluck(:name, :score)
     if CtfSetting.scoreboard_enabled?
       message = {
-        scoreboard: Team.order(score: :desc).pluck(:name, :score),
+        scoreboard: new_scores,
         submission: {
           team: { id: @submission.team.id, name: @submission.team.name },
           challenge: { id: @submission.challenge.id, title: @submission.challenge.title },
           category: { id: @submission.category.id },
           created_at: time_ago_in_words(@submission.created_at)
-        }
+        },
+        confetti_message: confetti_message(old_scores, new_scores)
       }
       ActionCable.server.broadcast 'scores_channel', message: message.to_json
     end
+  end
+
+  def confetti_message(old_scores, new_scores)
+    old_scores = old_scores.map { |s| s[0] }
+    new_scores = new_scores.map { |s| s[0] }
+    return nil if old_scores == new_scores.first(3)
+
+    "#{@submission.team.name} Leveled up" if new_scores.include?(@submission.team.name)
   end
 
   def calculate_team_new_score

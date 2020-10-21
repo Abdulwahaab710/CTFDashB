@@ -1,7 +1,10 @@
+count = 200
+defaults = origin: y: 0.7
 
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+fire = (particleRatio, opts) ->
+  confetti Object.assign({}, defaults, opts, particleCount: Math.floor(count * particleRatio))
+  return
+
 App.room = App.cable.subscriptions.create "ScoresChannel",
   received: (data) ->
     $('table#leaderboard tbody').children().remove()
@@ -61,3 +64,32 @@ App.room = App.cable.subscriptions.create "ScoresChannel",
     timeline.appendChild(timestamp)
 
     document.querySelector('.timeline').appendChild(timeline)
+
+    if message.confetti_message
+
+      overlay = document.getElementById('overlay')
+      overlay.style.display = 'flex'
+      overlay.innerText = message.confetti_message
+
+      fire 0.25,
+        spread: 26
+        zIndex: 100000
+        startVelocity: 55
+      fire 0.2, spread: 60
+      fire 0.35,
+        spread: 100
+        decay: 0.91
+        scalar: 0.8
+      fire 0.1,
+        spread: 120
+        startVelocity: 25
+        decay: 0.92
+        scalar: 1.2
+      fire 0.1,
+        spread: 120
+        startVelocity: 45
+      setTimeout (->
+        overlay.style.display = 'none'
+        return
+      ), 3000
+

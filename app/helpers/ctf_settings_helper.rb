@@ -14,6 +14,10 @@ module CtfSettingsHelper
     "#{browser}.svg"
   end
 
+  def ctf_setting_for(setting)
+    CtfSetting.find_or_create_by_with_default_value(key: setting, value_type: 'String', default_value: '100')
+  end
+
   def ctf_setting_tag(ctf_setting)
     case ctf_setting.value_type
     when "Boolean"

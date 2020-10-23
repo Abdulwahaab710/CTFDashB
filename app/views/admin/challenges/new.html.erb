@@ -32,7 +32,7 @@
       <%= f.number_field :points, class: 'form-control' %>
 
       <%= f.label :max_tries %>
-      <%= f.number_field :max_tries, class: 'form-control' %>
+      <%= f.number_field :max_tries, class: 'form-control', value: ctf_setting_for('default_max_tries')&.value %>
 
       <%= f.label :after_message, 'Message after the challenge is solved' %>
       <%= f.text_area :after_message, class: 'form-control' %>

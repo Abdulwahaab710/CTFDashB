@@ -9,4 +9,8 @@ class Team < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   include Tokenable
+
+  def valid_submissions
+    submissions.includes(:challenge, :category).valid_submissions
+  end
 end

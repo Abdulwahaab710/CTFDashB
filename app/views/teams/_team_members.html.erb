@@ -1,0 +1,10 @@
+<div class="profile-sidebar" style='padding-left: 20px;'>
+  <h4>Team members</h4>
+  <% users.each do |user| %>
+    <div class="row" style='margin-left: 0;'>
+      <%= gravatar_for(user) %>
+      <%= link_to user.name, user %>
+    </div>
+    <br>
+  <% end %>
+</div>

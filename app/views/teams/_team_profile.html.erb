@@ -1,0 +1,24 @@
+<div class="profile-sidebar">
+  <div class="profile-user">
+    <div class="profile-user-name">
+      <%= team.name %><br>
+    </div>
+    <%= link_to 'Withdraw',
+      withdraw_from_team_path,
+      method: :delete,
+      data: {
+        confirm: 'Are you sure you want to withdraw from this team?'
+      } if current_user&.team&.id == team.id
+    %>
+    <div>
+      <span>
+        Points: <%= team.score %>
+      </span>
+      <span>
+        <% if current_user&.team&.id == team.id %>
+          <div>Team invitation token: <%= team.invitation_token %></div>
+        <% end %>
+      </span>
+    </div>
+  </div>
+</div>

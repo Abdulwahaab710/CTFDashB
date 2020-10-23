@@ -1,10 +1,17 @@
-<h1><%= @team.name %></h1>
-<%= link_to 'Withdraw', withdraw_from_team_path, method: :delete %>
-<ul>
-  <% @team.users.each do |hacker| %>
-    <li><%= link_to hacker.name, hacker %></li>
-  <% end %>
-</ul>
-<% if current_user&.team&.id == @team.id %>
-  <h2>Team invitation token: <%= @team.invitation_token %></h2>
-<% end %>
+<%= stylesheet_link_tag 'user_profile' %>
+
+<div class="container">
+  <div class="row profile">
+    <div class="col-md-3">
+      <%= render 'teams/team_profile', team: @team %>
+      <br>
+      <%= render 'teams/team_members', users: @team.users %>
+      <br>
+    </div>
+    <div class="col-md-9">
+      <div class="profile-content">
+        <%= render 'users/user_activities', valid_submissions: @team.valid_submissions %>
+      </div>
+    </div>
+  </div>
+</div>

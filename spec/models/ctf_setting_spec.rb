@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CtfSetting, type: :model do
   before(:each) do
-    @ctf_setting = CtfSetting.create(key: 'some key', value: 'some value')
+    @ctf_setting = CtfSetting.create(key: 'some key', value: 'some value', value_type: 'String')
   end
 
   context 'when creating a ctfsetting' do

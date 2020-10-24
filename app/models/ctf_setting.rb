@@ -26,8 +26,12 @@ class CtfSetting < ApplicationRecord
       setting = self.find_or_initialize_by(key: key)
       setting.update(value_type: value_type, value: default_value) if setting.value.nil?
 
-      return ActiveModel::Type::Boolean.new.cast(setting.value) if setting.value_type == 'Boolean'
-      setting
+      case value_type
+      when 'Boolean'
+        ActiveModel::Type::Boolean.new.cast(setting.value)
+      else
+        setting.value
+      end
     end
   end
 

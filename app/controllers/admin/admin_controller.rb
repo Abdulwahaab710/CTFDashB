@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 module Admin
-  class AdminController < ApplicationController
+  class AdminController < ActionController::Base
+    protect_from_forgery with: :exception
+
+    before_action :user_logged_in?
     before_action :user_has_permission?
 
     include ::Sessions
@@ -23,8 +26,8 @@ module Admin
       return if current_user&.organizer? || current_user&.admin
 
       render file: Rails.root.join('public', '404.html'),
-             status: :forbidden,
-             layout: false
+        status: :forbidden,
+        layout: false
     end
   end
 end

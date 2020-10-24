@@ -38,6 +38,30 @@ RSpec.describe SubmissionsController, type: :controller do
       end
     end
 
+    context 'the challenges exits but submissions is closed' do
+      before(:each) do
+        FactoryBot.create(:session, user: user)
+        FactoryBot.create(:end_time, value: 1.minute.ago)
+        login_as(user)
+      end
+
+      let(:response) do
+        post :create, params: {
+          category_id: @challenge.category_id,
+          id: @challenge.id,
+          submission: { flag: 'flag{5QL1_15_AWES0ME}' }
+        }, format: :js
+      end
+
+      it 'returns success' do
+        expect(response).to be_successful
+      end
+
+      it 'renders submission_ended' do
+        expect(response).to render_template('shared/submission_ended')
+      end
+    end
+
     context 'when the user is logged in and the challenge is not active' do
       before(:each) do
         FactoryBot.create(:session, user: user)

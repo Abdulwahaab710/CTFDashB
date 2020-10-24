@@ -3,6 +3,9 @@
 # Session controller
 class SessionsController < ApplicationController
   skip_before_action :user_logged_in?, only: %i[new create]
+  skip_before_action :ctf_has_started?
+  skip_before_action :submission_closed?
+
   layout 'settings_layout', only: %i[users_sessions destroy_session]
   include Sessions
 

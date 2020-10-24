@@ -3,6 +3,10 @@
 module Sessions
   extend ActiveSupport::Concern
 
+  included do
+    before_action :user_logged_in?
+  end
+
   def log_in(user)
     current_session = Session.new(
       user: user,
@@ -40,6 +44,13 @@ module Sessions
   end
 
   private
+
+  def user_logged_in?
+    return if logged_in?
+    store_location
+    flash[:danger] = 'Please log in.'
+    redirect_to login_url
+  end
 
   def destroy_all_session_except_current_session(session_id)
     current_user.sessions.where.not(id: session_id).destroy_all

@@ -2,12 +2,10 @@
 
 class CategoriesController < ApplicationController
   skip_before_action :user_logged_in?
-  before_action :ctf_has_started?
   before_action :fetch_categories
   before_action :fetch_team_submissions
 
   include Users
-  include CtfSettings
 
   def show
     @category = Category.find_by!(id: params[:id])

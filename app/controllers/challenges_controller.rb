@@ -2,13 +2,11 @@
 
 class ChallengesController < ApplicationController
   before_action :user_logged_in?, except: %i[index]
-  before_action :ctf_has_started?
   before_action :user_is_enrolled_in_a_team?, only: :show
   before_action :fetch_categories
   before_action :fetch_team_submissions
 
   include Users
-  include CtfSettings
 
   def index
     @challenges = Challenge.active.includes(:category, :challenge_files_attachments, :user).page(params[:page] || 1)

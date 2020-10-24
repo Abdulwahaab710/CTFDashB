@@ -14,8 +14,12 @@ module CtfSettingsHelper
     "#{browser}.svg"
   end
 
-  def ctf_setting_for(setting)
-    CtfSetting.find_or_create_by_with_default_value(key: setting, value_type: 'String', default_value: '100')
+  def default_max_tries
+    CtfSetting.default_max_tries
+  end
+
+  def unlimited_retries?
+    CtfSetting.unlimited_retries?
   end
 
   def ctf_setting_tag(ctf_setting)

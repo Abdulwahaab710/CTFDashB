@@ -6,6 +6,14 @@ class CtfSetting < ApplicationRecord
   validate  :valid_value_for_type?
 
   class << self
+    def unlimited_retries?
+      find_or_create_by_with_default_value(key: 'unlimited_retries', value_type: 'Boolean', default_value: 'true')
+    end
+
+    def default_max_tries
+      find_or_create_by_with_default_value(key: 'default_max_tries', value_type: 'String', default_value: '100')
+    end
+
     def hash_challenge_flag?
       find_or_create_by_with_default_value(key: 'hash_flag', value_type: 'Boolean', default_value: 'false')
     end

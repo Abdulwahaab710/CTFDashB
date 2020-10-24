@@ -6,8 +6,9 @@ class Challenge < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many_attached :challenge_files
 
-  validates :title, :points, :max_tries, :category, :flag, presence: true
-  validates :points, :max_tries, numericality: { greater_than_or_equal_to: 1 }
+  validates :title, :points, :category, :flag, presence: true
+  validates :max_tries, presence: true, numericality: { greater_than_or_equal_to: 1 }, unless: :unlimited_retries?
+  validates :points, numericality: { greater_than_or_equal_to: 1 }
   validates :flag, uniqueness: true
   validate :flag_format, on: :create
 
@@ -38,5 +39,9 @@ class Challenge < ApplicationRecord
     return unless flag_regex
 
     errors.add(:flag, 'Invalid flag format.') unless self[:flag] =~ Regexp.new(flag_regex)
+  end
+
+  def unlimited_retries?
+    CtfSetting.unlimited_retries?
   end
 end

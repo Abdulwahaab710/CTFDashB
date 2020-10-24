@@ -20,6 +20,8 @@ module Admin
         setting = CtfSetting.find_or_create_by!(key: param[0])
         setting.update(value: param[1])
       end
+
+      add_max_tries_to_challenges_without_max_tries
     end
 
     def update_boolean_settings
@@ -28,6 +30,12 @@ module Admin
 
     def settings_params
       params[:key]
+    end
+
+    def add_max_tries_to_challenges_without_max_tries
+      return if settings_params.keys.include?("unlimited_retries") || !CtfSetting.unlimited_retries?
+
+      Challenge.where(max_tries: nil).update_all(max_tries: CtfSetting.default_max_tries.to_i)
     end
   end
 end

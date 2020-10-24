@@ -17,7 +17,7 @@ RSpec.describe Challenge, type: :model do
       category: @category,
       user: @user
     )
-    CtfSetting.create(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}')
+    CtfSetting.create!(key: 'flag_regex', value: 'flag{[A-Za-z0-9]+}', value_type: 'String')
   end
 
   context 'when create a challenge' do

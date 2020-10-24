@@ -118,6 +118,7 @@ class SubmissionsController < ApplicationController
   end
 
   def return_forbidden_if_reached_max_tries
+    return true if CtfSetting.unlimited_retries?
     return true unless reached_the_max_number_of_tries?
 
     flash.now[:danger] = 'You have reached the maximum number of tries.'

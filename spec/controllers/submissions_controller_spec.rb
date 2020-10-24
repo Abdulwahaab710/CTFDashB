@@ -41,7 +41,9 @@ RSpec.describe SubmissionsController, type: :controller do
     context 'when the user is logged in and the challenge is not active' do
       before(:each) do
         FactoryBot.create(:session, user: user)
-        @deactivated_challenge = FactoryBot.create(:challenge, category: @challenge.category, active: false)
+        @deactivated_challenge = FactoryBot.create(
+          :challenge, category: @challenge.category, active: false, flag: 'flag{deactivated_challenge_flag}'
+        )
         login_as(user)
       end
 
@@ -147,6 +149,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
     context 'when the user has reached the maximum number of tries' do
       before(:each) do
+        CtfSetting.find_by(key: 'unlimited_retries').update(value: 'false')
         FactoryBot.create(:session, user: user)
         FactoryBot.create(
           :submission, user: user, team: user.team, challenge: @challenge, category: @challenge.category

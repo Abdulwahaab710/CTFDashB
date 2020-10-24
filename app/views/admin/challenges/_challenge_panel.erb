@@ -39,11 +39,13 @@
                   <%= ctf_challenge&.points&.to_i %> <%= ctf_challenge&.points > 1 ? 'Points' : 'Point' %>
                 </strong>
               </span>
-              <span class='max-tries-label label label-default' style='margin-right: 0.5vw;'>
-                <strong>
-                  <%= ctf_challenge&.max_tries - @team_submissions[ctf_challenge&.id].to_i %> Tries left
-                </strong>
-              </span>
+              <% unless unlimited_retries? %>
+                <span class='max-tries-label label label-default' style='margin-right: 0.5vw;'>
+                  <strong>
+                    <%= ctf_challenge&.max_tries - @team_submissions[ctf_challenge&.id].to_i %> Tries left
+                  </strong>
+                </span>
+              <% end %>
           </div>
         </td>
         <td>

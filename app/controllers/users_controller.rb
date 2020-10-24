@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     return render :new, status: :bad_request unless @user.save
 
     flash[:success] = 'Welcome to the CTFDashB, your account has been create'
+    log_in @user
     redirect_to join_team_path
   rescue ActionController::ParameterMissing
     flash[:error] = 'Required parameters are missing.'

@@ -33,6 +33,10 @@ RSpec.describe UsersController, type: :controller do
       it 'flashs with a success message' do
         expect(flash[:success]).to eq('Welcome to the CTFDashB, your account has been create')
       end
+
+      it 'creates a seesion for the user' do
+        expect(session[:user_session_id]).to eq(assigns[:user].sessions.last.id)
+      end
     end
 
     context 'when user params are missing' do

@@ -1,0 +1,68 @@
+<style>
+  #editor {
+    height: 70vh;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ace.js"
+        integrity="sha256-gkWBmkjy/8e1QUz5tv4CCYgEtjR8sRlGiXsMeebVeUo=" crossorigin="anonymous">
+</script>
+
+<%= form_for(page, url: form_url) do |f| %>
+  <%= render 'shared/error_messages', obj: page %>
+
+  <%= f.label :path, 'Page path' %>
+  <%= f.text_field :path, class: 'form-control', value: page.path %>
+
+  <%= f.label :content_type, 'Content Type' %>
+  <%= f.select :content_type, options_for_select(['html', 'markdown']),
+    class: 'form-control', include_blank: true, selected: page.content_type %>
+
+  <%= f.label :html_content, 'Content' %>
+  <div id='editor'></div>
+  <%= f.text_area :html_content, style: 'display: none', value: page.html_content %>
+
+  <%= f.label :include_layout, 'Include Layout', style: 'margin-bottom: 0;' %>
+  <%= f.check_box :include_layout, value: page.include_layout, style: 'width: auto;' %>
+
+  <br>
+
+  <p class="help-block" style='margin-top: 0;'>
+    Note: This is only available for HTML content type.
+  </p>
+
+  <br>
+
+  <%= f.submit 'Create page', class: 'btn btn-primary' %>
+<% end %>
+
+<script>
+  var editor = ace.edit("editor");
+  var textarea = $('textarea[name="page[html_content]"]');
+  var contentType = document.getElementById('page_content_type');
+
+  if (contentType.value === 'markdown') {
+    editor.session.setMode("ace/mode/markdown");
+  } else {
+    editor.session.setMode("ace/mode/html");
+  }
+
+  editor.setShowPrintMargin(false);
+  editor.setTheme('ace/theme/dracula')
+  editor.resize();
+  editor.setAutoScrollEditorIntoView(true);
+  editor.setValue(textarea.val())
+
+  textarea.val(editor.getSession().getValue());
+  editor.getSession().on("change", function () {
+    textarea.val(editor.getSession().getValue());
+  });
+
+  contentType.addEventListener("change", () => {
+    if (contentType.value === 'markdown') {
+      editor.session.setMode("ace/mode/markdown");
+    } else {
+      editor.session.setMode("ace/mode/html");
+    }
+  });
+</script>

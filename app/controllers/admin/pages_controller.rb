@@ -11,7 +11,7 @@ module Admin
     end
 
     def create
-      @page = Page.new(path: clean_page_path, html_content: page_params[:html_content])
+      @page = Page.new(page_params)
       return redirect_to admin_pages_path if @page.save
 
       render :new, status: :unprocessable_entity
@@ -23,9 +23,7 @@ module Admin
 
     def update
       @page = Page.find_by!(path: params[:path])
-      return redirect_to admin_pages_path if @page.update!(
-        path: clean_page_path, html_content: page_params[:html_content]
-      )
+      return redirect_to admin_pages_path if @page.update!(page_params)
 
       render :edit, status: :unprocessable_entity
     end
@@ -40,13 +38,13 @@ module Admin
     private
 
     def page_params
-      params.require(:page).permit(:path, :html_content)
+      params.require(:page).permit(:html_content, :content_type, :include_layout).merge(path: clean_page_path)
     end
 
     def clean_page_path
-      return page_params[:path] unless page_params[:path][0] == '/'
+      return params[:page][:path] unless params[:page][:path][0] == '/'
 
-      page_params[:path][1..-1]
+      params[:page][:path][1..-1]
     end
   end
 end

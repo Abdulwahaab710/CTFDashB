@@ -24,9 +24,12 @@ defaults = {
     { key: 'ctf_logo', value_type: 'String', value: '/logo.svg' },
     { key: 'team_size', value_type: 'String', value: '4' },
     { key: 'flag_regex', value_type: 'String', value: 'flag{[A-Za-z0-9_\-]+}' },
-    { key: 'start_time', value_type: 'Time', value: Time.zone.now }
+    { key: 'start_time', value_type: 'Time', value: Time.zone.now },
+    { key: 'end_time', value_type: 'Time', value: '' },
     { key: 'hash_flag', value_type: 'Boolean' value: 'false' },
-    { key: 'scoreboard', value_type: 'Boolean' value: 'true' }
+    { key: 'scoreboard', value_type: 'Boolean' value: 'true' },
+    { key: 'unlimited_retries', value_type: 'Boolean' value: 'false' },
+    { key: 'default_max_tries', value_type: 'String', value: '100' }
   ]
 }
 defaults[:settings].each do |setting|

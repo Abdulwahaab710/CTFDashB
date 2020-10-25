@@ -9,13 +9,27 @@ module CtfSettings
     return render 'shared/countdown' unless ctf_started?
   end
 
+  def submission_closed?
+    return render 'shared/submission_ended' if ctf_ended?
+  end
+
   def ctf_started?
     return true unless start_time
 
-    Time.zone.now.to_i > Time.zone.parse(start_time&.value).to_i
+    Time.zone.now.to_i > start_time.to_i
+  end
+
+  def ctf_ended?
+    return false unless end_time
+
+    Time.zone.now.to_i > end_time.to_i
   end
 
   def start_time
-    @start_time ||= CtfSetting.find_by(key: 'start_time')
+    @start_time ||= CtfSetting.start_time
+  end
+
+  def end_time
+    @end_time ||= CtfSetting.end_time
   end
 end

@@ -63,6 +63,12 @@ FactoryBot.define do
     value_type { 'String' }
   end
 
+  factory :end_time, class: CtfSetting do
+    key { 'end_time' }
+    value { Time.zone.now }
+    value_type { 'Time' }
+  end
+
   factory :submission do
     challenge
     category

@@ -3,6 +3,8 @@
 # Teams controller
 class TeamsController < ApplicationController
   skip_before_action :user_logged_in?, only: :show
+  skip_before_action :ctf_has_started?
+  skip_before_action :submission_closed?
 
   def new
     redirect_to current_user.team unless current_user.team.nil?

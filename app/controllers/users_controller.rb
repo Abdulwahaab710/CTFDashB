@@ -2,6 +2,9 @@
 
 class UsersController < ApplicationController
   skip_before_action :user_logged_in?, only: %i[new create show]
+  skip_before_action :ctf_has_started?
+  skip_before_action :submission_closed?
+
   layout 'settings_layout', only: %i[profile_settings security_settings change_password]
 
   include Sessions

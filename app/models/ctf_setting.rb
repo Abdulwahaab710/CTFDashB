@@ -7,7 +7,7 @@ class CtfSetting < ApplicationRecord
 
   class << self
     def unlimited_retries?
-      find_or_create_by_with_default_value(key: 'unlimited_retries', value_type: 'Boolean', default_value: 'true')
+      find_or_create_by_with_default_value(key: 'unlimited_retries', value_type: 'Boolean', default_value: 'false')
     end
 
     def default_max_tries
@@ -22,6 +22,14 @@ class CtfSetting < ApplicationRecord
       find_or_create_by_with_default_value(key: 'scoreboard', value_type: 'Boolean', default_value: 'true')
     end
 
+    def start_time
+      find_or_create_by_with_default_value(key: 'start_time', value_type: 'Time', default_value: '')
+    end
+
+    def end_time
+      find_or_create_by_with_default_value(key: 'end_time', value_type: 'Time', default_value: '')
+    end
+
     def find_or_create_by_with_default_value(key:, value_type:, default_value:)
       setting = self.find_or_initialize_by(key: key)
       setting.update(value_type: value_type, value: default_value) if setting.value.nil?
@@ -29,6 +37,8 @@ class CtfSetting < ApplicationRecord
       case value_type
       when 'Boolean'
         ActiveModel::Type::Boolean.new.cast(setting.value)
+      when 'Time'
+        Time.zone.parse(setting.value)
       else
         setting.value
       end

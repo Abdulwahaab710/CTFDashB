@@ -29,7 +29,7 @@ class SubmissionsController < ApplicationController
 
   def successful_submission
     @submission&.update(valid_submission: true)
-    update_score
+    update_score_and_last_valid_submission_at
     render_alert
   end
 
@@ -66,14 +66,14 @@ class SubmissionsController < ApplicationController
     params.require(:submission).permit(:flag)[:flag]
   end
 
-  def update_score
+  def update_score_and_last_valid_submission_at
     return if current_user.organizer?
 
-    old_scores = Team.order(score: :desc).first(3).pluck(:name, :score)
+    old_scores = Team.order(score: :desc, last_valid_submission_at: :asc).first(3).pluck(:name, :score)
 
-    current_user.team.update(score: calculate_team_new_score)
+    current_user.team.update(score: calculate_team_new_score, last_valid_submission_at: Time.zone.now)
 
-    new_scores = Team.order(score: :desc).pluck(:name, :score)
+    new_scores = Team.order(score: :desc, last_valid_submission_at: :asc).limit(25).pluck(:name, :score)
     if CtfSetting.scoreboard_enabled?
       message = {
         scoreboard: new_scores,

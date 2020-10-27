@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_17_191659) do
+ActiveRecord::Schema.define(version: 2020_10_27_004743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_191659) do
     t.datetime "updated_at", null: false
     t.string "invitation_token"
     t.integer "score", default: 0
+    t.datetime "last_valid_submission_at"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

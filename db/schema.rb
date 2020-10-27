@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_10_17_191659) do
-||||||| parent of b4eb380... Add last_valid_submission_at to team
-ActiveRecord::Schema.define(version: 2020_10_25_010621) do
-=======
 ActiveRecord::Schema.define(version: 2020_10_27_004743) do
->>>>>>> b4eb380... Add last_valid_submission_at to team
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"

@@ -1,5 +1,4 @@
-<h1>CTF Dashboard Settings</h1>
-<div class="col-md-6 col-md-offset-3" style='display: flex; justify-content: space-between; align-items: center;'>
+<h1 style='text-align: center;'>CTF Dashboard Settings</h1>
   <%= form_tag do %>
     <div id='form-body'>
       <% @ctf_settings.each do |ctf_setting| %>
@@ -7,27 +6,15 @@
           <div class="col-md-3">
           <%= label_tag "key[]",ctf_setting.key, style: 'width: 100%; text-align: center;'%>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-9">
           <%= ctf_setting_tag(ctf_setting) %>
-          </div>
-          <div class="col-md-2">
-          <%= fa_icon 'trash', class: 'btn btn-danger'  %>
           </div>
         </div>
       <% end %>
     </div>
-    <div>
-      <span style='text-align: left;'>
-        <%= button_tag 'Add a new field',
-          class: "btn btn-primary",
-          style: 'width: 40%;',
-          type: 'button',
-          id: 'add-field-btn'
-        %>
-      </span>
-      <span style='text-align: right;'>
+    <div style='display: flex;'>
+      <span style='text-align: center; width: 100%;'>
         <%= submit_tag 'Update', class: "btn btn-success", style: 'width: 40%;' %>
       </span>
     </div>
   <% end %>
-</div>

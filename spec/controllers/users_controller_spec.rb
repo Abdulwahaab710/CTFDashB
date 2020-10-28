@@ -31,7 +31,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'flashs with a success message' do
-        expect(flash[:success]).to eq('Welcome to the CTFDashB, your account has been create')
+        expect(flash[:success]).to eq('Welcome to CTFDashB! Your account has been created.')
       end
 
       it 'creates a seesion for the user' do

@@ -21,9 +21,6 @@
       <%= f.label :challenge_files %>
       <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
 
-      <%= f.label :link %>
-      <%= f.text_field :link, class: 'form-control', value: @challenge.link %>
-
       <%= f.label :points %>
       <%= f.number_field :points, class: 'form-control', value: @challenge.points %>
 

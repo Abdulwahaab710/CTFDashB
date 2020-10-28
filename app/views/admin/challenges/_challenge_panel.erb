@@ -49,9 +49,11 @@
           </div>
         </td>
         <td>
-          <div style="float:right; width:50%; text-align: right;">
-            <%= link_to 'Go to the challenge', polymorphic_path([:admin, ctf_challenge&.category, ctf_challenge]) %>
-          </div>
+          <% if show_link %>
+            <div style="float:right; width:50%; text-align: right;">
+              <%= link_to 'Go to the challenge', polymorphic_path([:admin, ctf_challenge&.category, ctf_challenge]) %>
+            </div>
+          <% end %>
         </td>
       </tr>
     </table>

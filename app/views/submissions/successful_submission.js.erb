@@ -1,10 +1,10 @@
-<% if @message.nil? %>
+<% if @message&.empty? %>
   $('.alert').removeClass('alert-danger')
   $('.alert').addClass('alert-success')
   $('.alert').text('<%= flash[:success] %>')
   $('.alert').fadeIn()
 <% else %>
-  swal({
+  Swal.fire({
     title: '<%= flash[:success] %>',
     type: 'success',
     html: '<%= @message %>'

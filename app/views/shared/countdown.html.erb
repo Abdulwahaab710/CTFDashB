@@ -1,5 +1,6 @@
 <div class='col-md-8 col-md-offset-2' style='text-align: center;'>
   <h1>Countdown to CTF</h1>
+  <%= image_tag ctf_logo if ctf_logo %>
   <%= content_tag 'h1', id: 'countdown', data: { countdown: ctf_start_time } do %>
     Loading...
   <% end %>

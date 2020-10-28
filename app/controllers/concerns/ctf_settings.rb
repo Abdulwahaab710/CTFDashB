@@ -6,6 +6,7 @@ module CtfSettings
   end
 
   def ctf_has_started?
+    return if "#{controller_name}##{action_name}" == "submissions#create" && current_user&.organizer?
     return render 'shared/countdown' unless ctf_started?
   end
 

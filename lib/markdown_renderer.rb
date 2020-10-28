@@ -6,4 +6,8 @@ require 'rouge/plugins/redcarpet'
 
 class MarkdownRenderer < Redcarpet::Render::Safe
   include Rouge::Plugins::Redcarpet
+
+  def initialize(extensions = {})
+    super extensions.merge(link_attributes: { target: "_blank" })
+  end
 end

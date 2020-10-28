@@ -26,9 +26,9 @@ defaults = {
     { key: 'flag_regex', value_type: 'String', value: 'flag{[A-Za-z0-9_\-]+}' },
     { key: 'start_time', value_type: 'Time', value: Time.zone.now },
     { key: 'end_time', value_type: 'Time', value: '' },
-    { key: 'hash_flag', value_type: 'Boolean' value: 'false' },
-    { key: 'scoreboard', value_type: 'Boolean' value: 'true' },
-    { key: 'unlimited_retries', value_type: 'Boolean' value: 'false' },
+    { key: 'hash_flag', value_type: 'Boolean', value: 'false' },
+    { key: 'scoreboard', value_type: 'Boolean', value: 'true' },
+    { key: 'unlimited_retries', value_type: 'Boolean', value: 'false' },
     { key: 'default_max_tries', value_type: 'String', value: '100' }
   ]
 }

@@ -2,7 +2,7 @@
   <h3>There aren't any available challenges for this category</h3>
 <% else %>
   <% challenges.each do |ctf_challenge| %>
-    <%= render 'challenges/challenge_panel', ctf_challenge: ctf_challenge %>
+    <%= render 'challenges/challenge_panel', ctf_challenge: ctf_challenge, show_link: true %>
   <% end %>
   <div class="row" style="display: flex; justify-content: center;">
     <%= paginate challenges %>

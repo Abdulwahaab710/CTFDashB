@@ -67,6 +67,11 @@ module Admin
       redirect_to action: :index if @challenge.save!
     end
 
+    def destroy_challenge_file
+      challenge.challenge_files.find(params[:file_id]).purge
+      head 204
+    end
+
     private
 
     def update_submissions(flag)

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
           patch 'activate'     => 'challenges#activate', as: :activate
           patch 'deactivate'   => 'challenges#deactivate', as: :deactivate
           delete '/' => 'challenges#destroy', as: :delete
+          delete '/files/:file_id' => 'challenges#destroy_challenge_file', as: :delete_file
         end
       end
     end

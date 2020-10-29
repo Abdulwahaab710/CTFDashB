@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to root_path, class: 'navbar-brand', style: 'padding: 0' do %>
+        <%= link_to root_path, class: 'navbar-brand', style: 'padding: 0', data: { turbolinks: false } do %>
           <%= image_tag ctf_logo, width: 40, height: 40 if ctf_logo %> <%= ctf_name %>
         <% end %>
 

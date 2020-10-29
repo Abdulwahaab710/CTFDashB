@@ -68,8 +68,12 @@ module Admin
     end
 
     def destroy_challenge_file
-      challenge.challenge_files.find(params[:file_id]).purge
-      head 204
+      @file = challenge.challenge_files.find(params[:file_id])
+      @file.purge
+
+      respond_to do |f|
+        f.js { render 'delete_file', status: :ok }
+      end
     end
 
     private

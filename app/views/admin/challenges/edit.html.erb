@@ -23,9 +23,9 @@
       <% unless @challenge.challenge_files.empty? %>
         <ul>
           <% @challenge.challenge_files.each do |file| %>
-            <li style='padding-bottom: 5px'>
+            <li style='padding-bottom: 5px' id='file-<%= file.id %>'>
               <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
-              <%= link_to fa_icon('trash'), delete_file_admin_category_challenge_path(@challenge, file_id: file.id), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this file?' } %>
+              <%= link_to fa_icon('trash'), delete_file_admin_category_challenge_path(@challenge, file_id: file.id), class: 'btn btn-danger', method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this file?' } %>
             </li>
           <% end %>
         </ul>

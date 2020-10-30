@@ -33,6 +33,7 @@ services:
       - .env
     stdin_open: true
     tty: true
+    entrypoint: ./docker-entrypoint.sh
   sidekiq:
     build: .
     command: bundle exec sidekiq
@@ -54,11 +55,3 @@ services:
       - .:/usr/src/app
     env_file:
       - .env
-  nginx:
-    image: nginx
-    links:
-      - web
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "4000:80"

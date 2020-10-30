@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  USERNAME_REGEX = /[^\/]+/
+
   root to: 'challenges#index'
 
   post '/submit', to: 'general_submissions#create', as: :general_submission
@@ -35,7 +37,7 @@ Rails.application.routes.draw do
 
     get '/users', to: 'user_managements#index', as: :users
 
-    resources :users do
+    resources :users, constraints: { id: USERNAME_REGEX } do
       member do
         patch '/activate', to: 'user_managements#activate', as: :activate_user
         patch '/admin', to: 'user_managements#add_admin', as: :add_admin
@@ -88,7 +90,7 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create'
-  get '/users/:id', to: 'users#show', as: :user
+  get '/users/:id', to: 'users#show', constraints: { id: USERNAME_REGEX }, as: :user
 
   get '/settings', to: 'users#profile_settings', as: :profile_settings
   patch '/settings', to: 'users#update'

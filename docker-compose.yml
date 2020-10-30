@@ -54,11 +54,3 @@ services:
       - .:/usr/src/app
     env_file:
       - .env
-  nginx:
-    image: nginx
-    links:
-      - web
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "4000:80"

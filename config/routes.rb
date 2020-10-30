@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   root to: 'challenges#index'
 
+  post '/submit', to: 'general_submissions#create', as: :general_submission
+
   namespace :admin do
     root to: 'dashboard#index'
     get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings

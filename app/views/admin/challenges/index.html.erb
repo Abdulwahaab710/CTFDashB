@@ -5,6 +5,23 @@
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <h1>All Challenges</h1>
     </div>
+    <% if general_submission_enabled? %>
+      <div class="panel panel-primary">
+        <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
+          <h3 class="panel-title">Flag Submission</h3>
+        </div>
+        <%= form_tag(general_submission_path, method: :post, remote: true) do |f| %>
+          <div class="panel-body">
+            <div class="alert alert-success collapse" role="alert"></div>
+            <%= text_field_tag :flag, nil, style: 'margin: 0;' %>
+          </div>
+          <div class="panel-footer">
+            <%= submit_tag "Submit flag", class: "btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
     <hr>
     <% if @challenges.nil? %>
       <h1>No challenges have been added yet.</h1>

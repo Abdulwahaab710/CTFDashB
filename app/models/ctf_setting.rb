@@ -30,6 +30,10 @@ class CtfSetting < ApplicationRecord
       find_or_create_by_with_default_value(key: 'end_time', value_type: 'Time', default_value: '')
     end
 
+    def general_submission_enabled?
+      find_or_create_by_with_default_value(key: 'general_submission', value_type: 'Boolean', default_value: 'true')
+    end
+
     def find_or_create_by_with_default_value(key:, value_type:, default_value:)
       setting = self.find_or_initialize_by(key: key)
       setting.update(value_type: value_type, value: default_value) if setting.value.nil?

@@ -22,6 +22,10 @@ module CtfSettingsHelper
     CtfSetting.unlimited_retries?
   end
 
+  def general_submission_enabled?
+    CtfSetting.general_submission_enabled?
+  end
+
   def ctf_setting_tag(ctf_setting)
     case ctf_setting.value_type
     when "Boolean"

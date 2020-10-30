@@ -29,13 +29,16 @@ defaults = {
     { key: 'hash_flag', value_type: 'Boolean', value: 'false' },
     { key: 'scoreboard', value_type: 'Boolean', value: 'true' },
     { key: 'unlimited_retries', value_type: 'Boolean', value: 'false' },
-    { key: 'default_max_tries', value_type: 'String', value: '100' }
+    { key: 'default_max_tries', value_type: 'String', value: '100' },
+    { key: 'general_submission', value_type: 'Boolean', value: 'true' }
   ]
 }
 defaults[:settings].each do |setting|
   CtfSetting.find_or_create_by(setting)
 end
 
-defaults[:users].each do |user|
-  User.create!(user) unless User.find_by(email: user[:email])
+unless User.count > 0
+  defaults[:users].each do |user|
+    User.create!(user) unless User.find_by(email: user[:email])
+  end
 end

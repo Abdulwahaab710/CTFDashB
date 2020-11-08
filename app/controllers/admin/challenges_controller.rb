@@ -71,9 +71,7 @@ module Admin
       @file = challenge.challenge_files.find(params[:file_id])
       @file.purge
 
-      respond_to do |f|
-        f.js { render 'delete_file', status: :ok }
-      end
+      render json: { deleted: true }, status: :ok
     end
 
     private

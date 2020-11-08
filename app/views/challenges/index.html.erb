@@ -10,10 +10,10 @@
         <div class="panel-heading" style='display: flex; justify-content: space-between; align-items: center;'>
           <h3 class="panel-title">Flag Submission</h3>
         </div>
-        <%= form_tag(general_submission_path, method: :post, remote: true) do |f| %>
+        <%= form_tag(general_submission_path, method: :post, remote: true, class: 'flag-submission-form') do |f| %>
           <div class="panel-body">
             <div class="alert alert-success collapse" role="alert"></div>
-            <%= text_field_tag :flag, nil, style: 'margin: 0;' %>
+            <%= text_field_tag :flag, nil, style: 'margin: 0;', required: true %>
           </div>
           <div class="panel-footer">
             <%= submit_tag "Submit flag", class: "btn btn-success" %>

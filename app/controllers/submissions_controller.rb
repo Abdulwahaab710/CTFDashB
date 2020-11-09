@@ -10,7 +10,7 @@ class SubmissionsController < ApplicationController
   def create
     @challenge = challenge
     return head 404 if @challenge.nil?
-    return invalid_flag unless validate_flag_format(submitted_flag)
+    return invalid_format_flag unless validate_flag_format(submitted_flag)
 
     add_submission
     verify_flag
@@ -30,9 +30,8 @@ class SubmissionsController < ApplicationController
     flash.now[:danger] = 'Flag is incorrect'
     @max_tries = remaining_tries
     @submission&.update(valid_submission: false, flag: submitted_flag)
-    respond_to do |f|
-      f.js { render 'unsuccessful_submission', status: :unprocessable_entity }
-    end
+
+    incorrect_flag
   end
 
   def submitted_flag
@@ -59,18 +58,12 @@ class SubmissionsController < ApplicationController
     return true if CtfSetting.unlimited_retries?
     return true unless reached_the_max_number_of_tries?
 
-    flash.now[:danger] = 'You have reached the maximum number of tries.'
-    respond_to do |f|
-      f.js { render 'forbidden_submission', status: :forbidden }
-    end
+    render json: { error: 'You have reached the maximum number of tries.' }, status: :forbidden
   end
 
   def return_not_found_if_challenge_is_not_active
     return true unless challenge.nil?
 
-    flash.now[:danger] = 'Challenge was not found'
-    respond_to do |f|
-      f.js { render 'forbidden_submission', status: :not_found }
-    end
+    render json: { error: 'Challenge was not found' }, status: :not_found
   end
 end

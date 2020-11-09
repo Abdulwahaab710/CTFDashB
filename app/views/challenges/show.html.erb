@@ -4,11 +4,11 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <% unless challenge_solved?(@challenge) %>
-        <%= form_for(@challenge_submission, url: submit_flag_path, remote: true) do |f| %>
+        <%= form_for(@challenge_submission, url: submit_flag_path, html: { class: 'flag-submission-form' }, remote: true) do |f| %>
           <%= render 'shared/error_messages', obj: @challenge_submission %>
 
           <%= f.label :flag %>
-          <%= f.text_field :flag %>
+          <%= f.text_field :flag, required: true %>
 
           <%= f.submit "Submit flag", class: "btn btn-success" %>
         <% end %>

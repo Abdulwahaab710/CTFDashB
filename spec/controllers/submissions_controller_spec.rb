@@ -29,7 +29,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns success' do
         expect(response).to be_successful
-        expect(flash[:success]).to eq 'Woohoo, you have successfully submitted your flag'
+        expect(response.body).to eq({ flash: 'Woohoo, you have successfully submitted your flag', message: nil }.to_json)
       end
 
       it 'adds the challenge points to the team score' do
@@ -81,7 +81,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns not found' do
         expect(response).to have_http_status(:not_found)
-        expect(flash[:danger]).to eq 'Challenge was not found'
+        expect(response.body).to eq({ error: 'Challenge was not found' }.to_json)
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'returns success' do
         expect(response).to be_successful
-        expect(flash[:success]).to eq 'Woohoo, you have successfully submitted your flag'
+        expect(response.body).to eq({ flash: 'Woohoo, you have successfully submitted your flag', message: nil }.to_json)
       end
 
       it 'does not update the score' do
@@ -167,7 +167,7 @@ RSpec.describe SubmissionsController, type: :controller do
       end
 
       it 'returns error if the flag format is invalid' do
-        expect(flash[:danger]).to eq('Invalid flag format')
+        expect(response.body).to eq({ error: 'Invalid flag format' }.to_json)
       end
     end
 
@@ -190,8 +190,8 @@ RSpec.describe SubmissionsController, type: :controller do
         expect(response).to have_http_status(:forbidden)
       end
 
-      it 'flashes with You have reached the maximum number of tries.' do
-        expect(flash[:danger]).to eq('You have reached the maximum number of tries.')
+      it 'returns an error when you have reached the maximum number of tries.' do
+        expect(response.body).to eq({ error: 'You have reached the maximum number of tries.' }.to_json)
       end
     end
 

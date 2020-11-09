@@ -38,7 +38,7 @@ module Admin
 
     def update_flag
       @challenge = challenge
-      render :edit unless @challenge.update(flag: BCrypt::Password.create(new_flag))
+      render :edit unless @challenge.update(flag: FlagHasher.new(new_flag).call)
       update_submissions(new_flag)
       flash[:success] = 'You have successfully updated the challenge flag'
       redirect_to challenge_path

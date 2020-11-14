@@ -33,7 +33,6 @@ services:
       - .env
     stdin_open: true
     tty: true
-    entrypoint: ./docker-entrypoint.sh
   sidekiq:
     build: .
     command: bundle exec sidekiq

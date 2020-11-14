@@ -5,6 +5,12 @@ class GraphqlController < ApplicationController
   # protect_from_forgery with: :null_session
   # skip_before_action :user_logged_in?
 
+  before_action do
+    return if request.content_type == 'application/json' || request.content_type == 'application/graphql'
+
+    head :bad_request
+  end
+
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]

@@ -35,7 +35,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submitted_flag
-    params.require(:submission).permit(:flag)[:flag]
+    params.require(:submission).permit(:flag)[:flag].strip
   end
 
   def challenge

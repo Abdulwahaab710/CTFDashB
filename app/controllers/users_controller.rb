@@ -30,8 +30,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by!(username: params[:id])
     redirect_to join_team_path if @user&.team&.nil? && logged_in_user?(@user) && !@user.organizer?
-  rescue ActiveRecord::RecordNotFound
-    render file: Rails.root.join('public', '404.html'), status: :not_found
   end
 
   def update

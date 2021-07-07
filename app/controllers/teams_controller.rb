@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team = Team.find_by(id: params[:id])
+    @team = Team.find_by!(id: params[:id])
   end
 
   def join

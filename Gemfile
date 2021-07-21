@@ -80,3 +80,4 @@ gem 'rouge', '~> 3.12'
 gem 'graphql'
 
 gem 'graphiql-rails', group: :development
+gem 'webpacker'

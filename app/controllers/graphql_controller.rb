@@ -6,9 +6,7 @@ class GraphqlController < ApplicationController
   # skip_before_action :user_logged_in?
 
   before_action do
-    return if request.content_type == 'application/json' || request.content_type == 'application/graphql'
-
-    head :bad_request
+    return head :bad_request unless request.content_type == 'application/json' || request.content_type == 'application/graphql'
   end
 
   def execute

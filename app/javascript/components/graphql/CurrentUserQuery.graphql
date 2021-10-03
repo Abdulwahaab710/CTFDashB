@@ -1,0 +1,6 @@
+query CurrentUserQuery {
+  currentUser {
+    name
+    profilePictureURL: gravatarUrl
+  }
+}

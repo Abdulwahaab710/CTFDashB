@@ -42,3 +42,21 @@ unless User.count > 0
     User.create!(user) unless User.find_by(email: user[:email])
   end
 end
+
+if Rails.env.development? && Category.count < 10
+  user = User.first
+  (1..10).each do |n|
+    description = "Enim molestiae incidunt rem ipsum perferendis beatae excepturi tenetur."
+    category = Category.create!(name: "Category-#{n}", description: description)
+    (1..10).each do |i|
+      Challenge.create!(
+        title: "Challenge-#{n}-#{i}",
+        points: (n * i),
+        max_tries: n.to_i,
+        flag: "flag{flag-#{n}-#{i}}",
+        category: category,
+        user: user
+      )
+    end
+  end
+end

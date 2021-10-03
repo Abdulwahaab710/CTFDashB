@@ -1,0 +1,30 @@
+query ChallengesQuery($first: Int, $last: Int, $before: String, $after: String)  {
+  challenges(first: $first, last: $last, before: $before, after: $after) {
+    nodes {
+      id
+      title
+      active
+      afterMessage
+      category {
+        id
+          name
+      }
+      description
+      createdAt
+      flag
+      link
+      maxTries
+      points
+      user {
+        name
+        gravatarUrl
+      }
+    }
+    pageInfo {
+      endCursor
+      startCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

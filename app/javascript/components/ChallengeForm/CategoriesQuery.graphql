@@ -1,0 +1,8 @@
+query CategoriesQuery {
+	categories {
+    nodes {
+      id
+      name
+    }
+  }
+}

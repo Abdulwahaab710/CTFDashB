@@ -12,6 +12,12 @@ module Types
     field :team, TeamType, null: false
     field :teams, TeamType.connection_type, null: false
 
+    field :current_user, UserType, null: false
+
+    def current_user
+      context[:current_user]
+    end
+
     def category(id:)
       Category.find(id)
     end
@@ -25,7 +31,7 @@ module Types
     end
 
     def challenges
-      Challenge.all
+      Challenge.order(id: :asc)
     end
 
     def user(id:)

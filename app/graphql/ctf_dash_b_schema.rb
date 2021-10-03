@@ -1,4 +1,4 @@
-class CTFDashBSchema < GraphQL::Schema
+class CtfDashBSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 

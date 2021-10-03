@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   post '/submit', to: 'general_submissions#create', as: :general_submission
 
+  mount GraphiQL::Rails::Engine, at: "/admin/graphiql", graphql_path: "/admin/graphql" if Rails.env.development?
+
+  post "/admin/graphql", to: "graphql#execute"
+
   namespace :admin do
     root to: 'dashboard#index'
     get 'ctf_settings', to: 'ctf_settings#show', as: :ctf_settings
@@ -58,6 +62,7 @@ Rails.application.routes.draw do
         delete '/:path', to: 'pages#destroy', as: :delete
       end
     end
+    match '*path', to: 'home#index', via: :all
   end
 
   get '/categories/:id', to: 'categories#show', as: :category
@@ -107,8 +112,4 @@ Rails.application.routes.draw do
 
   get '/scores', to: 'scores#index', as: :score_board
   get '/pages/:path', to: 'pages#show', as: :page
-
-  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
-
-  post "/graphql", to: "graphql#execute"
 end

@@ -63,3 +63,10 @@ bower.json
 .DS_Store
 coverage
 storage
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

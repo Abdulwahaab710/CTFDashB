@@ -1,0 +1,32 @@
+mutation UpdateChallengeMutation(
+  $id: ID!, $title: String, $description: String, $points: Float,
+  $maxTries: Int, $active: Boolean, $categoryId: ID, $flag: String,
+  $afterMessage: String
+) {
+  updateChallenge(
+   input: {
+    id: $id, title: $title, description: $description, points: $points,
+    maxTries: $maxTries, active: $active, categoryId: $categoryId, flag: $flag,
+    afterMessage: $afterMessage
+    }
+  ) {
+    id
+    title
+    active
+    afterMessage
+    category {
+      id
+        name
+    }
+    description
+    createdAt
+    flag
+    link
+    maxTries
+    points
+    user {
+      name
+      gravatarUrl
+    }
+  }
+}

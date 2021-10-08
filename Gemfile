@@ -59,6 +59,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'simplecov', require: false, group: :test
+  gem 'dotenv-rails'
 end
 
 group :development do

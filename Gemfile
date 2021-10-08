@@ -52,7 +52,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'action-cable-testing'
   gem 'byebug', platform: :mri
-  gem 'codecov', require: false, group: :test
   gem 'factory_bot_rails', '~> 5.0'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'

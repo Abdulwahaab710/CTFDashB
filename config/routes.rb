@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
       resources :challenges, except: %i[new create edit update destroy], as: :challenges do
         member do
+          get 'clone'          => 'challenges#clone', as: :clone
           get 'edit'           => 'challenges#edit', as: :edit
           patch 'edit'         => 'challenges#update'
           patch 'update-flag'  => 'challenges#update_flag', as: :update_flag

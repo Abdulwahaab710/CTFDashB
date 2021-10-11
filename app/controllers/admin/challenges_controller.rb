@@ -38,7 +38,8 @@ module Admin
 
     def update_flag
       @challenge = challenge
-      render :edit unless @challenge.update(flag: FlagHasher.new(new_flag).call)
+      render :edit unless @challenge.update(flag: FlagHasher.new(new_flag).call, regex_flag: regex_flag?)
+
       update_submissions(new_flag)
       flash[:success] = 'You have successfully updated the challenge flag'
       redirect_to challenge_path
@@ -107,7 +108,7 @@ module Admin
         :active,
         :after_message,
         :category_id
-      ).merge(user: current_user)
+      ).merge(user: current_user, regex_flag: regex_flag?)
     end
 
     def challenge_params_without_flag
@@ -121,6 +122,10 @@ module Admin
         :after_message,
         :category_id
       )
+    end
+
+    def regex_flag?
+      params[:flag_type].downcase == "regex"
     end
 
     def challenge_path

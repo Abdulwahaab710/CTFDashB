@@ -40,6 +40,8 @@ class Challenge < ApplicationRecord
   private
 
   def flag_format
+    return if regex_flag?
+
     flag_regex = CtfSetting.find_by(key: 'flag_regex')&.value
     return unless flag_regex
 

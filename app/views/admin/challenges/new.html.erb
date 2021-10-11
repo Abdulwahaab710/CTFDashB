@@ -22,6 +22,9 @@
       <%= f.label :challenge_files %>
       <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
 
+      <%= label_tag :flag_type %>
+      <%= select_tag :flag_type, options_for_select(['string', 'regex']) %>
+
       <%= f.label :flag %>
       <%= f.text_field :flag, class: 'form-control' %>
 

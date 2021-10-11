@@ -16,6 +16,11 @@ class Challenge < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
+  typed_store :setting do |s|
+    s.boolean :regex_flag, default: false, null: false
+    s.boolean :case_insensitive, default: false, null: false
+  end
+
   class String < SimpleDelegator
     include Markdownable
 

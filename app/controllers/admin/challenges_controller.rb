@@ -130,7 +130,7 @@ module Admin
     end
 
     def regex_flag?
-      params[:flag_type].downcase == "regex"
+      params[:flag_type]&.downcase == "regex"
     end
 
     def challenge_path

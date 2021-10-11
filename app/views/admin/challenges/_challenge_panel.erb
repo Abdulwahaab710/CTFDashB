@@ -13,6 +13,10 @@
           edit_admin_category_challenge_path(ctf_challenge&.category, ctf_challenge),
           class: 'btn btn-warning'
         %>
+        <%= link_to 'Clone',
+          clone_admin_category_challenge_path(ctf_challenge&.category, ctf_challenge),
+          class: 'btn btn-warning'
+        %>
         <%= link_to 'Delete',
           delete_admin_category_challenge_path(ctf_challenge&.category, ctf_challenge),
           class: 'btn btn-danger',

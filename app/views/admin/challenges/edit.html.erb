@@ -64,6 +64,11 @@
       <%= f.label :flag, (@challenge.regex_flag? ? 'Regex Flag' : 'Flag') %>
       <%= f.text_field :flag, class: 'form-control', placeholder: 'Update challenge flag', value: flag_value(@challenge) %>
 
+      <div id="case_insensitive" class="<%= @challenge.regex_flag? ? "" : "invisible" %>">
+        <%= f.label :case_insensitive %>
+        <%= f.check_box :case_insensitive, style: 'width: auto;', checked: @challenge.case_insensitive? %>
+      </div>
+
       <%= f.submit "Update flag", class: "btn btn-primary" %>
     <% end %>
   </div>

@@ -38,7 +38,11 @@ module Admin
 
     def update_flag
       @challenge = challenge
-      render :edit unless @challenge.update(flag: FlagHasher.new(new_flag).call, regex_flag: regex_flag?)
+      render :edit unless @challenge.update(
+        flag: FlagHasher.new(new_flag).call,
+        regex_flag: regex_flag?,
+        case_insensitive: params[:challenge][:case_insensitive]
+      )
 
       update_submissions(new_flag)
       flash[:success] = 'You have successfully updated the challenge flag'
@@ -107,7 +111,8 @@ module Admin
         :max_tries,
         :active,
         :after_message,
-        :category_id
+        :category_id,
+        :case_insensitive
       ).merge(user: current_user, regex_flag: regex_flag?)
     end
 

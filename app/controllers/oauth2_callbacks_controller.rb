@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Oauth2CallbacksController < ApplicationController
   skip_before_action :user_logged_in?
   skip_before_action :ctf_has_started?

@@ -28,6 +28,12 @@ module Admin
       @challenge = challenge
     end
 
+    def clone
+      @challenge = challenge.dup
+
+      render :new
+    end
+
     def update
       @challenge = challenge
       @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]

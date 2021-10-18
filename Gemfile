@@ -74,5 +74,8 @@ end
 group :production do
   gem 'pg'
 end
+
 gem 'rouge', '~> 3.12'
+gem "omniauth-rails_csrf_protection"
+gem 'omniauth-google-oauth2'
 gem 'activerecord-typedstore'

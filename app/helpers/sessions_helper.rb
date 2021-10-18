@@ -12,6 +12,10 @@ module SessionsHelper
     session[:user_session_id] = current_session.id
   end
 
+  def google_oauth2_available?
+    ENV['GOOGLE_CLIENT_ID'] && ENV['GOOGLE_CLIENT_SECRET']
+  end
+
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)

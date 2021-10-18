@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get    '/auth/google_oauth2/callback', to: 'oauth2_callbacks#google'
 
   get '/scores', to: 'scores#index', as: :score_board
   get '/pages/:path', to: 'pages#show', as: :page

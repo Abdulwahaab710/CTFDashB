@@ -8,10 +8,21 @@ class FlagVerifier < ChallengeFlag
   end
 
   def call
-    if @challenge&.flag&.start_with? BCRYPT_PREFIX
-      BCrypt::Password.new(@challenge&.flag).is_password?(@submitted_flag)
+    if @challenge&.regex_flag?
+      regex = Regexp.new(@challenge.flag, regex_options)
+      regex === @challenge.flag
     else
-      ActiveSupport::SecurityUtils.secure_compare(@challenge&.flag, @submitted_flag)
+      if @challenge&.flag&.start_with? BCRYPT_PREFIX
+        BCrypt::Password.new(@challenge&.flag).is_password?(@submitted_flag)
+      else
+        ActiveSupport::SecurityUtils.secure_compare(@challenge&.flag, @submitted_flag)
+      end
     end
+  end
+
+  private
+
+  def regex_options
+    return Regexp::IGNORECASE if @challenge.case_insensitive?
   end
 end

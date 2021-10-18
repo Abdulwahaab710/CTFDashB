@@ -32,7 +32,6 @@ gem 'rails-controller-testing'
 
 gem 'bootstrap-sass', '3.4.1'
 gem 'font-awesome-rails'
-gem 'rails-assets-sweetalert2', '~> 8.8.1', source: 'https://rails-assets.org'
 gem 'sweet-alert2-rails'
 
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -53,13 +52,13 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'action-cable-testing'
   gem 'byebug', platform: :mri
-  gem 'codecov', require: false, group: :test
   gem 'factory_bot_rails', '~> 5.0'
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'simplecov', require: false, group: :test
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -75,4 +74,8 @@ end
 group :production do
   gem 'pg'
 end
+
 gem 'rouge', '~> 3.12'
+gem "omniauth-rails_csrf_protection"
+gem 'omniauth-google-oauth2'
+gem 'activerecord-typedstore'

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
       resources :challenges, except: %i[new create edit update destroy], as: :challenges do
         member do
+          get 'clone'          => 'challenges#clone', as: :clone
           get 'edit'           => 'challenges#edit', as: :edit
           patch 'edit'         => 'challenges#update'
           patch 'update-flag'  => 'challenges#update_flag', as: :update_flag
@@ -104,6 +105,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get    '/auth/google_oauth2/callback', to: 'oauth2_callbacks#google'
 
   get '/scores', to: 'scores#index', as: :score_board
   get '/pages/:path', to: 'pages#show', as: :page

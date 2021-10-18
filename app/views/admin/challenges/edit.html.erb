@@ -25,7 +25,7 @@
           <% @challenge.challenge_files.each do |file| %>
             <li style='padding-bottom: 5px' id='file-<%= file.id %>'>
               <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
-              <%= link_to fa_icon('trash'), delete_file_admin_category_challenge_path(@challenge, file_id: file.id), class: 'btn btn-danger', method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this file?' } %>
+              <%= link_to fa_icon('trash'), delete_file_admin_category_challenge_path(@challenge, file_id: file.id), class: 'btn btn-danger delete-attachment', method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this file?' } %>
             </li>
           <% end %>
         </ul>
@@ -39,8 +39,8 @@
       <%= f.label :max_tries %>
       <%= f.number_field :max_tries, class: 'form-control', value: @challenge.max_tries %>
 
-      <%= f.label :after_message, 'Message after the challenge is solved' %>
-      <%= f.text_area :after_message, class: 'form-control', value: @challenge.after_message %>
+      <%# <%= f.label :after_message, 'Message after the challenge is solved' %>
+      <%# <%= f.text_area :after_message, class: 'form-control', value: @challenge.after_message %>
 
       <%= f.label :active %>
       <%= f.check_box :active, checked: @challenge.active, style: 'width: auto;' %>
@@ -58,8 +58,16 @@
     <%= form_for(@challenge, url: update_flag_admin_category_challenge_path) do |f| %>
       <%= render 'shared/error_messages', obj: @challenge %>
 
-      <%= f.label :flag, 'Flag' %>
+      <%= label_tag :flag_type %>
+      <%= select_tag :flag_type, options_for_select(['string', 'regex'], (@challenge.regex_flag? ? 'regex' : 'string')) %>
+
+      <%= f.label :flag, (@challenge.regex_flag? ? 'Regex Flag' : 'Flag') %>
       <%= f.text_field :flag, class: 'form-control', placeholder: 'Update challenge flag', value: flag_value(@challenge) %>
+
+      <div id="case_insensitive" class="<%= @challenge.regex_flag? ? "" : "invisible" %>">
+        <%= f.label :case_insensitive %>
+        <%= f.check_box :case_insensitive, style: 'width: auto;', checked: @challenge.case_insensitive? %>
+      </div>
 
       <%= f.submit "Update flag", class: "btn btn-primary" %>
     <% end %>

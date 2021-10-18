@@ -19,7 +19,7 @@ App.room = App.cable.subscriptions.create "ScoresChannel",
       index.appendChild(document.createTextNode(cnt))
 
       teamLink = document.createElement("a")
-      teamLink.href = "/teams/#{cnt}"
+      teamLink.href = "/teams/#{submission.team.id}"
       teamLink.appendChild(document.createTextNode(_team[0]))
 
       team = document.createElement("td")

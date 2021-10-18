@@ -48,6 +48,8 @@ FactoryBot.define do
     points { 100 }
     max_tries { 100 }
     active { true }
+    regex_flag { false }
+    case_insensitive { false }
     user
   end
 

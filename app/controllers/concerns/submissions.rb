@@ -6,7 +6,9 @@ module Submissions
   private
 
   def validate_flag_format(flag)
+    return true if @challenge.regex_flag?
     return true unless flag_regex
+
     flag =~ Regexp.new(flag_regex)
   end
 
@@ -37,19 +39,17 @@ module Submissions
     render_alert
   end
 
-  def invalid_flag
-    flash.now[:danger] = 'Invalid flag format'
-    respond_to do |f|
-      f.js { render 'submissions/unsuccessful_submission', status: :unprocessable_entity }
-    end
+  def invalid_format_flag
+    render json: { error: 'Invalid flag format' }, status: :unprocessable_entity
+  end
+
+  def incorrect_flag
+    render json: { error: 'Flag is incorrect', max_tries: @max_tries }, status: :unprocessable_entity
   end
 
   def render_alert
     @message = @challenge.after_message
-    flash.now[:success] = 'Woohoo, you have successfully submitted your flag'
-    respond_to do |f|
-      f.js { render 'submissions/successful_submission', status: :ok }
-    end
+    render json: { flash: 'Woohoo, you have successfully submitted your flag', message: @challenge.after_message }
   end
 
   def update_score_and_last_valid_submission_at
@@ -90,10 +90,7 @@ module Submissions
   def return_not_found_if_challenge_is_not_active
     return true unless challenge.nil?
 
-    flash.now[:danger] = 'Challenge was not found'
-    respond_to do |f|
-      f.js { render 'submissions/forbidden_submission', status: :not_found }
-    end
+    render json: { error: 'Challenge was not found' }, status: :not_found
   end
 
   def build_submission_signature

@@ -15,8 +15,18 @@
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.submit "Log in", class: "btn btn-primary" %>
+
+      <br>
+      <br>
+      <% if google_oauth2_available? %>
+        <%= link_to "/auth/google_oauth2", method: :post, class: "btn btn-primary", style: "padding: 0;padding-right: 5px; background: #4285F4;" do %>
+         <img src="/signin_google.svg" />
+         Sign in with Google
+        <% end %>
+      <% end %>
     <% end %>
 
+    <hr>
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
   </div>
 </div>

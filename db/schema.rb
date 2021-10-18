@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_004743) do
+ActiveRecord::Schema.define(version: 2021_10_10_234150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_004743) do
     t.integer "category_id"
     t.string "after_message"
     t.bigint "user_id"
+    t.text "setting"
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end

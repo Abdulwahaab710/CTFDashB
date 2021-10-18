@@ -3,24 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Admin::ChallengesController, type: :controller do
-  # describe 'GET index' do
-  #   before :each do
-  #     get :index
-  #   end
-
-  #   context 'when there is challenges' do
-  #     it 'returns success' do
-  #       expect(response).to be_successful
-  #     end
-  #   end
-
-  #   context 'when there is no challenges' do
-  #     it 'returns success' do
-  #       expect(response).to be_successful
-  #     end
-  #   end
-  # end
-
   describe 'GET new' do
     context 'when the user is an organizer' do
       before :each do
@@ -59,11 +41,47 @@ RSpec.describe Admin::ChallengesController, type: :controller do
 
       it 'creates a challenge' do
         expect(Challenge.first&.title).to eq(@challenge_params[:title])
+        expect(Challenge.first&.flag).to eq(@challenge_params[:flag])
       end
 
       it 'redirects to the challenge' do
         challenge = Challenge.first
         expect(response).to redirect_to(admin_category_challenge_path(challenge.category, challenge))
+      end
+    end
+
+    context 'when hash_flag is enabled' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        FactoryBot.create(:ctf_setting, key: 'hash_flag', value: 'true', value_type: 'Boolean')
+        login_as organizer
+        category = FactoryBot.create(:category)
+        @challenge_params = FactoryBot.attributes_for(:challenge, category_id: category.id)
+        post :create, params: { challenge: @challenge_params }
+      end
+
+      it 'creates a challenge with a hashed flag' do
+        expect(BCrypt::Password.new(Challenge.first&.flag)).to eq(@challenge_params[:flag])
+      end
+    end
+
+    context 'when the flag is a hash' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        category = FactoryBot.create(:category)
+        @challenge_params = FactoryBot.attributes_for(
+          :challenge,
+          category_id: category.id,
+          flag: "/Athis is a REGEX FLAG/Z",
+          case_insensitive: true
+        )
+
+        post :create, params: { challenge: @challenge_params, flag_type: 'regex' }
+      end
+
+      it 'creates a challenge with a regex flag' do
+        expect(FlagVerifier.new(Challenge.first, "this is a REGEX FLAG").call).to be true
       end
     end
 
@@ -178,6 +196,31 @@ RSpec.describe Admin::ChallengesController, type: :controller do
       end
 
       it 'updates the flag' do
+        expect(Challenge.first&.flag).to eq(@new_flag)
+      end
+
+      it 'flashes with You have successfully updated the challenge flag' do
+        expect(flash[:success]).to eq('You have successfully updated the challenge flag')
+      end
+    end
+
+    context 'hash_flag is enabled' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        FactoryBot.create(:ctf_setting, key: 'hash_flag', value: 'true', value_type: 'Boolean')
+        login_as organizer
+        @challenge = FactoryBot.create(:challenge)
+        @new_flag = 'flag{new_flag}'
+        patch :update_flag, params: {
+          category_id: @challenge.category_id, id: @challenge.id, challenge: { flag: @new_flag }
+        }
+      end
+
+      it 'redirects to the challenge' do
+        expect(response).to redirect_to(admin_category_challenge_path(@challenge.category, @challenge))
+      end
+
+      it 'updates the flag' do
         expect(BCrypt::Password.new(Challenge.first&.flag)).to eq(@new_flag)
       end
 
@@ -226,32 +269,6 @@ RSpec.describe Admin::ChallengesController, type: :controller do
       end
     end
   end
-
-  # describe 'GET show' do
-  #   context 'when the user is logged in' do
-  #     before :each do
-  #       FactoryBot.create(:session, user: user)
-  #       login_as user
-  #       challenge = FactoryBot.create(:challenge)
-  #       get :show, params: { category_id: challenge.category_id, id: challenge.id }
-  #     end
-
-  #     it 'returns success' do
-  #       expect(response).to be_successful
-  #     end
-  #   end
-
-  #   context 'when the user is not logged in' do
-  #     before :each do
-  #       challenge = FactoryBot.create(:challenge)
-  #       get :show, params: { category_id: challenge.category_id, id: challenge.id }
-  #     end
-
-  #     it 'redirects the user to the login page' do
-  #       expect(response).to redirect_to(login_path)
-  #     end
-  #   end
-  # end
 
   describe 'DELETE destroy' do
     context 'when the user is an organizer' do

@@ -19,10 +19,7 @@ class GeneralSubmissionsController < ApplicationController
   private
 
   def unsuccessful_submission
-    flash.now[:danger] = 'Flag is incorrect'
-    respond_to do |f|
-      f.js { render 'submissions/unsuccessful_submission', status: :unprocessable_entity }
-    end
+    incorrect_flag
   end
 
   def challenge
@@ -38,7 +35,7 @@ class GeneralSubmissionsController < ApplicationController
   end
 
   def valid_flag_format?
-    return invalid_flag unless validate_flag_format(submitted_flag)
+    return invalid_format_flag unless validate_flag_format(submitted_flag)
   end
 
   def return_not_found_if_general_submission_is_not_enabled

@@ -28,6 +28,12 @@ module Admin
       @challenge = challenge
     end
 
+    def clone
+      @challenge = challenge.dup
+
+      render :new
+    end
+
     def update
       @challenge = challenge
       @challenge.challenge_files.attach(params[:challenge][:challenge_files]) if params[:challenge][:challenge_files]
@@ -38,7 +44,12 @@ module Admin
 
     def update_flag
       @challenge = challenge
-      render :edit unless @challenge.update(flag: BCrypt::Password.create(new_flag))
+      render :edit unless @challenge.update(
+        flag: FlagHasher.new(new_flag).call,
+        regex_flag: regex_flag?,
+        case_insensitive: params[:challenge][:case_insensitive]
+      )
+
       update_submissions(new_flag)
       flash[:success] = 'You have successfully updated the challenge flag'
       redirect_to challenge_path
@@ -71,9 +82,7 @@ module Admin
       @file = challenge.challenge_files.find(params[:file_id])
       @file.purge
 
-      respond_to do |f|
-        f.js { render 'delete_file', status: :ok }
-      end
+      render json: { deleted: true }, status: :ok
     end
 
     private
@@ -108,8 +117,9 @@ module Admin
         :max_tries,
         :active,
         :after_message,
-        :category_id
-      ).merge(user: current_user)
+        :category_id,
+        :case_insensitive
+      ).merge(user: current_user, regex_flag: regex_flag?)
     end
 
     def challenge_params_without_flag
@@ -123,6 +133,10 @@ module Admin
         :after_message,
         :category_id
       )
+    end
+
+    def regex_flag?
+      params[:flag_type]&.downcase == "regex"
     end
 
     def challenge_path

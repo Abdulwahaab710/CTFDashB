@@ -16,6 +16,11 @@ class Challenge < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
+  typed_store :setting do |s|
+    s.boolean :regex_flag, default: false, null: false
+    s.boolean :case_insensitive, default: false, null: false
+  end
+
   class String < SimpleDelegator
     include Markdownable
 
@@ -35,6 +40,8 @@ class Challenge < ApplicationRecord
   private
 
   def flag_format
+    return if regex_flag?
+
     flag_regex = CtfSetting.find_by(key: 'flag_regex')&.value
     return unless flag_regex
 

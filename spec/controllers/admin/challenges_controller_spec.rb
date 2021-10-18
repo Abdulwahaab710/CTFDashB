@@ -65,6 +65,26 @@ RSpec.describe Admin::ChallengesController, type: :controller do
       end
     end
 
+    context 'when the flag is a hash' do
+      before :each do
+        FactoryBot.create(:session, user: organizer)
+        login_as organizer
+        category = FactoryBot.create(:category)
+        @challenge_params = FactoryBot.attributes_for(
+          :challenge,
+          category_id: category.id,
+          flag: "/Athis is a REGEX FLAG/Z",
+          case_insensitive: true
+        )
+
+        post :create, params: { challenge: @challenge_params, flag_type: 'regex' }
+      end
+
+      it 'creates a challenge with a regex flag' do
+        expect(FlagVerifier.new(Challenge.first, "this is a REGEX FLAG").call).to be true
+      end
+    end
+
     context 'when the user is an organizer and the params is missing a field' do
       before :each do
         FactoryBot.create(:session, user: organizer)

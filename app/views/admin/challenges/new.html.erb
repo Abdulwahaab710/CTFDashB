@@ -22,8 +22,16 @@
       <%= f.label :challenge_files %>
       <%= f.file_field :challenge_files, multiple: true, direct_upload: true %>
 
+      <%= label_tag :flag_type %>
+      <%= select_tag :flag_type, options_for_select(['string', 'regex']), class: 'form-control' %>
+
       <%= f.label :flag %>
       <%= f.text_field :flag, class: 'form-control' %>
+
+      <div id="case_insensitive" class="invisible">
+        <%= f.label :case_insensitive %>
+        <%= f.check_box :case_insensitive, style: 'width: auto;' %>
+      </div>
 
       <%= f.label :points %>
       <%= f.number_field :points, class: 'form-control' %>

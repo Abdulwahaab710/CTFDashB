@@ -6,7 +6,9 @@ module Submissions
   private
 
   def validate_flag_format(flag)
+    return true if @challenge.regex_flag?
     return true unless flag_regex
+
     flag =~ Regexp.new(flag_regex)
   end
 

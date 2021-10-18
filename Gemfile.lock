@@ -35,6 +35,8 @@ GEM
       activemodel (= 5.2.6)
       activesupport (= 5.2.6)
       arel (>= 9.0)
+    activerecord-typedstore (1.4.0)
+      activerecord (>= 5.2)
     activestorage (5.2.6)
       actionpack (= 5.2.6)
       activerecord (= 5.2.6)
@@ -351,6 +353,7 @@ PLATFORMS
 
 DEPENDENCIES
   action-cable-testing
+  activerecord-typedstore
   bcrypt (~> 3.1.12)
   better_html
   bootsnap (>= 1.1.0)

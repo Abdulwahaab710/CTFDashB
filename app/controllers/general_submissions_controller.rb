@@ -31,7 +31,7 @@ class GeneralSubmissionsController < ApplicationController
   end
 
   def submitted_flag
-    params[:flag]
+    params[:flag].strip
   end
 
   def valid_flag_format?

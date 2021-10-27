@@ -10,7 +10,7 @@ class FlagVerifier < ChallengeFlag
   def call
     if @challenge&.regex_flag?
       regex = Regexp.new(@challenge.flag, regex_options)
-      regex === @challenge.flag
+      regex === @submitted_flag
     else
       if @challenge&.flag&.start_with? BCRYPT_PREFIX
         BCrypt::Password.new(@challenge&.flag).is_password?(@submitted_flag)

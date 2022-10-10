@@ -22,24 +22,11 @@ Before we start you will need to have docker and docker-compose installed. You c
 git clone git@github.com:Abdulwahaab710/CTFDashB.git
 ```
 
-2. cd into the folder and create a dotenv file, like the following
+2. cd into the folder and generate your `.env`, by running the following script
 
 ```bash
-# CTFDashB/.env
-DATABASE_HOST=db
-DATABASE_USERNAME=root
-DATABASE_PASSWORD=S0ME_RANDOM_PASSWORD # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()"
-SECRET_KEY_BASE=S0ME_RANDOM_5TR1NG # you can use ruby generate the password ruby -e "require 'securerandom'; puts SecureRandom.hex()"
-REDIS_URL=redis://redis
+./generate-env
 ```
-if this is for **production**, you will have to set the RAILS_ENV to be like the following
-
-```bash
-# CTFDashB/.env
-...
-RAILS_ENV=production
-```
-
 3. Build the containers
 
 ```sh
@@ -55,10 +42,18 @@ docker-compose run web rake db:create db:migrate db:seed
 5. Run the application
 
 ```sh
-docker-compose up
+docker-compose up -d
 ```
 
-## Running the tests
+## Contributing
+
+To run the app in development mode, you will need to set the `RAILS_ENV` to `development`, or you can run the following script to generate your env with the correct environment
+
+```sh
+RAILS_ENV=development ./generate-env
+```
+
+### Running the tests
 
 To run tests
 
@@ -66,7 +61,7 @@ To run tests
 docker-compose run web bundle exec rspec
 ```
 
-### And coding style (rubocop)
+#### And coding style (rubocop)
 
 ```
 docker-compose run web bundle exec rubocop
@@ -77,10 +72,6 @@ To auto fix the violiation for rubocop
 ```
 docker-compose run web bundle exec rubocop -a
 ```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## License
 

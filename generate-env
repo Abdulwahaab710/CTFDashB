@@ -1,0 +1,24 @@
+#! /bin/sh
+
+FILE=".env"
+
+if [ -f $FILE ]; then
+  echo "File .env exists. Are you sure you want to overwrite it? (y/n)"
+  read answer
+  if [ "$answer" != "${answer#[Yy]}" ] ;then
+    echo "Overwriting .env"
+    rm .env
+  else
+    echo "Exiting"
+    exit 1
+  fi
+fi
+
+cat > $FILE << EOF
+DATABASE_HOST=db
+DATABASE_USERNAME=root
+DATABASE_PASSWORD=$(LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | head -c32)
+SECRET_KEY_BASE=$(LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | head -c32)
+REDIS_URL=redis://redis
+RAILS_ENV=${RAILS_ENV:-production}
+EOF

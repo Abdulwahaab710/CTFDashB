@@ -73,7 +73,7 @@ RSpec.describe Admin::ChallengesController, type: :controller do
         @challenge_params = FactoryBot.attributes_for(
           :challenge,
           category_id: category.id,
-          flag: "/Athis is a REGEX FLAG/Z",
+          flag: "\\Athis is a REGEX FLAG\\Z",
           case_insensitive: true
         )
 
@@ -81,7 +81,7 @@ RSpec.describe Admin::ChallengesController, type: :controller do
       end
 
       it 'creates a challenge with a regex flag' do
-        expect(FlagVerifier.new(Challenge.first, "this is a REGEX FLAG").call).to be true
+        expect(FlagVerifier.new(Challenge.last, "this is a REGEX FLAG").call).to be true
       end
     end
 

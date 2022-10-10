@@ -34,7 +34,7 @@ defaults = {
   ]
 }
 defaults[:settings].each do |setting|
-  CtfSetting.find_or_create_by(setting)
+  CtfSetting.find_or_create_by!(setting)
 end
 
 unless User.count > 0

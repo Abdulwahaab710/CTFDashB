@@ -1,6 +1,8 @@
 version: "3"
 
 volumes:
+  db-data:
+    external: false
   redis-data:
     external: false
 
@@ -9,15 +11,25 @@ services:
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    image: postgres@sha256:eb83331cc518946d8ee1b52e6d9e97d0cdef6195b7bf25323004f2968e91a825
+    image: postgres@sha256:d4729fad66e863ffc6100716ee4e4479045086a98feca58a732c7624dad86ecd
     volumes:
-      - ./data:/user/local/pgsql/data
+      - db-data:/user/local/pgsql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $DATABASE_USERNAME"]
+      timeout: 20s
+      retries: 10
+    restart: always
   redis:
-    image: redis@sha256:a89cb097693dd354de598d279c304a1c73ee550fbfff6d9ee515568e0c749cfe
+    image: redis@sha256:b22a5030704efa865bf03fdc4f5828d969f0edd1be9c159f0e9dc2f33be31f5b
     command: redis-server
     volumes:
       - redis-data:/data
-
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -h redis ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    restart: always
   web:
     build: .
     command: bundle exec puma -C config/puma.rb

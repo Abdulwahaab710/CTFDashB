@@ -1,5 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  active          :boolean
+#  admin           :boolean
+#  email           :string
+#  name            :string
+#  organizer       :boolean
+#  password_digest :string
+#  reset_digest    :string
+#  reset_sent_at   :datetime
+#  username        :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  team_id         :integer
+#
+# Indexes
+#
+#  index_users_on_team_id  (team_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (team_id => teams.id)
+#
 # User models
 class User < ApplicationRecord
   before_create { |user| user.active = true if user.active.nil? }

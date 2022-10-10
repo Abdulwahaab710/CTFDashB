@@ -1,5 +1,34 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: challenges
+#
+#  id            :integer          not null, primary key
+#  active        :boolean
+#  after_message :string
+#  description   :text
+#  flag          :string
+#  link          :string
+#  max_tries     :integer
+#  points        :float
+#  setting       :text
+#  title         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  category_id   :integer
+#  user_id       :bigint
+#
+# Indexes
+#
+#  index_challenges_on_category_id  (category_id)
+#  index_challenges_on_user_id      (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (user_id => users.id)
+#
 class Challenge < ApplicationRecord
   belongs_to :category
   belongs_to :user

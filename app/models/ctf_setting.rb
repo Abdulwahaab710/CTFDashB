@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: ctf_settings
+#
+#  id         :integer          not null, primary key
+#  key        :string
+#  value      :string
+#  value_type :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class CtfSetting < ApplicationRecord
   validates :key, presence: true, uniqueness: true
   validates :value_type, presence: true, inclusion: { in: %w(Boolean String Time) }

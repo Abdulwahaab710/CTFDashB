@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
 
   context 'when creating a user' do
     it 'is valid with valid attributes' do
-      expect(@user).to eq(User.first)
+      expect(@user).to eq(User.find(@user.id))
     end
 
     it 'enforces uniqueness of users username' do

@@ -6,7 +6,7 @@ RSpec.describe Challenge, type: :model do
   before(:each) do
     @user = FactoryBot.create(:user)
     @category = FactoryBot.create(:category, name: 'web 101')
-    @challenge = Challenge.create(
+    @challenge = Challenge.create!(
       title: 'sqli baby',
       points: 100,
       max_tries: 99,
@@ -22,11 +22,11 @@ RSpec.describe Challenge, type: :model do
 
   context 'when create a challenge' do
     it 'is valid with valid attributes' do
-      expect(@challenge).to eq(Challenge.first)
+      expect(@challenge).to eq(Challenge.find(@challenge.id))
     end
 
     it 'belongs to a category' do
-      expect(@category).to eq(Challenge.last.category)
+      expect(@category).to eq(Challenge.find(@challenge.id).category)
     end
 
     it 'validates flag format before save' do

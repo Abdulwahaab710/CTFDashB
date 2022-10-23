@@ -9,7 +9,7 @@ class Oauth2CallbacksController < ApplicationController
     handle_auth
     log_in @user
 
-    return redirect_to join_team_path if @user.team.nil?
+    return redirect_to join_team_path if @user.team.nil? && !@user.organizer?
 
     redirect_back_or @user
   end
